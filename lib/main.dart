@@ -65,6 +65,9 @@ class _MyHomePageState extends State<MyHomePage> {
       _counter++;
     });
   }
+
+
+
   final List<bool> _yesNoFajir = <bool>[true, false];
   final List<bool> _yesNoDhuhr = <bool>[true, false];
   final List<bool> _yesNoAsr = <bool>[true, false];
@@ -122,7 +125,18 @@ class _MyHomePageState extends State<MyHomePage> {
                     margin: EdgeInsets.all(3),
                     child: ElevatedButton(
                       onPressed: (){
+                        showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              content:Text("Qada"),
+                              actions: [
+                                TextButton(
+                                    onPressed: () => Navigator.pop(context),
 
+                                    child: Text("Row")
+                                ),
+                              ],
+                            ));
                       },
                       child: Text(
                           "Qada"
@@ -159,9 +173,9 @@ class _MyHomePageState extends State<MyHomePage> {
                       });
                     },
                     borderRadius: const BorderRadius.all(Radius.circular(8)),
-                    selectedBorderColor: Colors.red[700],
+                    selectedBorderColor: Colors.green[700],
                     selectedColor: Colors.white,
-                    fillColor: Colors.red[200],
+                    fillColor: Colors.green[200],
                     color: Colors.red[400],
                     constraints: const BoxConstraints(
                       minHeight: 40.0,
@@ -180,9 +194,9 @@ class _MyHomePageState extends State<MyHomePage> {
                       });
                     },
                     borderRadius: const BorderRadius.all(Radius.circular(8)),
-                    selectedBorderColor: Colors.red[700],
+                    selectedBorderColor: Colors.green[700],
                     selectedColor: Colors.white,
-                    fillColor: Colors.red[200],
+                    fillColor: Colors.green[200],
                     color: Colors.red[400],
                     constraints: const BoxConstraints(
                       minHeight: 40.0,
@@ -201,9 +215,9 @@ class _MyHomePageState extends State<MyHomePage> {
                       });
                     },
                     borderRadius: const BorderRadius.all(Radius.circular(8)),
-                    selectedBorderColor: Colors.red[700],
+                    selectedBorderColor: Colors.green[700],
                     selectedColor: Colors.white,
-                    fillColor: Colors.red[200],
+                    fillColor: Colors.green[200],
                     color: Colors.red[400],
                     constraints: const BoxConstraints(
                       minHeight: 40.0,
@@ -222,9 +236,9 @@ class _MyHomePageState extends State<MyHomePage> {
                       });
                     },
                     borderRadius: const BorderRadius.all(Radius.circular(8)),
-                    selectedBorderColor: Colors.red[700],
+                    selectedBorderColor: Colors.green[700],
                     selectedColor: Colors.white,
-                    fillColor: Colors.red[200],
+                    fillColor: Colors.green[200],
                     color: Colors.red[400],
                     constraints: const BoxConstraints(
                       minHeight: 40.0,
@@ -243,9 +257,9 @@ class _MyHomePageState extends State<MyHomePage> {
                       });
                     },
                     borderRadius: const BorderRadius.all(Radius.circular(8)),
-                    selectedBorderColor: Colors.red[700],
+                    selectedBorderColor: Colors.green[700],
                     selectedColor: Colors.white,
-                    fillColor: Colors.red[200],
+                    fillColor: Colors.green[200],
                     color: Colors.red[400],
                     constraints: const BoxConstraints(
                       minHeight: 40.0,
