@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 
+const List<Widget> fruits = <Widget>[
+  Text('Yes'),
+  Text('No')
+];
+
 void main() {
   runApp(const MyApp());
 }
@@ -24,7 +29,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Prayer Tracker'),
     );
   }
 }
@@ -60,6 +65,13 @@ class _MyHomePageState extends State<MyHomePage> {
       _counter++;
     });
   }
+  final List<bool> _yesNoFajir = <bool>[true, false];
+  final List<bool> _yesNoDhuhr = <bool>[true, false];
+  final List<bool> _yesNoAsr = <bool>[true, false];
+  final List<bool> _yesNoMaghrib = <bool>[true, false];
+  final List<bool> _yesNoIshaa = <bool>[true, false];
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -75,36 +87,200 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+       body: Row(
+          children: [
+            Expanded(
+              child: Column(
+                children: <Widget>[
+                  const Text(
+                    'Today',
+                    style: TextStyle(
+                    decoration: TextDecoration.underline,
+                  ),
+                  ),
+                  Text(
+                    'Fajir',
+                    style: Theme.of(context).textTheme.headline4,
+                  ),
+                  Text(
+                    'Dhuhr',
+                    style: Theme.of(context).textTheme.headline4,
+                  ),
+                  Text(
+                    'Asr',
+                    style: Theme.of(context).textTheme.headline4,
+                  ),
+                  Text(
+                    'Maghrib',
+                    style: Theme.of(context).textTheme.headline4,
+                  ),
+                  Text(
+                    'Isha\'a',
+                    style: Theme.of(context).textTheme.headline4,
+                  ),
+                  Container(
+                    margin: EdgeInsets.all(3),
+                    child: ElevatedButton(
+                      onPressed: (){
+
+                      },
+                      child: Text(
+                          "Qada"
+                      ),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.all(3),
+                    child: ElevatedButton(
+                      onPressed: (){
+
+                      },
+                      child: Text(
+                          "Zakat"
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+            Expanded(
+              child: Column(
+                children: <Widget>[
+                  const Text(
+                    'You have pushed the button this many times:',
+                  ),
+                  ToggleButtons(//Toggle for Fajir
+                    onPressed: (int index) {
+                      setState(() {
+                        // The button that is tapped is set to true, and the others to false.
+                        for (int i = 0; i < _yesNoFajir.length; i++) {
+                          _yesNoFajir[i] = i == index;
+                        }
+                      });
+                    },
+                    borderRadius: const BorderRadius.all(Radius.circular(8)),
+                    selectedBorderColor: Colors.red[700],
+                    selectedColor: Colors.white,
+                    fillColor: Colors.red[200],
+                    color: Colors.red[400],
+                    constraints: const BoxConstraints(
+                      minHeight: 40.0,
+                      minWidth: 80.0,
+                    ),
+                    isSelected: _yesNoFajir,
+                    children: fruits,
+                  ),
+                  ToggleButtons(//toggle for Dhuhr
+                    onPressed: (int index) {
+                      setState(() {
+                        // The button that is tapped is set to true, and the others to false.
+                        for (int i = 0; i < _yesNoDhuhr.length; i++) {
+                          _yesNoDhuhr[i] = i == index;
+                        }
+                      });
+                    },
+                    borderRadius: const BorderRadius.all(Radius.circular(8)),
+                    selectedBorderColor: Colors.red[700],
+                    selectedColor: Colors.white,
+                    fillColor: Colors.red[200],
+                    color: Colors.red[400],
+                    constraints: const BoxConstraints(
+                      minHeight: 40.0,
+                      minWidth: 80.0,
+                    ),
+                    isSelected: _yesNoDhuhr,
+                    children: fruits,
+                  ),
+                  ToggleButtons(//Toggle for Asr
+                    onPressed: (int index) {
+                      setState(() {
+                        // The button that is tapped is set to true, and the others to false.
+                        for (int i = 0; i < _yesNoAsr.length; i++) {
+                          _yesNoAsr[i] = i == index;
+                        }
+                      });
+                    },
+                    borderRadius: const BorderRadius.all(Radius.circular(8)),
+                    selectedBorderColor: Colors.red[700],
+                    selectedColor: Colors.white,
+                    fillColor: Colors.red[200],
+                    color: Colors.red[400],
+                    constraints: const BoxConstraints(
+                      minHeight: 40.0,
+                      minWidth: 80.0,
+                    ),
+                    isSelected: _yesNoAsr,
+                    children: fruits,
+                  ),
+                  ToggleButtons(// Toggle for Maghrib
+                    onPressed: (int index) {
+                      setState(() {
+                        // The button that is tapped is set to true, and the others to false.
+                        for (int i = 0; i < _yesNoMaghrib.length; i++) {
+                          _yesNoMaghrib[i] = i == index;
+                        }
+                      });
+                    },
+                    borderRadius: const BorderRadius.all(Radius.circular(8)),
+                    selectedBorderColor: Colors.red[700],
+                    selectedColor: Colors.white,
+                    fillColor: Colors.red[200],
+                    color: Colors.red[400],
+                    constraints: const BoxConstraints(
+                      minHeight: 40.0,
+                      minWidth: 80.0,
+                    ),
+                    isSelected: _yesNoMaghrib,
+                    children: fruits,
+                  ),
+                  ToggleButtons(//Toggle for Ishaa
+                    onPressed: (int index) {
+                      setState(() {
+                        // The button that is tapped is set to true, and the others to false.
+                        for (int i = 0; i < _yesNoIshaa.length; i++) {
+                          _yesNoIshaa[i] = i == index;
+                        }
+                      });
+                    },
+                    borderRadius: const BorderRadius.all(Radius.circular(8)),
+                    selectedBorderColor: Colors.red[700],
+                    selectedColor: Colors.white,
+                    fillColor: Colors.red[200],
+                    color: Colors.red[400],
+                    constraints: const BoxConstraints(
+                      minHeight: 40.0,
+                      minWidth: 80.0,
+                    ),
+                    isSelected: _yesNoIshaa,
+                    children: fruits,
+                  ),
+                  Container(
+                    margin: EdgeInsets.all(3),
+                    child: ElevatedButton(
+                      onPressed: (){
+
+                      },
+                      child: Text(
+                          "Sawm"
+                      ),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.all(3),
+                    child: ElevatedButton(
+                      onPressed: (){
+
+                      },
+                      child: Text(
+                          "Setting"
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ],
         ),
-      ),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
