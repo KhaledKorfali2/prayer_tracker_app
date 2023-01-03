@@ -90,10 +90,10 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-       body: Row(
+       body: Column(
           children: [
-            Expanded(
-              child: Column(
+            Expanded(//Today Row
+              child: Row(
                 children: <Widget>[
                   const Text(
                     'Today',
@@ -102,25 +102,174 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   ),
                   Text(
+                    '03/25/2023',
+                    style: Theme.of(context).textTheme.headline4,
+                  ),
+                ],
+              ),
+            ),
+            Expanded(//Fajir Row
+              child: Row(
+                children: <Widget>[
+                  const Text(
                     'Fajir',
-                    style: Theme.of(context).textTheme.headline4,
                   ),
-                  Text(
+                  ToggleButtons(//Toggle for Fajir
+                    onPressed: (int index) {
+                      setState(() {
+                        // The button that is tapped is set to true, and the others to false.
+                        for (int i = 0; i < _yesNoFajir.length; i++) {
+                          _yesNoFajir[i] = i == index;
+                        }
+                      });
+                    },
+                    borderRadius: const BorderRadius.all(Radius.circular(8)),
+                    selectedBorderColor: Colors.green[700],
+                    selectedColor: Colors.white,
+                    fillColor: Colors.green[200],
+                    color: Colors.red[400],
+                    constraints: const BoxConstraints(
+                      minHeight: 40.0,
+                      minWidth: 80.0,
+                    ),
+                    isSelected: _yesNoFajir,
+                    children: fruits,
+                  ),
+                ],
+              ),
+            ),
+            Expanded(//Dhuhr Row
+              child: Row(
+                children: <Widget>[
+                  const Text(
                     'Dhuhr',
-                    style: Theme.of(context).textTheme.headline4,
                   ),
-                  Text(
+                  ToggleButtons(//toggle for Dhuhr
+                    onPressed: (int index) {
+                      setState(() {
+                        // The button that is tapped is set to true, and the others to false.
+                        for (int i = 0; i < _yesNoDhuhr.length; i++) {
+                          _yesNoDhuhr[i] = i == index;
+                        }
+                      });
+                    },
+                    borderRadius: const BorderRadius.all(Radius.circular(8)),
+                    selectedBorderColor: Colors.green[700],
+                    selectedColor: Colors.white,
+                    fillColor: Colors.green[200],
+                    color: Colors.red[400],
+                    constraints: const BoxConstraints(
+                      minHeight: 40.0,
+                      minWidth: 80.0,
+                    ),
+                    isSelected: _yesNoDhuhr,
+                    children: fruits,
+                  ),
+                ],
+              ),
+            ),
+            Expanded(//Asr Row
+              child: Row(
+                children: <Widget>[
+                  const Text(
                     'Asr',
-                    style: Theme.of(context).textTheme.headline4,
+                    style: TextStyle(
+                      decoration: TextDecoration.underline,
+                    ),
                   ),
-                  Text(
+                  ToggleButtons(//Toggle for Asr
+                    onPressed: (int index) {
+                      setState(() {
+                        // The button that is tapped is set to true, and the others to false.
+                        for (int i = 0; i < _yesNoAsr.length; i++) {
+                          _yesNoAsr[i] = i == index;
+                        }
+                      });
+                    },
+                    borderRadius: const BorderRadius.all(Radius.circular(8)),
+                    selectedBorderColor: Colors.green[700],
+                    selectedColor: Colors.white,
+                    fillColor: Colors.green[200],
+                    color: Colors.red[400],
+                    constraints: const BoxConstraints(
+                      minHeight: 40.0,
+                      minWidth: 80.0,
+                    ),
+                    isSelected: _yesNoAsr,
+                    children: fruits,
+                  ),
+                ],
+              ),
+            ),
+            Expanded(//Maghrib Row
+              child: Row(
+                children: <Widget>[
+                  const Text(
                     'Maghrib',
-                    style: Theme.of(context).textTheme.headline4,
+                    style: TextStyle(
+                      decoration: TextDecoration.underline,
+                    ),
                   ),
-                  Text(
+                  ToggleButtons(// Toggle for Maghrib
+                    onPressed: (int index) {
+                      setState(() {
+                        // The button that is tapped is set to true, and the others to false.
+                        for (int i = 0; i < _yesNoMaghrib.length; i++) {
+                          _yesNoMaghrib[i] = i == index;
+                        }
+                      });
+                    },
+                    borderRadius: const BorderRadius.all(Radius.circular(8)),
+                    selectedBorderColor: Colors.green[700],
+                    selectedColor: Colors.white,
+                    fillColor: Colors.green[200],
+                    color: Colors.red[400],
+                    constraints: const BoxConstraints(
+                      minHeight: 40.0,
+                      minWidth: 80.0,
+                    ),
+                    isSelected: _yesNoMaghrib,
+                    children: fruits,
+                  ),
+                ],
+              ),
+            ),
+            Expanded(//Ishaa Row
+              child: Row(
+                children: <Widget>[
+                  const Text(
                     'Isha\'a',
-                    style: Theme.of(context).textTheme.headline4,
+                    style: TextStyle(
+                      decoration: TextDecoration.underline,
+                    ),
                   ),
+                  ToggleButtons(//Toggle for Ishaa
+                    onPressed: (int index) {
+                      setState(() {
+                        // The button that is tapped is set to true, and the others to false.
+                        for (int i = 0; i < _yesNoIshaa.length; i++) {
+                          _yesNoIshaa[i] = i == index;
+                        }
+                      });
+                    },
+                    borderRadius: const BorderRadius.all(Radius.circular(8)),
+                    selectedBorderColor: Colors.green[700],
+                    selectedColor: Colors.white,
+                    fillColor: Colors.green[200],
+                    color: Colors.red[400],
+                    constraints: const BoxConstraints(
+                      minHeight: 40.0,
+                      minWidth: 80.0,
+                    ),
+                    isSelected: _yesNoIshaa,
+                    children: fruits,
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              child: Row(
+                children: <Widget>[
                   Container(
                     margin: EdgeInsets.all(3),
                     child: ElevatedButton(
@@ -150,7 +299,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
                       },
                       child: Text(
-                          "Zakat"
+                          "Sawm"
                       ),
                     ),
                   ),
@@ -158,116 +307,8 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             Expanded(
-              child: Column(
+              child: Row(
                 children: <Widget>[
-                  const Text(
-                    'You have pushed the button this many times:',
-                  ),
-                  ToggleButtons(//Toggle for Fajir
-                    onPressed: (int index) {
-                      setState(() {
-                        // The button that is tapped is set to true, and the others to false.
-                        for (int i = 0; i < _yesNoFajir.length; i++) {
-                          _yesNoFajir[i] = i == index;
-                        }
-                      });
-                    },
-                    borderRadius: const BorderRadius.all(Radius.circular(8)),
-                    selectedBorderColor: Colors.green[700],
-                    selectedColor: Colors.white,
-                    fillColor: Colors.green[200],
-                    color: Colors.red[400],
-                    constraints: const BoxConstraints(
-                      minHeight: 40.0,
-                      minWidth: 80.0,
-                    ),
-                    isSelected: _yesNoFajir,
-                    children: fruits,
-                  ),
-                  ToggleButtons(//toggle for Dhuhr
-                    onPressed: (int index) {
-                      setState(() {
-                        // The button that is tapped is set to true, and the others to false.
-                        for (int i = 0; i < _yesNoDhuhr.length; i++) {
-                          _yesNoDhuhr[i] = i == index;
-                        }
-                      });
-                    },
-                    borderRadius: const BorderRadius.all(Radius.circular(8)),
-                    selectedBorderColor: Colors.green[700],
-                    selectedColor: Colors.white,
-                    fillColor: Colors.green[200],
-                    color: Colors.red[400],
-                    constraints: const BoxConstraints(
-                      minHeight: 40.0,
-                      minWidth: 80.0,
-                    ),
-                    isSelected: _yesNoDhuhr,
-                    children: fruits,
-                  ),
-                  ToggleButtons(//Toggle for Asr
-                    onPressed: (int index) {
-                      setState(() {
-                        // The button that is tapped is set to true, and the others to false.
-                        for (int i = 0; i < _yesNoAsr.length; i++) {
-                          _yesNoAsr[i] = i == index;
-                        }
-                      });
-                    },
-                    borderRadius: const BorderRadius.all(Radius.circular(8)),
-                    selectedBorderColor: Colors.green[700],
-                    selectedColor: Colors.white,
-                    fillColor: Colors.green[200],
-                    color: Colors.red[400],
-                    constraints: const BoxConstraints(
-                      minHeight: 40.0,
-                      minWidth: 80.0,
-                    ),
-                    isSelected: _yesNoAsr,
-                    children: fruits,
-                  ),
-                  ToggleButtons(// Toggle for Maghrib
-                    onPressed: (int index) {
-                      setState(() {
-                        // The button that is tapped is set to true, and the others to false.
-                        for (int i = 0; i < _yesNoMaghrib.length; i++) {
-                          _yesNoMaghrib[i] = i == index;
-                        }
-                      });
-                    },
-                    borderRadius: const BorderRadius.all(Radius.circular(8)),
-                    selectedBorderColor: Colors.green[700],
-                    selectedColor: Colors.white,
-                    fillColor: Colors.green[200],
-                    color: Colors.red[400],
-                    constraints: const BoxConstraints(
-                      minHeight: 40.0,
-                      minWidth: 80.0,
-                    ),
-                    isSelected: _yesNoMaghrib,
-                    children: fruits,
-                  ),
-                  ToggleButtons(//Toggle for Ishaa
-                    onPressed: (int index) {
-                      setState(() {
-                        // The button that is tapped is set to true, and the others to false.
-                        for (int i = 0; i < _yesNoIshaa.length; i++) {
-                          _yesNoIshaa[i] = i == index;
-                        }
-                      });
-                    },
-                    borderRadius: const BorderRadius.all(Radius.circular(8)),
-                    selectedBorderColor: Colors.green[700],
-                    selectedColor: Colors.white,
-                    fillColor: Colors.green[200],
-                    color: Colors.red[400],
-                    constraints: const BoxConstraints(
-                      minHeight: 40.0,
-                      minWidth: 80.0,
-                    ),
-                    isSelected: _yesNoIshaa,
-                    children: fruits,
-                  ),
                   Container(
                     margin: EdgeInsets.all(3),
                     child: ElevatedButton(
@@ -275,7 +316,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
                       },
                       child: Text(
-                          "Sawm"
+                          "Zakat"
                       ),
                     ),
                   ),
@@ -295,11 +336,6 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ],
         ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
+      );
   }
 }
