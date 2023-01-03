@@ -75,6 +75,11 @@ class _MyHomePageState extends State<MyHomePage> {
   final List<bool> _yesNoIshaa = <bool>[true, false];
 
 
+  var curDay = DateTime.now().day.toString();
+  var curMonth = DateTime.now().month.toString();
+  var curYear = DateTime.now().year.toString();
+
+  static const double fontSiz = 25;
 
   @override
   Widget build(BuildContext context) {
@@ -94,15 +99,19 @@ class _MyHomePageState extends State<MyHomePage> {
           children: [
             Expanded(//Today Row
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   const Text(
                     'Today',
                     style: TextStyle(
                     decoration: TextDecoration.underline,
+                      fontWeight: FontWeight.bold,
+                      fontSize: fontSiz,
                   ),
                   ),
+                  Spacer(),
                   Text(
-                    '03/25/2023',
+                    '${curMonth}/${curDay}/${curYear}',
                     style: Theme.of(context).textTheme.headline4,
                   ),
                 ],
@@ -110,40 +119,56 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Expanded(//Fajir Row
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   const Text(
                     'Fajir',
-                  ),
-                  ToggleButtons(//Toggle for Fajir
-                    onPressed: (int index) {
-                      setState(() {
-                        // The button that is tapped is set to true, and the others to false.
-                        for (int i = 0; i < _yesNoFajir.length; i++) {
-                          _yesNoFajir[i] = i == index;
-                        }
-                      });
-                    },
-                    borderRadius: const BorderRadius.all(Radius.circular(8)),
-                    selectedBorderColor: Colors.green[700],
-                    selectedColor: Colors.white,
-                    fillColor: Colors.green[200],
-                    color: Colors.red[400],
-                    constraints: const BoxConstraints(
-                      minHeight: 40.0,
-                      minWidth: 80.0,
+                    style: TextStyle(
+                      decoration: TextDecoration.underline,
+                      fontWeight: FontWeight.bold,
+                      fontSize: fontSiz,
                     ),
-                    isSelected: _yesNoFajir,
-                    children: fruits,
+                  ),
+                  Spacer(),
+                  Container(
+                    child: ToggleButtons(//Toggle for Fajir
+                      onPressed: (int index) {
+                        setState(() {
+                          // The button that is tapped is set to true, and the others to false.
+                          for (int i = 0; i < _yesNoFajir.length; i++) {
+                            _yesNoFajir[i] = i == index;
+                          }
+                        });
+                      },
+                      borderRadius: const BorderRadius.all(Radius.circular(8)),
+                      selectedBorderColor: Colors.green[700],
+                      selectedColor: Colors.white,
+                      fillColor: Colors.green[200],
+                      color: Colors.red[400],
+                      constraints: const BoxConstraints(
+                        minHeight: 40.0,
+                        minWidth: 80.0,
+                      ),
+                      isSelected: _yesNoFajir,
+                      children: fruits,
+                    ),
                   ),
                 ],
               ),
             ),
             Expanded(//Dhuhr Row
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   const Text(
                     'Dhuhr',
+                    style: TextStyle(
+                      decoration: TextDecoration.underline,
+                      fontWeight: FontWeight.bold,
+                      fontSize: fontSiz,
+                    ),
                   ),
+                  Spacer(),
                   ToggleButtons(//toggle for Dhuhr
                     onPressed: (int index) {
                       setState(() {
@@ -170,13 +195,17 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Expanded(//Asr Row
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   const Text(
                     'Asr',
                     style: TextStyle(
                       decoration: TextDecoration.underline,
+                      fontWeight: FontWeight.bold,
+                      fontSize: fontSiz,
                     ),
                   ),
+                  Spacer(),
                   ToggleButtons(//Toggle for Asr
                     onPressed: (int index) {
                       setState(() {
@@ -203,13 +232,17 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Expanded(//Maghrib Row
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   const Text(
                     'Maghrib',
                     style: TextStyle(
                       decoration: TextDecoration.underline,
+                      fontWeight: FontWeight.bold,
+                      fontSize: fontSiz,
                     ),
                   ),
+                  Spacer(),
                   ToggleButtons(// Toggle for Maghrib
                     onPressed: (int index) {
                       setState(() {
@@ -236,13 +269,17 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Expanded(//Ishaa Row
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   const Text(
                     'Isha\'a',
                     style: TextStyle(
                       decoration: TextDecoration.underline,
+                      fontWeight: FontWeight.bold,
+                      fontSize: fontSiz,
                     ),
                   ),
+                  Spacer(),
                   ToggleButtons(//Toggle for Ishaa
                     onPressed: (int index) {
                       setState(() {
@@ -269,6 +306,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Expanded(
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   Container(
                     margin: EdgeInsets.all(3),
@@ -292,6 +330,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ),
                   ),
+                  Spacer(),
                   Container(
                     margin: EdgeInsets.all(3),
                     child: ElevatedButton(
@@ -308,6 +347,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Expanded(
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   Container(
                     margin: EdgeInsets.all(3),
@@ -320,6 +360,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ),
                   ),
+                  Spacer(),
                   Container(
                     margin: EdgeInsets.all(3),
                     child: ElevatedButton(
