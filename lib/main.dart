@@ -68,6 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
 
 
+  //List that stores whether toggle bottons are yes/no
   final List<bool> _yesNoFajir = <bool>[true, false];
   final List<bool> _yesNoDhuhr = <bool>[true, false];
   final List<bool> _yesNoAsr = <bool>[true, false];
@@ -75,11 +76,25 @@ class _MyHomePageState extends State<MyHomePage> {
   final List<bool> _yesNoIshaa = <bool>[true, false];
 
 
+  //Info about current date
   var curDay = DateTime.now().day.toString();
   var curMonth = DateTime.now().month.toString();
   var curYear = DateTime.now().year.toString();
 
+  //Font sizes
   static const double fontSiz = 25;
+
+
+  //Text Editing Controllers
+  TextEditingController fajirController = TextEditingController();
+  TextEditingController dhuhrController = TextEditingController();
+  TextEditingController asrController = TextEditingController();
+  TextEditingController maghribController = TextEditingController();
+  TextEditingController ishaaController = TextEditingController();
+  TextEditingController zakatController = TextEditingController();
+  TextEditingController zakatElFutrahController = TextEditingController();
+  TextEditingController sawmController = TextEditingController();
+  TextEditingController nathiirController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -109,7 +124,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       fontSize: fontSiz,
                   ),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Text(
                     '${curMonth}/${curDay}/${curYear}',
                     style: Theme.of(context).textTheme.headline4,
@@ -129,7 +144,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       fontSize: fontSiz,
                     ),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Container(
                     child: ToggleButtons(//Toggle for Fajir
                       onPressed: (int index) {
@@ -168,7 +183,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       fontSize: fontSiz,
                     ),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   ToggleButtons(//toggle for Dhuhr
                     onPressed: (int index) {
                       setState(() {
@@ -205,7 +220,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       fontSize: fontSiz,
                     ),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   ToggleButtons(//Toggle for Asr
                     onPressed: (int index) {
                       setState(() {
@@ -242,7 +257,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       fontSize: fontSiz,
                     ),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   ToggleButtons(// Toggle for Maghrib
                     onPressed: (int index) {
                       setState(() {
@@ -279,7 +294,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       fontSize: fontSiz,
                     ),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   ToggleButtons(//Toggle for Ishaa
                     onPressed: (int index) {
                       setState(() {
@@ -309,35 +324,87 @@ class _MyHomePageState extends State<MyHomePage> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   Container(
-                    margin: EdgeInsets.all(3),
+                    margin: const EdgeInsets.all(3),
                     child: ElevatedButton(
                       onPressed: (){
                         showDialog(
                             context: context,
                             builder: (context) => AlertDialog(
-                              content:Text("Qada"),
+                              content:const Text("Qada"),
                               actions: [
                                 TextButton(
                                     onPressed: () => Navigator.pop(context),
-
-                                    child: Text("Row")
+                                    child: const Text("Row")
                                 ),
                               ],
                             ));
                       },
-                      child: Text(
+                      child: const Text(
                           "Qada"
                       ),
                     ),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Container(
-                    margin: EdgeInsets.all(3),
+                    margin: const EdgeInsets.all(3),
                     child: ElevatedButton(
                       onPressed: (){
-
+                        showDialog(
+                        context: context,
+                        builder: (context) => AlertDialog(
+                          title: const Text('Sawm'),
+                          content: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: <Widget>[
+                                const Text("Sawm (General)"),
+                                const Spacer(),
+                                const Expanded(
+                                  child: TextField(
+                                    obscureText: false,
+                                    decoration: InputDecoration(
+                                      border: OutlineInputBorder(),
+                                      labelText: "CurrentNum",
+                                    ),
+                                  ),
+                              ),
+                              ]
+                          ),
+                              Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: <Widget>[
+                                    const Text("Nathiir"),
+                                    const Spacer(),
+                                    Expanded(
+                                      child: TextField(
+                                        controller: nathiirController,
+                                        obscureText: false,
+                                        decoration: InputDecoration(
+                                          contentPadding: EdgeInsets.all(20.0),
+                                          border: OutlineInputBorder(),
+                                          labelText: "CurrentNum",
+                                        ),
+                                      ),
+                                    ),
+                                  ]
+                              ),
+                            ],
+                          ),
+                          actions: <Widget>[
+                            ElevatedButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: const Text('Close'),
+                            ),
+                          ],
+                        )
+                        );
                       },
-                      child: Text(
+                      child: const Text(
                           "Sawm"
                       ),
                     ),
@@ -350,24 +417,24 @@ class _MyHomePageState extends State<MyHomePage> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   Container(
-                    margin: EdgeInsets.all(3),
+                    margin: const EdgeInsets.all(3),
                     child: ElevatedButton(
                       onPressed: (){
 
                       },
-                      child: Text(
+                      child: const Text(
                           "Zakat"
                       ),
                     ),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Container(
-                    margin: EdgeInsets.all(3),
+                    margin: const EdgeInsets.all(3),
                     child: ElevatedButton(
                       onPressed: (){
 
                       },
-                      child: Text(
+                      child: const Text(
                           "Setting"
                       ),
                     ),
