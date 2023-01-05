@@ -365,6 +365,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 const Expanded(
                                   child: TextField(
                                     obscureText: false,
+                                    keyboardType: TextInputType.number,
                                     decoration: InputDecoration(
                                       border: OutlineInputBorder(),
                                       labelText: "CurrentNum",
@@ -382,8 +383,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                       child: TextField(
                                         controller: nathiirController,
                                         obscureText: false,
+                                        keyboardType: TextInputType.number,
                                         decoration: InputDecoration(
-                                          contentPadding: EdgeInsets.all(20.0),
                                           border: OutlineInputBorder(),
                                           labelText: "CurrentNum",
                                         ),
