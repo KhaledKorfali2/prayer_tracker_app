@@ -347,6 +347,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   const Spacer(),
                   Container(
                     margin: const EdgeInsets.all(3),
+                    height: 60,
+                    width: 60,
                     child: ElevatedButton(
                       onPressed: (){
                         showDialog(
@@ -360,15 +362,29 @@ class _MyHomePageState extends State<MyHomePage> {
                               Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: <Widget>[
-                                const Text("Sawm (General)"),
-                                const Spacer(),
-                                const Expanded(
+                                Expanded(
+                                  flex: 50,
+                                    child: const Text("Sawm (General)")
+                                ),
+                                Expanded(
+                                  flex: 25,
+                                    child: const Spacer()
+                                ),
+                                Expanded(
+                                  flex: 25,
                                   child: TextField(
+                                    controller: sawmController,
                                     obscureText: false,
                                     keyboardType: TextInputType.number,
                                     decoration: InputDecoration(
                                       border: OutlineInputBorder(),
-                                      labelText: "CurrentNum",
+                                      labelText: "${sawmController.text}",
+                                      labelStyle:
+                                        TextStyle(
+                                          decoration: TextDecoration.underline,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: fontSiz,
+                                        )
                                     ),
                                   ),
                               ),
@@ -377,9 +393,16 @@ class _MyHomePageState extends State<MyHomePage> {
                               Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: <Widget>[
-                                    const Text("Nathiir"),
-                                    const Spacer(),
                                     Expanded(
+                                      flex: 50,
+                                      child: const Text("Nathiir")
+                                    ),
+                                    Expanded(
+                                      flex: 25,
+                                      child: const Spacer()
+                                    ),
+                                    Expanded(
+                                      flex: 25,
                                       child: TextField(
                                         controller: nathiirController,
                                         obscureText: false,
