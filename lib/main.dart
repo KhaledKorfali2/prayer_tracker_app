@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 const List<Widget> fruits = <Widget>[
   Text('Yes'),
@@ -66,6 +67,16 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  _MyHomePageState(){
+    SharedPreferences.getInstance().then((pref) {
+      var sawmNum = pref.getString("SawmNum");
+      var nathiirNum = pref.getString("NathiirNum");
+
+
+      sawmController.text = sawmNum.toString();
+      nathiirController.text = nathiirNum.toString();
+    });
+  }
 
 
   //List that stores whether toggle bottons are yes/no
@@ -105,7 +116,9 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
+      //backgroundColor: Colors.grey,
       appBar: AppBar(
+        backgroundColor: Colors.green[700],
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
@@ -231,9 +244,9 @@ class _MyHomePageState extends State<MyHomePage> {
                       });
                     },
                     borderRadius: const BorderRadius.all(Radius.circular(8)),
-                    selectedBorderColor: Colors.green[700],
+                    selectedBorderColor: Colors.green[200],
                     selectedColor: Colors.white,
-                    fillColor: Colors.green[200],
+                    fillColor: Colors.green[700],
                     color: Colors.red[400],
                     constraints: const BoxConstraints(
                       minHeight: 40.0,
@@ -321,11 +334,16 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Expanded(
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Container(
-                    margin: const EdgeInsets.all(3),
+                    margin: const EdgeInsets.all(10),
+                    height: 60,
+                    width: 175,
                     child: ElevatedButton(
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(Colors.green[700]),
+                      ),
                       onPressed: (){
                         showDialog(
                             context: context,
@@ -344,11 +362,11 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ),
                   ),
-                  const Spacer(),
+                  //const Spacer(),
                   Container(
-                    margin: const EdgeInsets.all(3),
+                    margin: const EdgeInsets.all(10),
                     height: 60,
-                    width: 60,
+                    width: 175,
                     child: ElevatedButton(
                       onPressed: (){
                         showDialog(
@@ -420,9 +438,20 @@ class _MyHomePageState extends State<MyHomePage> {
                           actions: <Widget>[
                             ElevatedButton(
                               onPressed: () {
+                                SharedPreferences.getInstance().then((pref) {
+                                  pref.setString("SawmNum", sawmController.text);
+                                  pref.setString("NathiirNum", nathiirController.text);
+                                  var sawmNum = pref.getString("SawmNum");
+                                  var nathiirNum = pref.getString("NathiirNum");
+                                  print("Sawm (general): " + sawmNum.toString());
+                                  print("Nathiir: " + nathiirNum.toString());
+
+                                  sawmController.text = sawmNum.toString();
+                                  nathiirController.text = nathiirNum.toString();
+                                });
                                 Navigator.of(context).pop();
                               },
-                              child: const Text('Close'),
+                              child: const Text('Save'),
                             ),
                           ],
                         )
