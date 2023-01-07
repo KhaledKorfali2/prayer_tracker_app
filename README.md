@@ -17,8 +17,8 @@ This app is not yet complete. A list of what's left to do is:
 Variables will typically be "nameAdjective" format. (Ex. fajirController)
 
 ## Tech/Framework used
-This app was created using the Flutter extension in Andriod Studio. The primary language used was dart.
-The app was created and tested using the Google Pixel 3A emulator provided in Android Studio.
+- This app was created using the Flutter extension in Andriod Studio. The primary language used was dart.
+- The app was created with only andriod products in mind and as such was developed and tested using the Google Pixel 3A emulator provided in Android Studio. 
 External libriaries:
 
 ## Features
