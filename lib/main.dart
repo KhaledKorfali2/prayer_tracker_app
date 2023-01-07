@@ -86,11 +86,11 @@ class _MyHomePageState extends State<MyHomePage> {
       curNathiirNum = (pref.getString("NathiirNum") == null) ? "0" : pref.getString("NathiirNum");
       curZakatNum = (pref.getString("ZakatNum") == null) ? "0" : pref.getString("ZakatNum");
       curZakatElFutrahNum = (pref.getString("ZakatElFuthrahNum") == null) ? "0" : pref.getString("ZakatElFuthrahNum");
-      curFajirNum = pref.getString("FajirNum");
-      curDhuhrNum = pref.getString("DhuhrNum");
-      curAsrNum = pref.getString("AsrNum");
-      curMaghribNum = pref.getString("MaghribNum");
-      curIshaaNum = pref.getString("IshaaNum");
+      curFajirNum = (pref.getString("FajirNum") == null) ? "0" : pref.getString("FajirNum");
+      curDhuhrNum = (pref.getString("DhuhrNum") == null) ? "0" : pref.getString("DhuhrNum");
+      curAsrNum = (pref.getString("AsrNum") == null) ? "0" : pref.getString("AsrNum");
+      curMaghribNum = (pref.getString("MaghribNum") == null) ? "0" : pref.getString("MaghribNum");
+      curIshaaNum = (pref.getString("IshaaNum") == null) ? "0" : pref.getString("IshaaNum");
     });
   }
 
@@ -364,17 +364,227 @@ class _MyHomePageState extends State<MyHomePage> {
                         showDialog(
                             context: context,
                             builder: (context) => AlertDialog(
-                              content:const Text("Qada"),
-                              actions: [
-                                TextButton(
-                                    onPressed: () => Navigator.pop(context),
-                                    child: const Text("Row")
+                              title: const Text('Qada'),
+                              content: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: <Widget>[
+                                        Expanded(
+                                            flex: 50,
+                                            child: Text("Fajir")
+                                        ),
+                                        Expanded(
+                                            flex: 25,
+                                            child: const Spacer()
+                                        ),
+                                        Expanded(
+                                          flex: 25,
+                                          child: TextField(
+                                            controller: fajirController,
+                                            obscureText: false,
+                                            keyboardType: TextInputType.number,
+                                            decoration: InputDecoration(
+                                                border: OutlineInputBorder(),
+                                                labelText: "${curFajirNum}",
+                                                labelStyle:
+                                                TextStyle(
+                                                  decoration: TextDecoration.underline,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: fontSiz,
+                                                )
+                                            ),
+                                          ),
+                                        ),
+                                      ]
+                                  ),
+                                  Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: <Widget>[
+                                        Expanded(
+                                            flex: 50,
+                                            child: const Text("Dhuhr")
+                                        ),
+                                        Expanded(
+                                            flex: 25,
+                                            child: const Spacer()
+                                        ),
+                                        Expanded(
+                                          flex: 25,
+                                          child: TextField(
+                                            controller: dhuhrController,
+                                            obscureText: false,
+                                            keyboardType: TextInputType.number,
+                                            decoration: InputDecoration(
+                                                border: OutlineInputBorder(),
+                                                labelText: "${curDhuhrNum}",
+                                                labelStyle:
+                                                TextStyle(
+                                                  decoration: TextDecoration.underline,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: fontSiz,
+                                                )
+                                            ),
+                                          ),
+                                        ),
+                                      ]
+                                  ),
+                                  Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: <Widget>[
+                                        Expanded(
+                                            flex: 50,
+                                            child: Text("Asr")
+                                        ),
+                                        Expanded(
+                                            flex: 25,
+                                            child: const Spacer()
+                                        ),
+                                        Expanded(
+                                          flex: 25,
+                                          child: TextField(
+                                            controller: asrController,
+                                            obscureText: false,
+                                            keyboardType: TextInputType.number,
+                                            decoration: InputDecoration(
+                                                border: OutlineInputBorder(),
+                                                labelText: "${curAsrNum}",
+                                                labelStyle:
+                                                TextStyle(
+                                                  decoration: TextDecoration.underline,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: fontSiz,
+                                                )
+                                            ),
+                                          ),
+                                        ),
+                                      ]
+                                  ),
+                                  Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: <Widget>[
+                                        Expanded(
+                                            flex: 50,
+                                            child: Text("Maghrib")
+                                        ),
+                                        Expanded(
+                                            flex: 25,
+                                            child: const Spacer()
+                                        ),
+                                        Expanded(
+                                          flex: 25,
+                                          child: TextField(
+                                            controller: maghribController,
+                                            obscureText: false,
+                                            keyboardType: TextInputType.number,
+                                            decoration: InputDecoration(
+                                                border: OutlineInputBorder(),
+                                                labelText: "${curMaghribNum}",
+                                                labelStyle:
+                                                TextStyle(
+                                                  decoration: TextDecoration.underline,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: fontSiz,
+                                                )
+                                            ),
+                                          ),
+                                        ),
+                                      ]
+                                  ),
+                                  Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: <Widget>[
+                                        Expanded(
+                                            flex: 50,
+                                            child: Text("Isha\'a")
+                                        ),
+                                        Expanded(
+                                            flex: 25,
+                                            child: const Spacer()
+                                        ),
+                                        Expanded(
+                                          flex: 25,
+                                          child: TextField(
+                                            controller: ishaaController,
+                                            obscureText: false,
+                                            keyboardType: TextInputType.number,
+                                            decoration: InputDecoration(
+                                                border: OutlineInputBorder(),
+                                                labelText: "${curIshaaNum}",
+                                                labelStyle:
+                                                TextStyle(
+                                                  decoration: TextDecoration.underline,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: fontSiz,
+                                                )
+                                            ),
+                                          ),
+                                        ),
+                                      ]
+                                  ),
+                                ],
+                              ),
+                              actions: <Widget>[
+                                ElevatedButton(
+                                  onPressed: () {
+                                    SharedPreferences.getInstance().then((pref) {
+                                      //Initilizes and updates values in text fields
+                                      if(fajirController.text != ""){
+                                        pref.setString("FajirNum", fajirController.text);
+                                      }if(curFajirNum == null){
+                                        pref.setString("FajirNum", "0");
+                                      }
+
+                                      if(dhuhrController.text != ""){
+                                        pref.setString("DhuhrNum", dhuhrController.text);
+                                      }if(curDhuhrNum == null){
+                                        pref.setString("DhuhrNum", "0");
+                                      }
+
+                                      if(asrController.text != ""){
+                                        pref.setString("AsrNum", asrController.text);
+                                      }if(curAsrNum == null){
+                                        pref.setString("AsrNum", "0");
+                                      }
+
+                                      if(maghribController.text != ""){
+                                        pref.setString("MaghribNum", maghribController.text);
+                                      }if(curMaghribNum == null){
+                                        pref.setString("MaghribNum", "0");
+                                      }
+
+                                      if(ishaaController.text != ""){
+                                        pref.setString("IshaaNum", ishaaController.text);
+                                      }if(curIshaaNum == null){
+                                        pref.setString("IshaaNum", "0");
+                                      }
+                                      curFajirNum = pref.getString("FajirNum");
+                                      curDhuhrNum = pref.getString("DhuhrNum");
+                                      curAsrNum = pref.getString("AsrNum");
+                                      curMaghribNum = pref.getString("MaghribNum");
+                                      curIshaaNum = pref.getString("IshaaNum");
+
+                                      /*print("Sawm (general): " + curSawmNum.toString());
+                                      print("Nathiir: " + curNathiirNum.toString());*/
+
+                                      fajirController.text = "";
+                                      dhuhrController.text = "";
+                                      asrController.text = "";
+                                      maghribController.text = "";
+                                      ishaaController.text = "";
+                                    });
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: const Text('Save'),
                                 ),
                               ],
-                            ));
+                            )
+                        );
                       },
                       child: const Text(
-                          "Qada"
+                          "Sawm"
                       ),
                     ),
                   ),
@@ -384,6 +594,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     height: 60,
                     width: 175,
                     child: ElevatedButton(
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(Colors.green[700]),
+                      ),
                       onPressed: (){
                         showDialog(
                         context: context,
@@ -501,7 +714,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   Container(
-                    margin: const EdgeInsets.all(3),
+                    margin: const EdgeInsets.all(10),
+                    height: 60,
+                    width: 175,
                     child: ElevatedButton(
                       onPressed: (){
                         showDialog(
@@ -614,7 +829,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   const Spacer(),
                   Container(
-                    margin: const EdgeInsets.all(3),
+                    margin: const EdgeInsets.all(10),
+                    height: 60,
+                    width: 175,
                     child: ElevatedButton(
                       onPressed: (){
 
