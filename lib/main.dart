@@ -79,19 +79,18 @@ class _MyHomePageState extends State<MyHomePage> {
   var curIshaaNum;
   _MyHomePageState(){
     SharedPreferences.getInstance().then((pref) {
-      curSawmNum = pref.getString("SawmNum");
-      curNathiirNum = pref.getString("NathiirNum");
-      curZakatNum = pref.getString("ZakatNum");
-      curZakatElFutrahNum = pref.getString("ZakatElFuthrahNum");
+      //Ternary Operations used to check if values have yet to be initialized by user
+      //If they are not then the default value will be "0"
+      //Else it will be the User specified value
+      curSawmNum = (pref.getString("SawmNum") == null) ? "0" : pref.getString("SawmNum");
+      curNathiirNum = (pref.getString("NathiirNum") == null) ? "0" : pref.getString("NathiirNum");
+      curZakatNum = (pref.getString("ZakatNum") == null) ? "0" : pref.getString("ZakatNum");
+      curZakatElFutrahNum = (pref.getString("ZakatElFuthrahNum") == null) ? "0" : pref.getString("ZakatElFuthrahNum");
       curFajirNum = pref.getString("FajirNum");
       curDhuhrNum = pref.getString("DhuhrNum");
       curAsrNum = pref.getString("AsrNum");
       curMaghribNum = pref.getString("MaghribNum");
       curIshaaNum = pref.getString("IshaaNum");
-
-
-
-
     });
   }
 
@@ -462,11 +461,16 @@ class _MyHomePageState extends State<MyHomePage> {
                             ElevatedButton(
                               onPressed: () {
                                 SharedPreferences.getInstance().then((pref) {
+                                  //Initilizes and updates values in text fields
                                   if(sawmController.text != ""){
                                     pref.setString("SawmNum", sawmController.text);
+                                  }if(curSawmNum == null){
+                                    pref.setString("SawmNum", "0");
                                   }
                                   if(nathiirController.text != ""){
                                     pref.setString("NathiirNum", nathiirController.text);
+                                  }if(curNathiirNum == null){
+                                    pref.setString("NathiirNum", "0");
                                   }
                                   curSawmNum = pref.getString("SawmNum");
                                   curNathiirNum = pref.getString("NathiirNum");
@@ -500,7 +504,108 @@ class _MyHomePageState extends State<MyHomePage> {
                     margin: const EdgeInsets.all(3),
                     child: ElevatedButton(
                       onPressed: (){
+                        showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              title: const Text('Zakat'),
+                              content: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: <Widget>[
+                                        Expanded(
+                                            flex: 50,
+                                            child: Text("Zakat (General)")
+                                        ),
+                                        Expanded(
+                                            flex: 25,
+                                            child: const Spacer()
+                                        ),
+                                        Expanded(
+                                          flex: 25,
+                                          child: TextField(
+                                            controller: zakatController,
+                                            obscureText: false,
+                                            keyboardType: TextInputType.number,
+                                            decoration: InputDecoration(
+                                                border: OutlineInputBorder(),
+                                                labelText: "${curZakatNum}",
+                                                labelStyle:
+                                                TextStyle(
+                                                  decoration: TextDecoration.underline,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: fontSiz,
+                                                )
+                                            ),
+                                          ),
+                                        ),
+                                      ]
+                                  ),
+                                  Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: <Widget>[
+                                        Expanded(
+                                            flex: 50,
+                                            child: const Text("Zakat El Futrah")
+                                        ),
+                                        Expanded(
+                                            flex: 25,
+                                            child: const Spacer()
+                                        ),
+                                        Expanded(
+                                          flex: 25,
+                                          child: TextField(
+                                            controller: zakatElFutrahController,
+                                            obscureText: false,
+                                            keyboardType: TextInputType.number,
+                                            decoration: InputDecoration(
+                                                border: OutlineInputBorder(),
+                                                labelText: "${curZakatElFutrahNum}",
+                                                labelStyle:
+                                                TextStyle(
+                                                  decoration: TextDecoration.underline,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: fontSiz,
+                                                )
+                                            ),
+                                          ),
+                                        ),
+                                      ]
+                                  ),
+                                ],
+                              ),
+                              actions: <Widget>[
+                                ElevatedButton(
+                                  onPressed: () {
+                                    SharedPreferences.getInstance().then((pref) {
+                                      //Initializes and updates values in textfields
+                                      if(zakatController.text != ""){
+                                        pref.setString("ZakatNum", zakatController.text);
+                                      }if(curZakatNum == ""){
+                                        pref.setString("ZakatNum", "0");
+                                      }
+                                      if(zakatElFutrahController.text != ""){
+                                        pref.setString("ZakatElFuthrahNum", zakatElFutrahController.text);
+                                      }if(curZakatElFutrahNum == null){
+                                        pref.setString("ZakatElFuthrahNum", "0");
+                                      }
+                                      curZakatNum = pref.getString("ZakatNum");
+                                      curZakatElFutrahNum = pref.getString("ZakatElFuthrahNum");
+                                      print("Zakat (general): " + curZakatNum.toString());
+                                      print("Zakat Ele Futrhah: " + curZakatElFutrahNum.toString());
 
+                                      zakatController.text = "";
+                                      zakatElFutrahController.text = "";
+                                    });
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: const Text('Save'),
+                                ),
+                              ],
+                            )
+                        );
                       },
                       child: const Text(
                           "Zakat"
