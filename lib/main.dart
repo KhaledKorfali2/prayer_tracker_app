@@ -67,14 +67,31 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  //Used to save the current state of textfields and toggle buttons
+  var curSawmNum;
+  var curNathiirNum;
+  var curZakatNum;
+  var curZakatElFutrahNum;
+  var curFajirNum;
+  var curDhuhrNum;
+  var curAsrNum;
+  var curMaghribNum;
+  var curIshaaNum;
   _MyHomePageState(){
     SharedPreferences.getInstance().then((pref) {
-      var sawmNum = pref.getString("SawmNum");
-      var nathiirNum = pref.getString("NathiirNum");
+      curSawmNum = pref.getString("SawmNum");
+      curNathiirNum = pref.getString("NathiirNum");
+      curZakatNum = pref.getString("ZakatNum");
+      curZakatElFutrahNum = pref.getString("ZakatElFuthrahNum");
+      curFajirNum = pref.getString("FajirNum");
+      curDhuhrNum = pref.getString("DhuhrNum");
+      curAsrNum = pref.getString("AsrNum");
+      curMaghribNum = pref.getString("MaghribNum");
+      curIshaaNum = pref.getString("IshaaNum");
 
 
-      sawmController.text = sawmNum.toString();
-      nathiirController.text = nathiirNum.toString();
+
+
     });
   }
 
@@ -382,7 +399,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               children: <Widget>[
                                 Expanded(
                                   flex: 50,
-                                    child: const Text("Sawm (General)")
+                                    child: Text("Sawm (General)")
                                 ),
                                 Expanded(
                                   flex: 25,
@@ -396,7 +413,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                     keyboardType: TextInputType.number,
                                     decoration: InputDecoration(
                                       border: OutlineInputBorder(),
-                                      labelText: "${sawmController.text}",
+                                      labelText: "${curSawmNum}",
                                       labelStyle:
                                         TextStyle(
                                           decoration: TextDecoration.underline,
@@ -426,8 +443,14 @@ class _MyHomePageState extends State<MyHomePage> {
                                         obscureText: false,
                                         keyboardType: TextInputType.number,
                                         decoration: InputDecoration(
-                                          border: OutlineInputBorder(),
-                                          labelText: "CurrentNum",
+                                            border: OutlineInputBorder(),
+                                            labelText: "${curNathiirNum}",
+                                            labelStyle:
+                                            TextStyle(
+                                              decoration: TextDecoration.underline,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: fontSiz,
+                                            )
                                         ),
                                       ),
                                     ),
@@ -439,15 +462,19 @@ class _MyHomePageState extends State<MyHomePage> {
                             ElevatedButton(
                               onPressed: () {
                                 SharedPreferences.getInstance().then((pref) {
-                                  pref.setString("SawmNum", sawmController.text);
-                                  pref.setString("NathiirNum", nathiirController.text);
-                                  var sawmNum = pref.getString("SawmNum");
-                                  var nathiirNum = pref.getString("NathiirNum");
-                                  print("Sawm (general): " + sawmNum.toString());
-                                  print("Nathiir: " + nathiirNum.toString());
+                                  if(sawmController.text != ""){
+                                    pref.setString("SawmNum", sawmController.text);
+                                  }
+                                  if(nathiirController.text != ""){
+                                    pref.setString("NathiirNum", nathiirController.text);
+                                  }
+                                  curSawmNum = pref.getString("SawmNum");
+                                  curNathiirNum = pref.getString("NathiirNum");
+                                  print("Sawm (general): " + curSawmNum.toString());
+                                  print("Nathiir: " + curNathiirNum.toString());
 
-                                  sawmController.text = sawmNum.toString();
-                                  nathiirController.text = nathiirNum.toString();
+                                  sawmController.text = "";
+                                  nathiirController.text = "";
                                 });
                                 Navigator.of(context).pop();
                               },
