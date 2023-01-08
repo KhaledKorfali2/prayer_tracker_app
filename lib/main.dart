@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -67,6 +69,41 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  //Used for debuging: Clears all data in shared pref to simulate experience
+  //of a new user
+  void _clearSharedPref(){
+    SharedPreferences.getInstance().then((pref){
+      pref.clear();
+    });
+  }
+
+  void _initilizeValues(String curKey){
+    SharedPreferences.getInstance().then((pref) {
+      if(pref.getString(curKey) == null){
+        pref.setString(curKey, "0");
+      }
+    });
+  }
+
+
+  void _updateTextField(var contr, var curNum, String curKey){
+    SharedPreferences.getInstance().then((pref) {
+      //Initilizes and updates values in text fields
+      if (contr.text != "") {
+        pref.setString(curKey, contr.text);
+      }if(curNum == null){
+        pref.setString(curKey, "0");
+      }
+      print("curBefore:" + curNum);
+      curNum = pref.getString(curKey);
+      print("curNumAfter: " + curNum);
+      contr.text = "";
+    });
+    /*setState(() {
+
+    });*/
+  }
+
   //Used to save the current state of textfields and toggle buttons
   var curSawmNum;
   var curNathiirNum;
@@ -78,11 +115,30 @@ class _MyHomePageState extends State<MyHomePage> {
   var curMaghribNum;
   var curIshaaNum;
   _MyHomePageState(){
+
+    //_clearSharedPref();
+
+    //sleep(Duration(seconds:10));
+    print("done sleep");
+
+    _initilizeValues("SawmNum");
+    _initilizeValues("NathiirNum");
+    _initilizeValues("ZakatNum");
+    _initilizeValues("ZakatElFuthrahNum");
+    _initilizeValues("FajirNum");
+    _initilizeValues("DhuhrNum");
+    _initilizeValues("AsrNum");
+    _initilizeValues("MaghribNum");
+    _initilizeValues("IshaaNum");
+
+
+
     SharedPreferences.getInstance().then((pref) {
       //Ternary Operations used to check if values have yet to be initialized by user
       //If they are not then the default value will be "0"
       //Else it will be the User specified value
-      curSawmNum = (pref.getString("SawmNum") == null) ? "0" : pref.getString("SawmNum");
+
+      /*curSawmNum = (pref.getString("SawmNum") == null) ? "0" : pref.getString("SawmNum");
       curNathiirNum = (pref.getString("NathiirNum") == null) ? "0" : pref.getString("NathiirNum");
       curZakatNum = (pref.getString("ZakatNum") == null) ? "0" : pref.getString("ZakatNum");
       curZakatElFutrahNum = (pref.getString("ZakatElFuthrahNum") == null) ? "0" : pref.getString("ZakatElFuthrahNum");
@@ -91,6 +147,20 @@ class _MyHomePageState extends State<MyHomePage> {
       curAsrNum = (pref.getString("AsrNum") == null) ? "0" : pref.getString("AsrNum");
       curMaghribNum = (pref.getString("MaghribNum") == null) ? "0" : pref.getString("MaghribNum");
       curIshaaNum = (pref.getString("IshaaNum") == null) ? "0" : pref.getString("IshaaNum");
+*/
+      curSawmNum = pref.getString("SawmNum");
+      curNathiirNum = pref.getString("NathiirNum");
+      curZakatNum = pref.getString("ZakatNum");
+      curZakatElFutrahNum = pref.getString("ZakatElFuthrahNum");
+      curFajirNum = pref.getString("FajirNum");
+      curDhuhrNum = pref.getString("DhuhrNum");
+      curAsrNum = pref.getString("AsrNum");
+      curMaghribNum = pref.getString("MaghribNum");
+      curIshaaNum = pref.getString("IshaaNum");
+
+
+
+      print("in fs");
     });
   }
 
@@ -361,6 +431,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         backgroundColor: MaterialStateProperty.all(Colors.green[700]),
                       ),
                       onPressed: (){
+                        print("3232132131\n\n\n\n111321" + curFajirNum.toString());
                         showDialog(
                             context: context,
                             builder: (context) => AlertDialog(
@@ -529,18 +600,23 @@ class _MyHomePageState extends State<MyHomePage> {
                               actions: <Widget>[
                                 ElevatedButton(
                                   onPressed: () {
+                                   /* _updateTextField(fajirController, curFajirNum, "FajirNum");
+                                    _updateTextField(dhuhrController, curDhuhrNum, "DhuhrNum");
+                                    _updateTextField(asrController, curAsrNum, "AsrNum");
+                                    _updateTextField(maghribController, curMaghribNum, "MaghribNum");
+                                    _updateTextField(ishaaController, curIshaaNum, "IshaaNum");*/
                                     SharedPreferences.getInstance().then((pref) {
                                       //Initilizes and updates values in text fields
-                                      if(fajirController.text != ""){
-                                        pref.setString("FajirNum", fajirController.text);
-                                      }if(curFajirNum == null){
+                                      if(curFajirNum == null){
                                         pref.setString("FajirNum", "0");
+                                      }if(fajirController.text != ""){
+                                        pref.setString("FajirNum", fajirController.text);
                                       }
 
-                                      if(dhuhrController.text != ""){
-                                        pref.setString("DhuhrNum", dhuhrController.text);
-                                      }if(curDhuhrNum == null){
+                                      if(curDhuhrNum == null){
                                         pref.setString("DhuhrNum", "0");
+                                      }if(dhuhrController.text != ""){
+                                        pref.setString("DhuhrNum", dhuhrController.text);
                                       }
 
                                       if(asrController.text != ""){
@@ -566,8 +642,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                       curMaghribNum = pref.getString("MaghribNum");
                                       curIshaaNum = pref.getString("IshaaNum");
 
-                                      /*print("Sawm (general): " + curSawmNum.toString());
-                                      print("Nathiir: " + curNathiirNum.toString());*/
+
 
                                       fajirController.text = "";
                                       dhuhrController.text = "";
@@ -584,7 +659,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         );
                       },
                       child: const Text(
-                          "Sawm"
+                          "Qada"
                       ),
                     ),
                   ),
@@ -673,6 +748,9 @@ class _MyHomePageState extends State<MyHomePage> {
                           actions: <Widget>[
                             ElevatedButton(
                               onPressed: () {
+                                /*_updateTextField(sawmController, curSawmNum, "SawmNum");
+                                _updateTextField(nathiirController, curNathiirNum, "NathiirNum");
+                            */
                                 SharedPreferences.getInstance().then((pref) {
                                   //Initilizes and updates values in text fields
                                   if(sawmController.text != ""){
@@ -794,11 +872,15 @@ class _MyHomePageState extends State<MyHomePage> {
                               actions: <Widget>[
                                 ElevatedButton(
                                   onPressed: () {
+                                   /* _updateTextField(zakatController, curZakatNum, "ZakatNum");
+                                    _updateTextField(zakatElFutrahController, curZakatElFutrahNum, "ZakatElFuthrahNum");
+                                    */
+
                                     SharedPreferences.getInstance().then((pref) {
                                       //Initializes and updates values in textfields
                                       if(zakatController.text != ""){
                                         pref.setString("ZakatNum", zakatController.text);
-                                      }if(curZakatNum == ""){
+                                      }if(curZakatNum == null){
                                         pref.setString("ZakatNum", "0");
                                       }
                                       if(zakatElFutrahController.text != ""){
