@@ -3,7 +3,7 @@
 A new Flutter project for my CS4750, which allows andriod users to quickly and easily view and edit the number of prayers, fasts, etc. which they may have in order to make them up at a later date.
 
 ## Motivatins
-Background: In Islam it is an obligation to know and follow all five main pillars of Islam: Shahada (profession of faith), Salat (the 5 daily prayers), Zakat (yearly alms towards the poor), Sawm (fasting during Ramadan), and finally Haij (pilgrimage to Mecca).
+Background: In Islam it is an obligation to know and follow all five main pillars of Islam: Shahada (profession of faith), Salat (the 5 daily prayers), Zakat (yearly alms towards the poor), Sawm (fasting during Ramadan), and finally Haij (pilgrimage to Mecca). 
 
 Problem: Although we try our best to abide by these pillars, there are times when unforeseen circumstances prevent us from completing some of these obligations (primarily Sawm and Salat). For example if you are sick and cannot fast during Ramadan you are allowed to make up the days you missed any day outside of Ramadan, but must also pay a type special of Zakat known as Zakat el Futrah for each day that is missed (we must pay the equivalent of a single meal). Besides this if an individual misses the morning prayer because they slept-in they will need to remember to make it up at a later time. As such it is important to keep track of the number of days you missed in order to complete the accurate number of make-ups.
 
@@ -31,14 +31,14 @@ Variables will typically be "nameAdjective" format. (Ex. fajirController)
 
 ## Tech/Framework used
 - This app was created using the Flutter extension in Andriod Studio. The primary language used was dart.
-- The app was created with only andriod products in mind and as such was developed and tested using the Google Pixel 3A emulator provided in Android Studio.
-  External libriaries:
+- The app was created with only andriod products in mind and as such was developed and tested using the Google Pixel 3A emulator provided in Android Studio. 
+External libriaries:
 
 ## Instalations
 In order to properly download and run the program you will need:
 - A way to emulate an andriod environment
 - To download the project files
--
+- 
 
 
 ## How to Use?
