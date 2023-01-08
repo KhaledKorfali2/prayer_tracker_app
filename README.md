@@ -34,6 +34,11 @@ Variables will typically be "nameAdjective" format. (Ex. fajirController)
 - The app was created with only andriod products in mind and as such was developed and tested using the Google Pixel 3A emulator provided in Android Studio. 
 External libriaries:
 
+## Instalations
+In order to properly download and run the program you will need:
+- A way to emulate an andriod environment
+- To download the project files
+- 
 
 
 ## How to Use?
