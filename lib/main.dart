@@ -114,6 +114,11 @@ class _MyHomePageState extends State<MyHomePage> {
   var curAsrNum;
   var curMaghribNum;
   var curIshaaNum;
+
+  //Used to save the current state of the boolean buttons in settings
+  var isOnSawm = false;
+  var isOnDarkMode = false;
+
   _MyHomePageState(){
 
     //_clearSharedPref();
@@ -171,6 +176,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final List<bool> _yesNoAsr = <bool>[true, false];
   final List<bool> _yesNoMaghrib = <bool>[true, false];
   final List<bool> _yesNoIshaa = <bool>[true, false];
+  final List<bool> _yesNoSawm = <bool>[true, false];
 
 
   //Info about current date
@@ -416,6 +422,46 @@ class _MyHomePageState extends State<MyHomePage> {
                     children: fruits,
                   ),
                 ],
+              ),
+            ),
+            Offstage(
+              offstage: !isOnSawm,
+              child: Expanded(//Sawm Row
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    const Text(
+                      'Sawm',
+                      style: TextStyle(
+                        decoration: TextDecoration.underline,
+                        fontWeight: FontWeight.bold,
+                        fontSize: fontSiz,
+                      ),
+                    ),
+                    const Spacer(),
+                    ToggleButtons(//toggle for Dhuhr
+                      onPressed: (int index) {
+                        setState(() {
+                          // The button that is tapped is set to true, and the others to false.
+                          for (int i = 0; i < _yesNoSawm.length; i++) {
+                            _yesNoSawm[i] = i == index;
+                          }
+                        });
+                      },
+                      borderRadius: const BorderRadius.all(Radius.circular(8)),
+                      selectedBorderColor: Colors.green[700],
+                      selectedColor: Colors.white,
+                      fillColor: Colors.green[200],
+                      color: Colors.red[400],
+                      constraints: const BoxConstraints(
+                        minHeight: 40.0,
+                        minWidth: 80.0,
+                      ),
+                      isSelected: _yesNoSawm,
+                      children: fruits,
+                    ),
+                  ],
+                ),
               ),
             ),
             Expanded(
@@ -916,10 +962,89 @@ class _MyHomePageState extends State<MyHomePage> {
                     width: 175,
                     child: ElevatedButton(
                       onPressed: (){
-
+                        showDialog(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              title: const Text('Settings'),
+                              content: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: <Widget>[
+                                        Expanded(
+                                            flex: 50,
+                                            child: Text("Show Sawm Row:")
+                                        ),
+                                        Expanded(
+                                            flex: 25,
+                                            child: const Spacer()
+                                        ),
+                                        Expanded(
+                                          flex: 25,
+                                          child: Switch(
+                                            // thumb color (round icon)
+                                            activeColor: Colors.green[700],
+                                            activeTrackColor: Colors.green[200],
+                                            inactiveThumbColor: Colors.blueGrey.shade600,
+                                            inactiveTrackColor: Colors.grey.shade400,
+                                            splashRadius: 50.0,
+                                            // boolean variable value
+                                            value: isOnSawm,
+                                            // changes the state of the switch
+                                            onChanged: (value) => setState(() {
+                                              isOnSawm = value;
+                                            }),
+                                          ),
+                                        ),
+                                      ]
+                                  ),
+                                  Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: <Widget>[
+                                        Expanded(
+                                            flex: 50,
+                                            child: Text("Dark Mode:")
+                                        ),
+                                        Expanded(
+                                            flex: 25,
+                                            child: const Spacer()
+                                        ),
+                                        Expanded(
+                                          flex: 25,
+                                          child: Switch(
+                                            // thumb color (round icon)
+                                            activeColor: Colors.green[700],
+                                            activeTrackColor: Colors.green[200],
+                                            inactiveThumbColor: Colors.blueGrey.shade600,
+                                            inactiveTrackColor: Colors.grey.shade400,
+                                            splashRadius: 50.0,
+                                            // boolean variable value
+                                            value: isOnDarkMode,
+                                            // changes the state of the switch
+                                            onChanged: (value) => setState(() {
+                                              isOnDarkMode = value;
+                                            }),
+                                          ),
+                                        ),
+                                      ]
+                                  ),
+                                ],
+                              ),
+                              actions: <Widget>[
+                                ElevatedButton(
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                  child: const Text('Save'),
+                                ),
+                              ],
+                            )
+                        );
                       },
                       child: const Text(
-                          "Setting"
+                          "Settings"
                       ),
                     ),
                   ),
