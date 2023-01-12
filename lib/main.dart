@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:prayer_tracker_app/models.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 const List<Widget> fruits = <Widget>[
@@ -10,6 +11,7 @@ const List<Widget> fruits = <Widget>[
 
 void main() {
   runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
 }
 
 class MyApp extends StatelessWidget {
@@ -30,7 +32,7 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.green,
       ),
       home: const MyHomePage(title: 'Prayer Tracker'),
     );
@@ -58,6 +60,187 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
+  List<bool> isSelectedFajir = [];
+  int _currentSelectedFajir = 0;
+
+  List<bool> isSelectedDhuhr = [];
+  int _currentSelectedDhuhr = 0;
+
+  List<bool> isSelectedAsr = [];
+  int _currentSelectedAsr = 0;
+
+  List<bool> isSelectedMaghrib = [];
+  int _currentSelectedMaghrib = 0;
+
+  List<bool> isSelectedIshaa = [];
+  int _currentSelectedIshaa = 0;
+
+
+  List<bool> isSelectedSawm = [];
+  int _currentSelectedSawm = 0;
+
+
+  void initState() {
+    super.initState();
+
+    getIsSelectedFajir();
+    isSelectedFajir = [true, false];
+
+    getIsSelectedDhuhr();
+    isSelectedDhuhr = [true, false];
+
+    getIsSelectedAsr();
+    isSelectedAsr = [true, false];
+
+    getIsSelectedMaghrib();
+    isSelectedMaghrib = [true, false];
+
+    getIsSelectedIshaa();
+    isSelectedIshaa = [true, false];
+
+    getIsSelectedSawm();
+    isSelectedSawm = [true, false];
+  }
+
+
+  saveIsSelectedFajir() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      prefs.setStringList(
+        "isSelectedFont",
+        isSelectedFajir.map((e) => e ? 'true' : 'false').toList(),
+      );
+      prefs.setInt('currentFontFamily', _currentSelectedFajir);
+    });
+  }
+
+  getIsSelectedFajir() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      isSelectedFajir = (prefs
+          .getStringList('isSelectedFont')
+          ?.map((e) => e == 'true' ? true : false)
+          ?.toList() ??
+          [true, false]);
+      _currentSelectedFajir = prefs.getInt('currentFontFamily') ?? 0;
+    });
+  }
+
+  saveIsSelectedDhuhr() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      prefs.setStringList(
+        "isSelectedFont1",
+        isSelectedDhuhr.map((e) => e ? 'true' : 'false').toList(),
+      );
+      prefs.setInt('currentFontFamily1', _currentSelectedDhuhr);
+    });
+  }
+
+  getIsSelectedDhuhr() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      isSelectedDhuhr = (prefs
+          .getStringList('isSelectedFont1')
+          ?.map((e) => e == 'true' ? true : false)
+          ?.toList() ??
+          [true, false]);
+      _currentSelectedDhuhr = prefs.getInt('currentFontFamily1') ?? 0;
+    });
+  }
+
+  saveIsSelectedAsr() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      prefs.setStringList(
+        "isSelectedFont2",
+        isSelectedAsr.map((e) => e ? 'true' : 'false').toList(),
+      );
+      prefs.setInt('currentFontFamily2', _currentSelectedAsr);
+    });
+  }
+
+  getIsSelectedAsr() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      isSelectedAsr = (prefs
+          .getStringList('isSelectedFont2')
+          ?.map((e) => e == 'true' ? true : false)
+          ?.toList() ??
+          [true, false]);
+      _currentSelectedAsr = prefs.getInt('currentFontFamily2') ?? 0;
+    });
+  }
+
+  saveIsSelectedMaghrib() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      prefs.setStringList(
+        "isSelectedFont3",
+        isSelectedMaghrib.map((e) => e ? 'true' : 'false').toList(),
+      );
+      prefs.setInt('currentFontFamily3', _currentSelectedMaghrib);
+    });
+  }
+
+  getIsSelectedMaghrib() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      isSelectedMaghrib = (prefs
+          .getStringList('isSelectedFont3')
+          ?.map((e) => e == 'true' ? true : false)
+          ?.toList() ??
+          [true, false]);
+      _currentSelectedMaghrib = prefs.getInt('currentFontFamily3') ?? 0;
+    });
+  }
+
+  saveIsSelectedIshaa() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      prefs.setStringList(
+        "isSelectedFont4",
+        isSelectedIshaa.map((e) => e ? 'true' : 'false').toList(),
+      );
+      prefs.setInt('currentFontFamily4', _currentSelectedIshaa);
+    });
+  }
+
+  getIsSelectedIshaa() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      isSelectedIshaa = (prefs
+          .getStringList('isSelectedFont4')
+          ?.map((e) => e == 'true' ? true : false)
+          ?.toList() ??
+          [true, false]);
+      _currentSelectedIshaa = prefs.getInt('currentFontFamily4') ?? 0;
+    });
+  }
+
+  saveIsSelectedSawm() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      prefs.setStringList(
+        "isSelectedFont5",
+        isSelectedSawm.map((e) => e ? 'true' : 'false').toList(),
+      );
+      prefs.setInt('currentFontFamily5', _currentSelectedSawm);
+    });
+  }
+
+  getIsSelectedSawm() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      isSelectedSawm = (prefs
+          .getStringList('isSelectedFont5')
+          ?.map((e) => e == 'true' ? true : false)
+          ?.toList() ??
+          [true, false]);
+      _currentSelectedSawm = prefs.getInt('currentFontFamily5') ?? 0;
+    });
+  }
+
   void _incrementCounter() {
     setState(() {
       // This call to setState tells the Flutter framework that something has
@@ -71,37 +254,72 @@ class _MyHomePageState extends State<MyHomePage> {
 
   //Used for debuging: Clears all data in shared pref to simulate experience
   //of a new user
-  void _clearSharedPref(){
-    SharedPreferences.getInstance().then((pref){
+  Future _clearSharedPref() async{
+    await SharedPreferences.getInstance().then((pref){
       pref.clear();
     });
   }
 
-  void _initilizeValues(String curKey){
-    SharedPreferences.getInstance().then((pref) {
+  Future _initilizeStringValues(String curKey) async{
+    await SharedPreferences.getInstance().then((pref) {
       if(pref.getString(curKey) == null){
         pref.setString(curKey, "0");
+        print(pref.getString(curKey).toString() + "Was Null");
       }
     });
   }
 
+  Future _initilizeBoolValues(String curKey) async{
+    await SharedPreferences.getInstance().then((pref) {
+      if(pref.getBool(curKey) == null){
+        pref.setBool(curKey, false);
+        print(pref.getBool(curKey).toString() + "Was Null");
+      }
+    });
+  }
 
-  void _updateTextField(var contr, var curNum, String curKey){
-    SharedPreferences.getInstance().then((pref) {
+  Future _firstStartUpInitialization() async{
+    await SharedPreferences.getInstance().then((pref) {
+      if(pref.getBool("hasOpened") == null){
+
+        pref.setBool("hasOpened", true);
+
+        _initilizeStringValues("SawmNum");
+        _initilizeStringValues("NathiirNum");
+        _initilizeStringValues("ZakatNum");
+        _initilizeStringValues("ZakatElFuthrahNum");
+        _initilizeStringValues("FajirNum");
+        _initilizeStringValues("DhuhrNum");
+        _initilizeStringValues("AsrNum");
+        _initilizeStringValues("MaghribNum");
+        _initilizeStringValues("IshaaNum");
+
+        //Initialize Bool Values
+        _initilizeBoolValues("isOnSawm");
+        _initilizeBoolValues("isOnDarkMode");
+        _initilizeBoolValues("isOnFajir");
+        _initilizeBoolValues("isOnDhuhr");
+        _initilizeBoolValues("isOnAsr");
+        _initilizeBoolValues("isOnMaghrib");
+        _initilizeBoolValues("isOnIshaa");
+      }
+    });
+  }
+
+  Future _updateTextField(var contr, var curNum, String curKey) async{
+    await SharedPreferences.getInstance().then((pref) {
       //Initilizes and updates values in text fields
       if (contr.text != "") {
         pref.setString(curKey, contr.text);
       }if(curNum == null){
         pref.setString(curKey, "0");
+        print(pref.getString(curKey).toString() + "Was Null");
       }
-      print("curBefore:" + curNum);
-      curNum = pref.getString(curKey);
-      print("curNumAfter: " + curNum);
+
+      //Clear Text field
       contr.text = "";
     });
-    /*setState(() {
 
-    });*/
   }
 
   //Used to save the current state of textfields and toggle buttons
@@ -118,24 +336,40 @@ class _MyHomePageState extends State<MyHomePage> {
   //Used to save the current state of the boolean buttons in settings
   var isOnSawm = false;
   var isOnDarkMode = false;
+  var isOnFajir = false;
+  var isOnDhuhr = false;
+  var isOnAsr = false;
+  var isOnMaghrib = false;
+  var isOnIshaa = false;
 
   _MyHomePageState(){
 
+
+    _firstStartUpInitialization();
     //_clearSharedPref();
 
-    //sleep(Duration(seconds:10));
+    //sleep(Duration(seconds:3));
     print("done sleep");
 
-    _initilizeValues("SawmNum");
-    _initilizeValues("NathiirNum");
-    _initilizeValues("ZakatNum");
-    _initilizeValues("ZakatElFuthrahNum");
-    _initilizeValues("FajirNum");
-    _initilizeValues("DhuhrNum");
-    _initilizeValues("AsrNum");
-    _initilizeValues("MaghribNum");
-    _initilizeValues("IshaaNum");
+    /*//Initialize String Values
+    _initilizeStringValues("SawmNum");
+    _initilizeStringValues("NathiirNum");
+    _initilizeStringValues("ZakatNum");
+    _initilizeStringValues("ZakatElFuthrahNum");
+    _initilizeStringValues("FajirNum");
+    _initilizeStringValues("DhuhrNum");
+    _initilizeStringValues("AsrNum");
+    _initilizeStringValues("MaghribNum");
+    _initilizeStringValues("IshaaNum");
 
+    //Initialize Bool Values
+    _initilizeBoolValues("isOnSawm");
+    _initilizeBoolValues("isOnDarkMode");
+    _initilizeBoolValues("isOnFajir");
+    _initilizeBoolValues("isOnDhuhr");
+    _initilizeBoolValues("isOnAsr");
+    _initilizeBoolValues("isOnMaghrib");
+    _initilizeBoolValues("isOnIshaa");
 
 
     SharedPreferences.getInstance().then((pref) {
@@ -143,7 +377,7 @@ class _MyHomePageState extends State<MyHomePage> {
       //If they are not then the default value will be "0"
       //Else it will be the User specified value
 
-      /*curSawmNum = (pref.getString("SawmNum") == null) ? "0" : pref.getString("SawmNum");
+      *//*curSawmNum = (pref.getString("SawmNum") == null) ? "0" : pref.getString("SawmNum");
       curNathiirNum = (pref.getString("NathiirNum") == null) ? "0" : pref.getString("NathiirNum");
       curZakatNum = (pref.getString("ZakatNum") == null) ? "0" : pref.getString("ZakatNum");
       curZakatElFutrahNum = (pref.getString("ZakatElFuthrahNum") == null) ? "0" : pref.getString("ZakatElFuthrahNum");
@@ -152,7 +386,7 @@ class _MyHomePageState extends State<MyHomePage> {
       curAsrNum = (pref.getString("AsrNum") == null) ? "0" : pref.getString("AsrNum");
       curMaghribNum = (pref.getString("MaghribNum") == null) ? "0" : pref.getString("MaghribNum");
       curIshaaNum = (pref.getString("IshaaNum") == null) ? "0" : pref.getString("IshaaNum");
-*/
+*//*
       curSawmNum = pref.getString("SawmNum");
       curNathiirNum = pref.getString("NathiirNum");
       curZakatNum = pref.getString("ZakatNum");
@@ -164,9 +398,43 @@ class _MyHomePageState extends State<MyHomePage> {
       curIshaaNum = pref.getString("IshaaNum");
 
 
+      isOnSawm = pref.getBool("isOnSawm") ?? false;
+      isOnDarkMode = pref.getBool("isOnDarkMode") ?? false;
+      isOnFajir = pref.getBool("isOnFajir") ?? false;
+      isOnDhuhr = pref.getBool("isOnDhuhr") ?? true;
+      isOnAsr = pref.getBool("isOnAsr") ?? false;
+      isOnMaghrib = pref.getBool("isOnMaghrib") ?? false;
+      isOnIshaa = pref.getBool("isOnIshaa") ?? false;
+
+
+
 
       print("in fs");
+    });*/
+
+    SharedPreferences.getInstance().then((pref) async{
+      curSawmNum = pref.getString("SawmNum");
+      curNathiirNum = pref.getString("NathiirNum");
+      curZakatNum = pref.getString("ZakatNum");
+      curZakatElFutrahNum = pref.getString("ZakatElFuthrahNum");
+      curFajirNum = pref.getString("FajirNum");
+      curDhuhrNum = pref.getString("DhuhrNum");
+      curAsrNum = pref.getString("AsrNum");
+      curMaghribNum = pref.getString("MaghribNum");
+      curIshaaNum = pref.getString("IshaaNum");
+
+
+      isOnSawm = pref.getBool("isOnSawm") ?? false;
+      isOnDarkMode = pref.getBool("isOnDarkMode") ?? false;
+      isOnFajir = pref.getBool("isOnFajir") ?? false;
+      isOnDhuhr = pref.getBool("isOnDhuhr") ?? true;
+      isOnAsr = pref.getBool("isOnAsr") ?? false;
+      isOnMaghrib = pref.getBool("isOnMaghrib") ?? false;
+      isOnIshaa = pref.getBool("isOnIshaa") ?? false;
     });
+    //sleep(Duration(seconds:3));
+    print("donnne");
+
   }
 
 
@@ -251,13 +519,16 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   const Spacer(),
                   Container(
-                    child: ToggleButtons(//Toggle for Fajir
+                    margin: EdgeInsets.all(20),
+                    child: ToggleButtons(
+                      // logic for button selection below
                       onPressed: (int index) {
                         setState(() {
-                          // The button that is tapped is set to true, and the others to false.
-                          for (int i = 0; i < _yesNoFajir.length; i++) {
-                            _yesNoFajir[i] = i == index;
+                          for (int i = 0; i < isSelectedFajir.length; i++) {
+                            isSelectedFajir[i] = i == index;
                           }
+                          _currentSelectedFajir = index;
+                          saveIsSelectedFajir();
                         });
                       },
                       borderRadius: const BorderRadius.all(Radius.circular(8)),
@@ -269,7 +540,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         minHeight: 40.0,
                         minWidth: 80.0,
                       ),
-                      isSelected: _yesNoFajir,
+                      isSelected: isSelectedFajir,
                       children: fruits,
                     ),
                   ),
@@ -289,26 +560,31 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                   const Spacer(),
-                  ToggleButtons(//toggle for Dhuhr
-                    onPressed: (int index) {
-                      setState(() {
-                        // The button that is tapped is set to true, and the others to false.
-                        for (int i = 0; i < _yesNoDhuhr.length; i++) {
-                          _yesNoDhuhr[i] = i == index;
-                        }
-                      });
-                    },
-                    borderRadius: const BorderRadius.all(Radius.circular(8)),
-                    selectedBorderColor: Colors.green[700],
-                    selectedColor: Colors.white,
-                    fillColor: Colors.green[200],
-                    color: Colors.red[400],
-                    constraints: const BoxConstraints(
-                      minHeight: 40.0,
-                      minWidth: 80.0,
+                  Container(
+                    margin: EdgeInsets.all(20),
+                    child: ToggleButtons(
+                      // logic for button selection below
+                      onPressed: (int index) {
+                        setState(() {
+                          for (int i = 0; i < isSelectedDhuhr.length; i++) {
+                            isSelectedDhuhr[i] = i == index;
+                          }
+                          _currentSelectedDhuhr = index;
+                          saveIsSelectedDhuhr();
+                        });
+                      },
+                      borderRadius: const BorderRadius.all(Radius.circular(8)),
+                      selectedBorderColor: Colors.green[700],
+                      selectedColor: Colors.white,
+                      fillColor: Colors.green[200],
+                      color: Colors.red[400],
+                      constraints: const BoxConstraints(
+                        minHeight: 40.0,
+                        minWidth: 80.0,
+                      ),
+                      isSelected: isSelectedDhuhr,
+                      children: fruits,
                     ),
-                    isSelected: _yesNoDhuhr,
-                    children: fruits,
                   ),
                 ],
               ),
@@ -326,26 +602,31 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                   const Spacer(),
-                  ToggleButtons(//Toggle for Asr
-                    onPressed: (int index) {
-                      setState(() {
-                        // The button that is tapped is set to true, and the others to false.
-                        for (int i = 0; i < _yesNoAsr.length; i++) {
-                          _yesNoAsr[i] = i == index;
-                        }
-                      });
-                    },
-                    borderRadius: const BorderRadius.all(Radius.circular(8)),
-                    selectedBorderColor: Colors.green[200],
-                    selectedColor: Colors.white,
-                    fillColor: Colors.green[700],
-                    color: Colors.red[400],
-                    constraints: const BoxConstraints(
-                      minHeight: 40.0,
-                      minWidth: 80.0,
+                  Container(
+                    margin: EdgeInsets.all(20),
+                    child: ToggleButtons(
+                      // logic for button selection below
+                      onPressed: (int index) {
+                        setState(() {
+                          for (int i = 0; i < isSelectedAsr.length; i++) {
+                            isSelectedAsr[i] = i == index;
+                          }
+                          _currentSelectedAsr = index;
+                          saveIsSelectedAsr();
+                        });
+                      },
+                      borderRadius: const BorderRadius.all(Radius.circular(8)),
+                      selectedBorderColor: Colors.green[700],
+                      selectedColor: Colors.white,
+                      fillColor: Colors.green[200],
+                      color: Colors.red[400],
+                      constraints: const BoxConstraints(
+                        minHeight: 40.0,
+                        minWidth: 80.0,
+                      ),
+                      isSelected: isSelectedAsr,
+                      children: fruits,
                     ),
-                    isSelected: _yesNoAsr,
-                    children: fruits,
                   ),
                 ],
               ),
@@ -363,26 +644,31 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                   const Spacer(),
-                  ToggleButtons(// Toggle for Maghrib
-                    onPressed: (int index) {
-                      setState(() {
-                        // The button that is tapped is set to true, and the others to false.
-                        for (int i = 0; i < _yesNoMaghrib.length; i++) {
-                          _yesNoMaghrib[i] = i == index;
-                        }
-                      });
-                    },
-                    borderRadius: const BorderRadius.all(Radius.circular(8)),
-                    selectedBorderColor: Colors.green[700],
-                    selectedColor: Colors.white,
-                    fillColor: Colors.green[200],
-                    color: Colors.red[400],
-                    constraints: const BoxConstraints(
-                      minHeight: 40.0,
-                      minWidth: 80.0,
+                  Container(
+                    margin: EdgeInsets.all(20),
+                    child: ToggleButtons(
+                      // logic for button selection below
+                      onPressed: (int index) {
+                        setState(() {
+                          for (int i = 0; i < isSelectedMaghrib.length; i++) {
+                            isSelectedMaghrib[i] = i == index;
+                          }
+                          _currentSelectedMaghrib = index;
+                          saveIsSelectedMaghrib();
+                        });
+                      },
+                      borderRadius: const BorderRadius.all(Radius.circular(8)),
+                      selectedBorderColor: Colors.green[700],
+                      selectedColor: Colors.white,
+                      fillColor: Colors.green[200],
+                      color: Colors.red[400],
+                      constraints: const BoxConstraints(
+                        minHeight: 40.0,
+                        minWidth: 80.0,
+                      ),
+                      isSelected: isSelectedMaghrib,
+                      children: fruits,
                     ),
-                    isSelected: _yesNoMaghrib,
-                    children: fruits,
                   ),
                 ],
               ),
@@ -400,26 +686,31 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                   const Spacer(),
-                  ToggleButtons(//Toggle for Ishaa
-                    onPressed: (int index) {
-                      setState(() {
-                        // The button that is tapped is set to true, and the others to false.
-                        for (int i = 0; i < _yesNoIshaa.length; i++) {
-                          _yesNoIshaa[i] = i == index;
-                        }
-                      });
-                    },
-                    borderRadius: const BorderRadius.all(Radius.circular(8)),
-                    selectedBorderColor: Colors.green[700],
-                    selectedColor: Colors.white,
-                    fillColor: Colors.green[200],
-                    color: Colors.red[400],
-                    constraints: const BoxConstraints(
-                      minHeight: 40.0,
-                      minWidth: 80.0,
+                  Container(
+                    margin: EdgeInsets.all(20),
+                    child: ToggleButtons(
+                      // logic for button selection below
+                      onPressed: (int index) {
+                        setState(() {
+                          for (int i = 0; i < isSelectedIshaa.length; i++) {
+                            isSelectedIshaa[i] = i == index;
+                          }
+                          _currentSelectedIshaa = index;
+                          saveIsSelectedIshaa();
+                        });
+                      },
+                      borderRadius: const BorderRadius.all(Radius.circular(8)),
+                      selectedBorderColor: Colors.green[700],
+                      selectedColor: Colors.white,
+                      fillColor: Colors.green[200],
+                      color: Colors.red[400],
+                      constraints: const BoxConstraints(
+                        minHeight: 40.0,
+                        minWidth: 80.0,
+                      ),
+                      isSelected: isSelectedIshaa,
+                      children: fruits,
                     ),
-                    isSelected: _yesNoIshaa,
-                    children: fruits,
                   ),
                 ],
               ),
@@ -439,26 +730,31 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ),
                     const Spacer(),
-                    ToggleButtons(//toggle for Dhuhr
-                      onPressed: (int index) {
-                        setState(() {
-                          // The button that is tapped is set to true, and the others to false.
-                          for (int i = 0; i < _yesNoSawm.length; i++) {
-                            _yesNoSawm[i] = i == index;
-                          }
-                        });
-                      },
-                      borderRadius: const BorderRadius.all(Radius.circular(8)),
-                      selectedBorderColor: Colors.green[700],
-                      selectedColor: Colors.white,
-                      fillColor: Colors.green[200],
-                      color: Colors.red[400],
-                      constraints: const BoxConstraints(
-                        minHeight: 40.0,
-                        minWidth: 80.0,
+                    Container(
+                      margin: EdgeInsets.all(20),
+                      child: ToggleButtons(
+                        // logic for button selection below
+                        onPressed: (int index) {
+                          setState(() {
+                            for (int i = 0; i < isSelectedSawm.length; i++) {
+                              isSelectedSawm[i] = i == index;
+                            }
+                            _currentSelectedSawm = index;
+                            saveIsSelectedSawm();
+                          });
+                        },
+                        borderRadius: const BorderRadius.all(Radius.circular(8)),
+                        selectedBorderColor: Colors.green[700],
+                        selectedColor: Colors.white,
+                        fillColor: Colors.green[200],
+                        color: Colors.red[400],
+                        constraints: const BoxConstraints(
+                          minHeight: 40.0,
+                          minWidth: 80.0,
+                        ),
+                        isSelected: isSelectedSawm,
+                        children: fruits,
                       ),
-                      isSelected: _yesNoSawm,
-                      children: fruits,
                     ),
                   ],
                 ),
@@ -646,13 +942,13 @@ class _MyHomePageState extends State<MyHomePage> {
                               actions: <Widget>[
                                 ElevatedButton(
                                   onPressed: () {
-                                   /* _updateTextField(fajirController, curFajirNum, "FajirNum");
+                                    _updateTextField(fajirController, curFajirNum, "FajirNum");
                                     _updateTextField(dhuhrController, curDhuhrNum, "DhuhrNum");
                                     _updateTextField(asrController, curAsrNum, "AsrNum");
                                     _updateTextField(maghribController, curMaghribNum, "MaghribNum");
-                                    _updateTextField(ishaaController, curIshaaNum, "IshaaNum");*/
+                                    _updateTextField(ishaaController, curIshaaNum, "IshaaNum");
                                     SharedPreferences.getInstance().then((pref) {
-                                      //Initilizes and updates values in text fields
+                                      /*//Initilizes and updates values in text fields
                                       if(curFajirNum == null){
                                         pref.setString("FajirNum", "0");
                                       }if(fajirController.text != ""){
@@ -681,7 +977,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                         pref.setString("IshaaNum", ishaaController.text);
                                       }if(curIshaaNum == null){
                                         pref.setString("IshaaNum", "0");
-                                      }
+                                      }*/
                                       curFajirNum = pref.getString("FajirNum");
                                       curDhuhrNum = pref.getString("DhuhrNum");
                                       curAsrNum = pref.getString("AsrNum");
@@ -689,13 +985,14 @@ class _MyHomePageState extends State<MyHomePage> {
                                       curIshaaNum = pref.getString("IshaaNum");
 
 
-
+/*
                                       fajirController.text = "";
                                       dhuhrController.text = "";
                                       asrController.text = "";
                                       maghribController.text = "";
-                                      ishaaController.text = "";
+                                      ishaaController.text = "";*/
                                     });
+
                                     Navigator.of(context).pop();
                                   },
                                   child: const Text('Save'),
@@ -1035,6 +1332,9 @@ class _MyHomePageState extends State<MyHomePage> {
                               actions: <Widget>[
                                 ElevatedButton(
                                   onPressed: () {
+                                   /* SharedPreferences.getInstance().then((pref) {
+                                      pref.setBool("SawmSwitch", true);
+                                    });*/
                                     Navigator.of(context).pop();
                                   },
                                   child: const Text('Save'),
@@ -1054,5 +1354,11 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       );
+  }
+
+  void _saveSettings(){
+    final newSettings = Settings(
+
+    );
   }
 }
