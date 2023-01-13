@@ -337,24 +337,41 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   getSwitchValues() async {
-    isSwitchedSawm = await getSwitchState();
+    isSwitchedSawm = await getSwitchState("switchState");
+    isSwitchedDarkMode = await getSwitchState("switchStateDarkMode");
     setState(() {});
   }
 
-  Future<bool> saveSwitchState(bool value) async {
+  Future<bool> saveSwitchState(bool value, String switchKey) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool(switchKey, value);
+    print('Switch Value saved $value');
+    return prefs.setBool(switchKey, value);
+  }
+
+  Future<bool> getSwitchState(String switchKey) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool isSwitchedFT = prefs.getBool(switchKey) ?? false;
+    print(isSwitchedFT);
+
+    return isSwitchedFT;
+  }
+
+/*  Future<bool> saveSwitchState(bool value, String switchKey) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool("switchState", value);
     print('Switch Value saved $value');
     return prefs.setBool("switchState", value);
   }
 
-  Future<bool> getSwitchState() async {
+  Future<bool> getSwitchState(bool value, String switchKey) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool isSwitchedFT = prefs.getBool("switchState") ?? false;
     print(isSwitchedFT);
 
     return isSwitchedFT;
-  }
+  }*/
+
 
   void _incrementCounter() {
     setState(() {
@@ -810,9 +827,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 ],
               ),
             ),
-            Offstage(
+            Offstage(//Sawm Row
               offstage: !isSwitchedSawm,
-              child: Expanded(//Sawm Row
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
@@ -853,9 +869,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ],
                 ),
-              ),
             ),
-            Expanded(
+            Expanded(//Qada and Sawm Buttons
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
@@ -943,12 +958,12 @@ class _MyHomePageState extends State<MyHomePage> {
                                       mainAxisAlignment: MainAxisAlignment.start,
                                       children: <Widget>[
                                         Expanded(
-                                            flex: 50,
-                                            child: Text("Asr")
+                                          flex: 50,
+                                          child: Text("Asr")
                                         ),
                                         Expanded(
-                                            flex: 25,
-                                            child: const Spacer()
+                                          flex: 25,
+                                          child: const Spacer()
                                         ),
                                         Expanded(
                                           flex: 25,
@@ -1225,7 +1240,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ],
               ),
             ),
-            Expanded(
+            Expanded(//Zakat and Settings Buttons
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
@@ -1387,7 +1402,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                             // changes the state of the switch
                                             onChanged: (bool value) => setState(() {
                                               isSwitchedSawm = value;
-                                              saveSwitchState(value);
+                                              saveSwitchState(value, "switchState");
                                             }),
                                           ),
                                         ),
@@ -1418,6 +1433,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                             // changes the state of the switch
                                             onChanged: (value) => setState(() {
                                               isSwitchedDarkMode = value;
+                                              saveSwitchState(value, "switchStateDarkMode");
                                             }),
                                           ),
                                         ),
