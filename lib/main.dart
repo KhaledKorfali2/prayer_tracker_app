@@ -455,6 +455,21 @@ class _MyHomePageState extends State<MyHomePage> {
 
   }
 
+  Future _updateAppTheme() async{
+    await SharedPreferences.getInstance().then((pref) {
+     if(isSwitchedDarkMode == false)
+       {
+         textCol = Colors.black;
+         backgroundCol = Colors.white;
+       }
+     else if(isSwitchedDarkMode == true)
+     {
+       textCol = Colors.white;
+       backgroundCol = Colors.black;
+     }
+    });
+  }
+
   //Used to save the current state of textfields and toggle buttons
   var curSawmNum;
   var curNathiirNum;
@@ -474,6 +489,10 @@ class _MyHomePageState extends State<MyHomePage> {
   var isOnAsr = false;
   var isOnMaghrib = false;
   var isOnIshaa = false;
+
+  //Theme Colors
+  var textCol = Colors.black;
+  var backgroundCol = Colors.white;
 
   _MyHomePageState(){
     //_firstStartUpInitialization();
@@ -588,7 +607,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-      //backgroundColor: Colors.grey,
+      backgroundColor: backgroundCol,
       appBar: AppBar(
         backgroundColor: Colors.green[700],
         // Here we take the value from the MyHomePage object that was created by
@@ -601,18 +620,25 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                  const Text(
+                  Text(
                     'Today',
                     style: TextStyle(
                     decoration: TextDecoration.underline,
                       fontWeight: FontWeight.bold,
                       fontSize: fontSiz,
+                      color: textCol,
                   ),
                   ),
                   const Spacer(),
                   Text(
                     '${curMonth}/${curDay}/${curYear}',
-                    style: Theme.of(context).textTheme.headline4,
+                    style: //Theme.of(context).textTheme.headline4,
+                    TextStyle(
+                      decoration: TextDecoration.underline,
+                      fontWeight: FontWeight.bold,
+                      fontSize: fontSiz,
+                      color: textCol,
+                    ),
                   ),
                 ],
               ),
@@ -621,12 +647,13 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                  const Text(
+                  Text(
                     'Fajir',
                     style: TextStyle(
                       decoration: TextDecoration.underline,
                       fontWeight: FontWeight.bold,
                       fontSize: fontSiz,
+                      color: textCol,
                     ),
                   ),
                   const Spacer(),
@@ -663,12 +690,13 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                  const Text(
+                  Text(
                     'Dhuhr',
                     style: TextStyle(
                       decoration: TextDecoration.underline,
                       fontWeight: FontWeight.bold,
                       fontSize: fontSiz,
+                      color: textCol,
                     ),
                   ),
                   const Spacer(),
@@ -705,12 +733,13 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                  const Text(
+                  Text(
                     'Asr',
                     style: TextStyle(
                       decoration: TextDecoration.underline,
                       fontWeight: FontWeight.bold,
                       fontSize: fontSiz,
+                      color: textCol,
                     ),
                   ),
                   const Spacer(),
@@ -747,12 +776,13 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                  const Text(
+                  Text(
                     'Maghrib',
                     style: TextStyle(
                       decoration: TextDecoration.underline,
                       fontWeight: FontWeight.bold,
                       fontSize: fontSiz,
+                      color: textCol,
                     ),
                   ),
                   const Spacer(),
@@ -789,12 +819,13 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                  const Text(
+                  Text(
                     'Isha\'a',
                     style: TextStyle(
                       decoration: TextDecoration.underline,
                       fontWeight: FontWeight.bold,
                       fontSize: fontSiz,
+                      color: textCol,
                     ),
                   ),
                   const Spacer(),
@@ -832,12 +863,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
-                    const Text(
+                    Text(
                       'Sawm',
                       style: TextStyle(
                         decoration: TextDecoration.underline,
                         fontWeight: FontWeight.bold,
                         fontSize: fontSiz,
+                        color: textCol,
                       ),
                     ),
                     const Spacer(),
@@ -1434,6 +1466,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                             onChanged: (value) => setState(() {
                                               isSwitchedDarkMode = value;
                                               saveSwitchState(value, "switchStateDarkMode");
+                                              _updateAppTheme();
                                             }),
                                           ),
                                         ),
