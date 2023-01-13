@@ -83,6 +83,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
 
+    //Initialize Toggle Buttons
     getIsSelectedFajir();
     isSelectedFajir = [true, false];
 
@@ -100,8 +101,102 @@ class _MyHomePageState extends State<MyHomePage> {
 
     getIsSelectedSawm();
     isSelectedSawm = [true, false];
+
+    //Initialize Switches
+    getSwitchValues();
+
+
+    _getSawmTally();
+    _getNathiirTally();
+    _getZakatElFutrahTally();
+    _getZakatTally();
+    _getFajirTally();
+    _getDhuhrTally();
+    _getAsrTally();
+    _getMaghribTally();
+    _getIshaaTally();
   }
 
+  Future<void> _getSawmTally() async {
+    var prefs = await SharedPreferences.getInstance();
+    var value = prefs.getString('SawmNum') ?? "0";
+    print('saved tester $value');
+    setState(() {
+      curSawmNum = value;
+    });
+  }
+
+  Future<void> _getNathiirTally() async {
+    var prefs = await SharedPreferences.getInstance();
+    var value = prefs.getString('NathiirNum') ?? "0";
+    print('saved tester $value');
+    setState(() {
+      curNathiirNum = value;
+    });
+  }
+
+  Future<void> _getZakatTally() async {
+    var prefs = await SharedPreferences.getInstance();
+    var value = prefs.getString('ZakatNum') ?? "0";
+    print('saved tester $value');
+    setState(() {
+      curZakatNum = value;
+    });
+  }
+
+  Future<void> _getZakatElFutrahTally() async {
+    var prefs = await SharedPreferences.getInstance();
+    var value = prefs.getString('ZakatElFuthrahNum') ?? "0";
+    print('saved tester $value');
+    setState(() {
+      curZakatElFutrahNum = value;
+    });
+  }
+
+  Future<void> _getFajirTally() async {
+    var prefs = await SharedPreferences.getInstance();
+    var value = prefs.getString('FajirNum') ?? "0";
+    print('saved tester $value');
+    setState(() {
+      curFajirNum = value;
+    });
+  }
+
+  Future<void> _getDhuhrTally() async {
+    var prefs = await SharedPreferences.getInstance();
+    var value = prefs.getString('DhuhrNum') ?? "0";
+    print('saved tester $value');
+    setState(() {
+      curDhuhrNum = value;
+    });
+  }
+
+  Future<void> _getAsrTally() async {
+    var prefs = await SharedPreferences.getInstance();
+    var value = prefs.getString('AsrNum') ?? "0";
+    print('saved tester $value');
+    setState(() {
+      curAsrNum = value;
+    });
+  }
+
+  Future<void> _getMaghribTally() async {
+    var prefs = await SharedPreferences.getInstance();
+    var value = prefs.getString('MaghribNum') ?? "0";
+    print('saved tester $value');
+    setState(() {
+      curMaghribNum = value;
+    });
+  }
+
+  Future<void> _getIshaaTally() async {
+    var prefs = await SharedPreferences.getInstance();
+    var value = prefs.getString('IshaaNum') ?? "0";
+    print('saved tester $value');
+    setState(() {
+      curIshaaNum = value;
+    });
+  }
 
   saveIsSelectedFajir() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -241,6 +336,26 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  getSwitchValues() async {
+    isSwitchedSawm = await getSwitchState();
+    setState(() {});
+  }
+
+  Future<bool> saveSwitchState(bool value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool("switchState", value);
+    print('Switch Value saved $value');
+    return prefs.setBool("switchState", value);
+  }
+
+  Future<bool> getSwitchState() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool isSwitchedFT = prefs.getBool("switchState") ?? false;
+    print(isSwitchedFT);
+
+    return isSwitchedFT;
+  }
+
   void _incrementCounter() {
     setState(() {
       // This call to setState tells the Flutter framework that something has
@@ -277,6 +392,7 @@ class _MyHomePageState extends State<MyHomePage> {
       }
     });
   }
+
 
   Future _firstStartUpInitialization() async{
     await SharedPreferences.getInstance().then((pref) {
@@ -334,8 +450,8 @@ class _MyHomePageState extends State<MyHomePage> {
   var curIshaaNum;
 
   //Used to save the current state of the boolean buttons in settings
-  var isOnSawm = false;
-  var isOnDarkMode = false;
+  var isSwitchedSawm = false;
+  var isSwitchedDarkMode = false;
   var isOnFajir = false;
   var isOnDhuhr = false;
   var isOnAsr = false;
@@ -343,9 +459,7 @@ class _MyHomePageState extends State<MyHomePage> {
   var isOnIshaa = false;
 
   _MyHomePageState(){
-
-
-    _firstStartUpInitialization();
+    //_firstStartUpInitialization();
     //_clearSharedPref();
 
     //sleep(Duration(seconds:3));
@@ -412,26 +526,7 @@ class _MyHomePageState extends State<MyHomePage> {
       print("in fs");
     });*/
 
-    SharedPreferences.getInstance().then((pref) async{
-      curSawmNum = pref.getString("SawmNum");
-      curNathiirNum = pref.getString("NathiirNum");
-      curZakatNum = pref.getString("ZakatNum");
-      curZakatElFutrahNum = pref.getString("ZakatElFuthrahNum");
-      curFajirNum = pref.getString("FajirNum");
-      curDhuhrNum = pref.getString("DhuhrNum");
-      curAsrNum = pref.getString("AsrNum");
-      curMaghribNum = pref.getString("MaghribNum");
-      curIshaaNum = pref.getString("IshaaNum");
 
-
-      isOnSawm = pref.getBool("isOnSawm") ?? false;
-      isOnDarkMode = pref.getBool("isOnDarkMode") ?? false;
-      isOnFajir = pref.getBool("isOnFajir") ?? false;
-      isOnDhuhr = pref.getBool("isOnDhuhr") ?? true;
-      isOnAsr = pref.getBool("isOnAsr") ?? false;
-      isOnMaghrib = pref.getBool("isOnMaghrib") ?? false;
-      isOnIshaa = pref.getBool("isOnIshaa") ?? false;
-    });
     //sleep(Duration(seconds:3));
     print("donnne");
 
@@ -716,7 +811,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             Offstage(
-              offstage: !isOnSawm,
+              offstage: !isSwitchedSawm,
               child: Expanded(//Sawm Row
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -1288,10 +1383,11 @@ class _MyHomePageState extends State<MyHomePage> {
                                             inactiveTrackColor: Colors.grey.shade400,
                                             splashRadius: 50.0,
                                             // boolean variable value
-                                            value: isOnSawm,
+                                            value: isSwitchedSawm,
                                             // changes the state of the switch
-                                            onChanged: (value) => setState(() {
-                                              isOnSawm = value;
+                                            onChanged: (bool value) => setState(() {
+                                              isSwitchedSawm = value;
+                                              saveSwitchState(value);
                                             }),
                                           ),
                                         ),
@@ -1318,10 +1414,10 @@ class _MyHomePageState extends State<MyHomePage> {
                                             inactiveTrackColor: Colors.grey.shade400,
                                             splashRadius: 50.0,
                                             // boolean variable value
-                                            value: isOnDarkMode,
+                                            value: isSwitchedDarkMode,
                                             // changes the state of the switch
                                             onChanged: (value) => setState(() {
-                                              isOnDarkMode = value;
+                                              isSwitchedDarkMode = value;
                                             }),
                                           ),
                                         ),
