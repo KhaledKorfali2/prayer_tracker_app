@@ -23,15 +23,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
         primarySwatch: Colors.green,
       ),
       home: const MyHomePage(title: 'Prayer Tracker'),
@@ -207,6 +198,7 @@ class _MyHomePageState extends State<MyHomePage> {
       );
       prefs.setInt('currentFontFamily', _currentSelectedFajir);
     });
+    await _applyToggleValsToTally();
   }
 
   getIsSelectedFajir() async {
@@ -373,17 +365,28 @@ class _MyHomePageState extends State<MyHomePage> {
 
   }
   
-  Future<void> _updateTalliesUsingToggleVals() async{
+  Future<void> _applyToggleValsToTally() async{
     SharedPreferences.getInstance().then((pref){
-      if(isSelectedFajir.toString() == "[false, true]" && _currentSelectedSawm == 1){
-
+      if(isSelectedFajir.toString() == "[false, true]"){
+        print("IN the matrix");
         if(pref.getString("FajirNum") != null){
-          fajirController.text = (int.tryParse(pref.getString("FajirNum")!)! + 1).toString();
+          int fajnum = int.tryParse(pref.getString("FajirNum") ?? "0")!;
+          fajirController.text = (fajnum + 1).toString();
+        }else {
+          fajirController.text = "1";
         }
-        _updateTextField(fajirController, curFajirNum, "FajirNum");
-      }
+      }else
+        {
+          print("IN thsdfe matrix");
+          if(pref.getString("FajirNum") != null) {
+            int fajnum = int.tryParse(pref.getString("FajirNum") ?? "0")!;
+            if (fajnum > 0) {
+              fajirController.text = (fajnum - 1).toString();
+            }
+          }
+        }
 
-
+      _updateTextField(fajirController, curFajirNum, "FajirNum");
       _updateTextField(dhuhrController, curDhuhrNum, "DhuhrNum");
       _updateTextField(asrController, curAsrNum, "AsrNum");
       _updateTextField(maghribController, curMaghribNum, "MaghribNum");
@@ -711,7 +714,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           }
                           _currentSelectedFajir = index;
                           saveIsSelectedFajir();
-                          _updateTalliesUsingToggleVals();
+
                         });
                       },
                       borderRadius: const BorderRadius.all(Radius.circular(8)),
@@ -756,7 +759,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           }
                           _currentSelectedDhuhr = index;
                           saveIsSelectedDhuhr();
-                          _updateTalliesUsingToggleVals();
+                          _applyToggleValsToTally();
                         });
                       },
                       borderRadius: const BorderRadius.all(Radius.circular(8)),
@@ -800,7 +803,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           }
                           _currentSelectedAsr = index;
                           saveIsSelectedAsr();
-                          _updateTalliesUsingToggleVals();
+                          _applyToggleValsToTally();
                         });
                       },
                       borderRadius: const BorderRadius.all(Radius.circular(8)),
@@ -844,7 +847,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           }
                           _currentSelectedMaghrib = index;
                           saveIsSelectedMaghrib();
-                          _updateTalliesUsingToggleVals();
+                          _applyToggleValsToTally();
                         });
                       },
                       borderRadius: const BorderRadius.all(Radius.circular(8)),
@@ -888,7 +891,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           }
                           _currentSelectedIshaa = index;
                           saveIsSelectedIshaa();
-                          _updateTalliesUsingToggleVals();
+                          _applyToggleValsToTally();
                         });
                       },
                       borderRadius: const BorderRadius.all(Radius.circular(8)),
@@ -933,7 +936,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             }
                             _currentSelectedSawm = index;
                             saveIsSelectedSawm();
-                            _updateTalliesUsingToggleVals();
+                            _applyToggleValsToTally();
                           });
                         },
                         borderRadius: const BorderRadius.all(Radius.circular(8)),
