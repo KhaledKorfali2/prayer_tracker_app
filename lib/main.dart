@@ -219,6 +219,8 @@ class _MyHomePageState extends State<MyHomePage> {
           [true, false]);
       _currentSelectedFajir = prefs.getInt('currentFontFamily') ?? 0;
     });
+    print("IsSelected" + isSelectedFajir.toString());
+    print("curSelected" + _currentSelectedFajir.toString());
   }
 
   saveIsSelectedDhuhr() async {
@@ -357,6 +359,37 @@ class _MyHomePageState extends State<MyHomePage> {
     print(isSwitchedFT);
 
     return isSwitchedFT;
+  }
+
+  Future<void> _resetToggleButtons() async {
+    var now = DateTime.now();
+    var todayMidnight = new DateTime(now.year, now.month, now.day);
+    var difference = now.difference(todayMidnight).inSeconds;
+    await Future.delayed(Duration(seconds: 86400 - difference));
+
+    // Set toggle buttons to their initial state
+
+
+
+  }
+  
+  Future<void> _updateTalliesUsingToggleVals() async{
+    SharedPreferences.getInstance().then((pref){
+      if(isSelectedFajir.toString() == "[false, true]" && _currentSelectedSawm == 1){
+
+        if(pref.getString("FajirNum") != null){
+          fajirController.text = (int.tryParse(pref.getString("FajirNum")!)! + 1).toString();
+        }
+        _updateTextField(fajirController, curFajirNum, "FajirNum");
+      }
+
+
+      _updateTextField(dhuhrController, curDhuhrNum, "DhuhrNum");
+      _updateTextField(asrController, curAsrNum, "AsrNum");
+      _updateTextField(maghribController, curMaghribNum, "MaghribNum");
+      _updateTextField(ishaaController, curIshaaNum, "IshaaNum");
+    });
+
   }
 
 /*  Future<bool> saveSwitchState(bool value, String switchKey) async {
@@ -678,6 +711,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           }
                           _currentSelectedFajir = index;
                           saveIsSelectedFajir();
+                          _updateTalliesUsingToggleVals();
                         });
                       },
                       borderRadius: const BorderRadius.all(Radius.circular(8)),
@@ -722,6 +756,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           }
                           _currentSelectedDhuhr = index;
                           saveIsSelectedDhuhr();
+                          _updateTalliesUsingToggleVals();
                         });
                       },
                       borderRadius: const BorderRadius.all(Radius.circular(8)),
@@ -765,6 +800,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           }
                           _currentSelectedAsr = index;
                           saveIsSelectedAsr();
+                          _updateTalliesUsingToggleVals();
                         });
                       },
                       borderRadius: const BorderRadius.all(Radius.circular(8)),
@@ -808,6 +844,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           }
                           _currentSelectedMaghrib = index;
                           saveIsSelectedMaghrib();
+                          _updateTalliesUsingToggleVals();
                         });
                       },
                       borderRadius: const BorderRadius.all(Radius.circular(8)),
@@ -851,6 +888,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           }
                           _currentSelectedIshaa = index;
                           saveIsSelectedIshaa();
+                          _updateTalliesUsingToggleVals();
                         });
                       },
                       borderRadius: const BorderRadius.all(Radius.circular(8)),
@@ -895,6 +933,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             }
                             _currentSelectedSawm = index;
                             saveIsSelectedSawm();
+                            _updateTalliesUsingToggleVals();
                           });
                         },
                         borderRadius: const BorderRadius.all(Radius.circular(8)),
@@ -940,261 +979,263 @@ class _MyHomePageState extends State<MyHomePage> {
                                 color: textCol,
                                 ),
                               ),
-                              content: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  Container(
-                                    margin: EdgeInsets.only(bottom: textFieldMargins),
-                                    child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        children: <Widget>[
-                                          Expanded(
+                              content: SingleChildScrollView(
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Container(
+                                      margin: EdgeInsets.only(bottom: textFieldMargins),
+                                      child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          children: <Widget>[
+                                            Expanded(
+                                                flex: 50,
+                                                child: Text("Fajir",
+                                                  style: TextStyle(
+                                                    color: textCol,
+                                                  ),
+                                                ),
+                                            ),
+                                            Expanded(
+                                                flex: 25,
+                                                child: const Spacer()
+                                            ),
+                                            Expanded(
+                                              flex: 25,
+                                              child: TextField(
+                                                controller: fajirController,
+                                                obscureText: false,
+                                                keyboardType: TextInputType.number,
+                                                style: TextStyle(
+                                                  decoration: TextDecoration.underline,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: textFieldCol,
+                                                  fontSize: fontSiz,
+                                                ),
+                                                decoration: InputDecoration(
+                                                  focusedBorder: OutlineInputBorder(
+                                                    borderSide: BorderSide(color: borderCol),
+                                                  ),
+                                                    enabledBorder: OutlineInputBorder(
+                                                      borderSide: BorderSide(color: borderCol)
+                                                    ),
+                                                    labelText: "${curFajirNum}",
+                                                    labelStyle:
+                                                    TextStyle(
+                                                      decoration: TextDecoration.underline,
+                                                      fontWeight: FontWeight.bold,
+                                                      color: textFieldCol,
+                                                      fontSize: fontSiz,
+                                                    ),
+                                                ),
+                                              ),
+                                            ),
+                                          ]
+                                      ),
+                                    ),
+                                    Container(
+                                      margin: EdgeInsets.only(bottom: textFieldMargins),
+                                      child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          children: <Widget>[
+                                            Expanded(
+                                                flex: 50,
+                                                child: Text("Dhuhr",
+                                                  style: TextStyle(
+                                                    color: textCol,
+                                                  ),
+                                                ),
+                                            ),
+                                            Expanded(
+                                                flex: 25,
+                                                child: const Spacer()
+                                            ),
+                                            Expanded(
+                                              flex: 25,
+                                              child: TextField(
+                                                controller: dhuhrController,
+                                                obscureText: false,
+                                                keyboardType: TextInputType.number,
+                                                style: TextStyle(
+                                                  decoration: TextDecoration.underline,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: textFieldCol,
+                                                  fontSize: fontSiz,
+                                                ),
+                                                decoration: InputDecoration(
+                                                    focusedBorder: OutlineInputBorder(
+                                                      borderSide: BorderSide(color: borderCol),
+                                                    ),
+                                                    enabledBorder: OutlineInputBorder(
+                                                        borderSide: BorderSide(color: borderCol)
+                                                    ),
+                                                    labelText: "${curDhuhrNum}",
+                                                    labelStyle:
+                                                    TextStyle(
+                                                      decoration: TextDecoration.underline,
+                                                      fontWeight: FontWeight.bold,
+                                                      color: textFieldCol,
+                                                      fontSize: fontSiz,
+                                                    )
+                                                ),
+                                              ),
+                                            ),
+                                          ]
+                                      ),
+                                    ),
+                                    Container(
+                                      margin: EdgeInsets.only(bottom: textFieldMargins),
+                                      child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          children: <Widget>[
+                                            Expanded(
                                               flex: 50,
-                                              child: Text("Fajir",
+                                              child: Text("Asr",
                                                 style: TextStyle(
                                                   color: textCol,
                                                 ),
                                               ),
-                                          ),
-                                          Expanded(
+                                            ),
+                                            Expanded(
                                               flex: 25,
                                               child: const Spacer()
-                                          ),
-                                          Expanded(
-                                            flex: 25,
-                                            child: TextField(
-                                              controller: fajirController,
-                                              obscureText: false,
-                                              keyboardType: TextInputType.number,
-                                              style: TextStyle(
-                                                decoration: TextDecoration.underline,
-                                                fontWeight: FontWeight.bold,
-                                                color: textFieldCol,
-                                                fontSize: fontSiz,
-                                              ),
-                                              decoration: InputDecoration(
-                                                focusedBorder: OutlineInputBorder(
-                                                  borderSide: BorderSide(color: borderCol),
-                                                ),
-                                                  enabledBorder: OutlineInputBorder(
-                                                    borderSide: BorderSide(color: borderCol)
-                                                  ),
-                                                  labelText: "${curFajirNum}",
-                                                  labelStyle:
-                                                  TextStyle(
-                                                    decoration: TextDecoration.underline,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: textFieldCol,
-                                                    fontSize: fontSiz,
-                                                  ),
-                                              ),
                                             ),
-                                          ),
-                                        ]
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.only(bottom: textFieldMargins),
-                                    child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        children: <Widget>[
-                                          Expanded(
-                                              flex: 50,
-                                              child: Text("Dhuhr",
+                                            Expanded(
+                                              flex: 25,
+                                              child: TextField(
+                                                controller: asrController,
+                                                obscureText: false,
+                                                keyboardType: TextInputType.number,
                                                 style: TextStyle(
-                                                  color: textCol,
+                                                  decoration: TextDecoration.underline,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: textFieldCol,
+                                                  fontSize: fontSiz,
+                                                ),
+                                                decoration: InputDecoration(
+                                                    focusedBorder: OutlineInputBorder(
+                                                      borderSide: BorderSide(color: borderCol),
+                                                    ),
+                                                    enabledBorder: OutlineInputBorder(
+                                                        borderSide: BorderSide(color: borderCol)
+                                                    ),
+                                                    labelText: "${curAsrNum}",
+                                                    labelStyle:
+                                                    TextStyle(
+                                                      decoration: TextDecoration.underline,
+                                                      fontWeight: FontWeight.bold,
+                                                      color: textFieldCol,
+                                                      fontSize: fontSiz,
+                                                    )
                                                 ),
                                               ),
-                                          ),
-                                          Expanded(
+                                            ),
+                                          ]
+                                      ),
+                                    ),
+                                    Container(
+                                      margin: EdgeInsets.only(bottom: textFieldMargins),
+                                      child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          children: <Widget>[
+                                            Expanded(
+                                                flex: 50,
+                                                child: Text("Maghrib",
+                                                  style: TextStyle(
+                                                    color: textCol,
+                                                  ),
+                                                ),
+                                            ),
+                                            Expanded(
+                                                flex: 25,
+                                                child: const Spacer()
+                                            ),
+                                            Expanded(
                                               flex: 25,
-                                              child: const Spacer()
-                                          ),
-                                          Expanded(
-                                            flex: 25,
-                                            child: TextField(
-                                              controller: dhuhrController,
-                                              obscureText: false,
-                                              keyboardType: TextInputType.number,
-                                              style: TextStyle(
-                                                decoration: TextDecoration.underline,
-                                                fontWeight: FontWeight.bold,
-                                                color: textFieldCol,
-                                                fontSize: fontSiz,
-                                              ),
-                                              decoration: InputDecoration(
-                                                  focusedBorder: OutlineInputBorder(
-                                                    borderSide: BorderSide(color: borderCol),
-                                                  ),
-                                                  enabledBorder: OutlineInputBorder(
-                                                      borderSide: BorderSide(color: borderCol)
-                                                  ),
-                                                  labelText: "${curDhuhrNum}",
-                                                  labelStyle:
-                                                  TextStyle(
-                                                    decoration: TextDecoration.underline,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: textFieldCol,
-                                                    fontSize: fontSiz,
-                                                  )
-                                              ),
-                                            ),
-                                          ),
-                                        ]
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.only(bottom: textFieldMargins),
-                                    child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        children: <Widget>[
-                                          Expanded(
-                                            flex: 50,
-                                            child: Text("Asr",
-                                              style: TextStyle(
-                                                color: textCol,
-                                              ),
-                                            ),
-                                          ),
-                                          Expanded(
-                                            flex: 25,
-                                            child: const Spacer()
-                                          ),
-                                          Expanded(
-                                            flex: 25,
-                                            child: TextField(
-                                              controller: asrController,
-                                              obscureText: false,
-                                              keyboardType: TextInputType.number,
-                                              style: TextStyle(
-                                                decoration: TextDecoration.underline,
-                                                fontWeight: FontWeight.bold,
-                                                color: textFieldCol,
-                                                fontSize: fontSiz,
-                                              ),
-                                              decoration: InputDecoration(
-                                                  focusedBorder: OutlineInputBorder(
-                                                    borderSide: BorderSide(color: borderCol),
-                                                  ),
-                                                  enabledBorder: OutlineInputBorder(
-                                                      borderSide: BorderSide(color: borderCol)
-                                                  ),
-                                                  labelText: "${curAsrNum}",
-                                                  labelStyle:
-                                                  TextStyle(
-                                                    decoration: TextDecoration.underline,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: textFieldCol,
-                                                    fontSize: fontSiz,
-                                                  )
-                                              ),
-                                            ),
-                                          ),
-                                        ]
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.only(bottom: textFieldMargins),
-                                    child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        children: <Widget>[
-                                          Expanded(
-                                              flex: 50,
-                                              child: Text("Maghrib",
+                                              child: TextField(
+                                                controller: maghribController,
+                                                obscureText: false,
+                                                keyboardType: TextInputType.number,
                                                 style: TextStyle(
-                                                  color: textCol,
+                                                  decoration: TextDecoration.underline,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: textFieldCol,
+                                                  fontSize: fontSiz,
+                                                ),
+                                                decoration: InputDecoration(
+                                                    focusedBorder: OutlineInputBorder(
+                                                      borderSide: BorderSide(color: borderCol),
+                                                    ),
+                                                    enabledBorder: OutlineInputBorder(
+                                                        borderSide: BorderSide(color: borderCol)
+                                                    ),
+                                                    labelText: "${curMaghribNum}",
+                                                    labelStyle:
+                                                    TextStyle(
+                                                      decoration: TextDecoration.underline,
+                                                      fontWeight: FontWeight.bold,
+                                                      color: textFieldCol,
+                                                      fontSize: fontSiz,
+                                                    )
                                                 ),
                                               ),
-                                          ),
-                                          Expanded(
-                                              flex: 25,
-                                              child: const Spacer()
-                                          ),
-                                          Expanded(
-                                            flex: 25,
-                                            child: TextField(
-                                              controller: maghribController,
-                                              obscureText: false,
-                                              keyboardType: TextInputType.number,
-                                              style: TextStyle(
-                                                decoration: TextDecoration.underline,
-                                                fontWeight: FontWeight.bold,
-                                                color: textFieldCol,
-                                                fontSize: fontSiz,
-                                              ),
-                                              decoration: InputDecoration(
-                                                  focusedBorder: OutlineInputBorder(
-                                                    borderSide: BorderSide(color: borderCol),
-                                                  ),
-                                                  enabledBorder: OutlineInputBorder(
-                                                      borderSide: BorderSide(color: borderCol)
-                                                  ),
-                                                  labelText: "${curMaghribNum}",
-                                                  labelStyle:
-                                                  TextStyle(
-                                                    decoration: TextDecoration.underline,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: textFieldCol,
-                                                    fontSize: fontSiz,
-                                                  )
-                                              ),
                                             ),
-                                          ),
-                                        ]
+                                          ]
+                                      ),
                                     ),
-                                  ),
-                                  Container(
-                                    margin: EdgeInsets.only(bottom: textFieldMargins),
-                                    child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        children: <Widget>[
-                                          Expanded(
-                                              flex: 50,
-                                              child: Text("Isha\'a",
+                                    Container(
+                                      margin: EdgeInsets.only(bottom: textFieldMargins),
+                                      child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          children: <Widget>[
+                                            Expanded(
+                                                flex: 50,
+                                                child: Text("Isha\'a",
+                                                  style: TextStyle(
+                                                    color: textCol,
+                                                  ),
+                                                ),
+                                            ),
+                                            Expanded(
+                                                flex: 25,
+                                                child: const Spacer()
+                                            ),
+                                            Expanded(
+                                              flex: 25,
+                                              child: TextField(
+                                                controller: ishaaController,
+                                                obscureText: false,
+                                                keyboardType: TextInputType.number,
                                                 style: TextStyle(
-                                                  color: textCol,
+                                                  decoration: TextDecoration.underline,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: textFieldCol,
+                                                  fontSize: fontSiz,
+                                                ),
+                                                decoration: InputDecoration(
+                                                    focusedBorder: OutlineInputBorder(
+                                                      borderSide: BorderSide(color: borderCol),
+                                                    ),
+                                                    enabledBorder: OutlineInputBorder(
+                                                        borderSide: BorderSide(color: borderCol)
+                                                    ),
+                                                    labelText: "${curIshaaNum}",
+                                                    labelStyle:
+                                                    TextStyle(
+                                                      decoration: TextDecoration.underline,
+                                                      fontWeight: FontWeight.bold,
+                                                      color: textFieldCol,
+                                                      fontSize: fontSiz,
+                                                    )
                                                 ),
                                               ),
-                                          ),
-                                          Expanded(
-                                              flex: 25,
-                                              child: const Spacer()
-                                          ),
-                                          Expanded(
-                                            flex: 25,
-                                            child: TextField(
-                                              controller: ishaaController,
-                                              obscureText: false,
-                                              keyboardType: TextInputType.number,
-                                              style: TextStyle(
-                                                decoration: TextDecoration.underline,
-                                                fontWeight: FontWeight.bold,
-                                                color: textFieldCol,
-                                                fontSize: fontSiz,
-                                              ),
-                                              decoration: InputDecoration(
-                                                  focusedBorder: OutlineInputBorder(
-                                                    borderSide: BorderSide(color: borderCol),
-                                                  ),
-                                                  enabledBorder: OutlineInputBorder(
-                                                      borderSide: BorderSide(color: borderCol)
-                                                  ),
-                                                  labelText: "${curIshaaNum}",
-                                                  labelStyle:
-                                                  TextStyle(
-                                                    decoration: TextDecoration.underline,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: textFieldCol,
-                                                    fontSize: fontSiz,
-                                                  )
-                                              ),
                                             ),
-                                          ),
-                                        ]
+                                          ]
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                               actions: <Widget>[
                                 ElevatedButton(
