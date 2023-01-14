@@ -198,7 +198,8 @@ class _MyHomePageState extends State<MyHomePage> {
       );
       prefs.setInt('currentFontFamily', _currentSelectedFajir);
     });
-    await _applyToggleValsToTally();
+    await _applyToggleValsToTally(
+        fajirController,isSelectedFajir,curFajirNum,"FajirNum");
   }
 
   getIsSelectedFajir() async {
@@ -365,32 +366,38 @@ class _MyHomePageState extends State<MyHomePage> {
 
   }
   
-  Future<void> _applyToggleValsToTally() async{
+  Future<void> _applyToggleValsToTally(var contr, var isSel, var curNum, var curNumKey) async{
     SharedPreferences.getInstance().then((pref){
-      if(isSelectedFajir.toString() == "[false, true]"){
-        print("IN the matrix");
-        if(pref.getString("FajirNum") != null){
-          int fajnum = int.tryParse(pref.getString("FajirNum") ?? "0")!;
-          fajirController.text = (fajnum + 1).toString();
+      int tempNum;
+
+      if(isSel.toString() == "[false, true]"){
+        if(pref.getString(curNumKey) != null){
+          tempNum = int.tryParse(pref.getString(curNumKey) ?? "0")!;
+          contr.text = (tempNum + 1).toString();
         }else {
-          fajirController.text = "1";
+          contr.text = "1";
         }
-      }else
-        {
-          print("IN thsdfe matrix");
-          if(pref.getString("FajirNum") != null) {
-            int fajnum = int.tryParse(pref.getString("FajirNum") ?? "0")!;
-            if (fajnum > 0) {
-              fajirController.text = (fajnum - 1).toString();
-            }
+      }else {
+        if(pref.getString(curNumKey) != null) {
+          tempNum = int.tryParse(pref.getString(curNumKey) ?? "0")!;
+          if (tempNum > 0) {
+            contr.text = (tempNum - 1).toString();
           }
         }
+      }
 
-      _updateTextField(fajirController, curFajirNum, "FajirNum");
-      _updateTextField(dhuhrController, curDhuhrNum, "DhuhrNum");
-      _updateTextField(asrController, curAsrNum, "AsrNum");
-      _updateTextField(maghribController, curMaghribNum, "MaghribNum");
-      _updateTextField(ishaaController, curIshaaNum, "IshaaNum");
+
+      _updateTextField(contr, curNum, curNumKey);
+
+      curFajirNum = pref.getString("FajirNum");
+      curDhuhrNum = pref.getString("DhuhrNum");
+      curAsrNum = pref.getString("AsrNum");
+      curMaghribNum = pref.getString("MaghribNum");
+      curIshaaNum = pref.getString("IshaaNum");
+      curSawmNum = pref.getString("SawmNum");
+      setState(() {
+
+      });
     });
 
   }
@@ -759,7 +766,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           }
                           _currentSelectedDhuhr = index;
                           saveIsSelectedDhuhr();
-                          _applyToggleValsToTally();
+                          _applyToggleValsToTally(dhuhrController, isSelectedDhuhr, curDhuhrNum, "DhuhrNum");
                         });
                       },
                       borderRadius: const BorderRadius.all(Radius.circular(8)),
@@ -803,7 +810,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           }
                           _currentSelectedAsr = index;
                           saveIsSelectedAsr();
-                          _applyToggleValsToTally();
+                          _applyToggleValsToTally(asrController, isSelectedAsr, curAsrNum, "AsrNum");
                         });
                       },
                       borderRadius: const BorderRadius.all(Radius.circular(8)),
@@ -847,7 +854,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           }
                           _currentSelectedMaghrib = index;
                           saveIsSelectedMaghrib();
-                          _applyToggleValsToTally();
+                          _applyToggleValsToTally(maghribController, isSelectedMaghrib, curMaghribNum, "MaghribNum");
                         });
                       },
                       borderRadius: const BorderRadius.all(Radius.circular(8)),
@@ -891,7 +898,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           }
                           _currentSelectedIshaa = index;
                           saveIsSelectedIshaa();
-                          _applyToggleValsToTally();
+                          _applyToggleValsToTally(ishaaController, isSelectedIshaa, curIshaaNum, "IshaaNum");
                         });
                       },
                       borderRadius: const BorderRadius.all(Radius.circular(8)),
@@ -936,7 +943,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             }
                             _currentSelectedSawm = index;
                             saveIsSelectedSawm();
-                            _applyToggleValsToTally();
+                            _applyToggleValsToTally(sawmController, isSelectedSawm, curSawmNum, "SawmNum");
                           });
                         },
                         borderRadius: const BorderRadius.all(Radius.circular(8)),
