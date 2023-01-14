@@ -460,12 +460,16 @@ class _MyHomePageState extends State<MyHomePage> {
      if(isSwitchedDarkMode == false)
        {
          textCol = Colors.black;
+         textFieldCol = Colors.black54;
          backgroundCol = Colors.white;
+         borderCol = Colors.black;
        }
      else if(isSwitchedDarkMode == true)
      {
        textCol = Colors.white;
+       textFieldCol = Colors.white54;
        backgroundCol = Colors.black;
+       borderCol = Colors.white;
      }
     });
   }
@@ -492,7 +496,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   //Theme Colors
   var textCol = Colors.black;
+  var textFieldCol = Colors.black54;
   var backgroundCol = Colors.white;
+  var borderCol = Colors.black;
 
   _MyHomePageState(){
     //_firstStartUpInitialization();
@@ -671,6 +677,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         });
                       },
                       borderRadius: const BorderRadius.all(Radius.circular(8)),
+                      borderColor: borderCol,
                       selectedBorderColor: Colors.green[700],
                       selectedColor: Colors.white,
                       fillColor: Colors.green[200],
@@ -919,7 +926,17 @@ class _MyHomePageState extends State<MyHomePage> {
                         showDialog(
                             context: context,
                             builder: (context) => AlertDialog(
-                              title: const Text('Qada'),
+                              backgroundColor: backgroundCol,
+                              shape: RoundedRectangleBorder(
+                                  side: BorderSide(color: borderCol)),
+                              title: Text('Qada',
+                              style: TextStyle(
+                                decoration: TextDecoration.underline,
+                                fontWeight: FontWeight.bold,
+                                fontSize: fontSiz,
+                                color: textCol,
+                                ),
+                              ),
                               content: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -929,7 +946,11 @@ class _MyHomePageState extends State<MyHomePage> {
                                       children: <Widget>[
                                         Expanded(
                                             flex: 50,
-                                            child: Text("Fajir")
+                                            child: Text("Fajir",
+                                              style: TextStyle(
+                                                color: textCol,
+                                              ),
+                                            ),
                                         ),
                                         Expanded(
                                             flex: 25,
@@ -942,12 +963,15 @@ class _MyHomePageState extends State<MyHomePage> {
                                             obscureText: false,
                                             keyboardType: TextInputType.number,
                                             decoration: InputDecoration(
-                                                border: OutlineInputBorder(),
+                                                enabledBorder: OutlineInputBorder(
+                                                  borderSide: BorderSide(color: borderCol)
+                                                ),
                                                 labelText: "${curFajirNum}",
                                                 labelStyle:
                                                 TextStyle(
                                                   decoration: TextDecoration.underline,
                                                   fontWeight: FontWeight.bold,
+                                                  color: textFieldCol,
                                                   fontSize: fontSiz,
                                                 )
                                             ),
@@ -960,7 +984,11 @@ class _MyHomePageState extends State<MyHomePage> {
                                       children: <Widget>[
                                         Expanded(
                                             flex: 50,
-                                            child: const Text("Dhuhr")
+                                            child: Text("Dhuhr",
+                                              style: TextStyle(
+                                                color: textCol,
+                                              ),
+                                            ),
                                         ),
                                         Expanded(
                                             flex: 25,
@@ -973,12 +1001,15 @@ class _MyHomePageState extends State<MyHomePage> {
                                             obscureText: false,
                                             keyboardType: TextInputType.number,
                                             decoration: InputDecoration(
-                                                border: OutlineInputBorder(),
+                                                enabledBorder: OutlineInputBorder(
+                                                    borderSide: BorderSide(color: borderCol)
+                                                ),
                                                 labelText: "${curDhuhrNum}",
                                                 labelStyle:
                                                 TextStyle(
                                                   decoration: TextDecoration.underline,
                                                   fontWeight: FontWeight.bold,
+                                                  color: textFieldCol,
                                                   fontSize: fontSiz,
                                                 )
                                             ),
@@ -991,7 +1022,11 @@ class _MyHomePageState extends State<MyHomePage> {
                                       children: <Widget>[
                                         Expanded(
                                           flex: 50,
-                                          child: Text("Asr")
+                                          child: Text("Asr",
+                                            style: TextStyle(
+                                              color: textCol,
+                                            ),
+                                          ),
                                         ),
                                         Expanded(
                                           flex: 25,
@@ -1004,12 +1039,15 @@ class _MyHomePageState extends State<MyHomePage> {
                                             obscureText: false,
                                             keyboardType: TextInputType.number,
                                             decoration: InputDecoration(
-                                                border: OutlineInputBorder(),
+                                                enabledBorder: OutlineInputBorder(
+                                                    borderSide: BorderSide(color: borderCol)
+                                                ),
                                                 labelText: "${curAsrNum}",
                                                 labelStyle:
                                                 TextStyle(
                                                   decoration: TextDecoration.underline,
                                                   fontWeight: FontWeight.bold,
+                                                  color: textFieldCol,
                                                   fontSize: fontSiz,
                                                 )
                                             ),
@@ -1022,7 +1060,11 @@ class _MyHomePageState extends State<MyHomePage> {
                                       children: <Widget>[
                                         Expanded(
                                             flex: 50,
-                                            child: Text("Maghrib")
+                                            child: Text("Maghrib",
+                                              style: TextStyle(
+                                                color: textCol,
+                                              ),
+                                            ),
                                         ),
                                         Expanded(
                                             flex: 25,
@@ -1035,12 +1077,15 @@ class _MyHomePageState extends State<MyHomePage> {
                                             obscureText: false,
                                             keyboardType: TextInputType.number,
                                             decoration: InputDecoration(
-                                                border: OutlineInputBorder(),
+                                                enabledBorder: OutlineInputBorder(
+                                                    borderSide: BorderSide(color: borderCol)
+                                                ),
                                                 labelText: "${curMaghribNum}",
                                                 labelStyle:
                                                 TextStyle(
                                                   decoration: TextDecoration.underline,
                                                   fontWeight: FontWeight.bold,
+                                                  color: textFieldCol,
                                                   fontSize: fontSiz,
                                                 )
                                             ),
@@ -1053,7 +1098,11 @@ class _MyHomePageState extends State<MyHomePage> {
                                       children: <Widget>[
                                         Expanded(
                                             flex: 50,
-                                            child: Text("Isha\'a")
+                                            child: Text("Isha\'a",
+                                              style: TextStyle(
+                                                color: textCol,
+                                              ),
+                                            ),
                                         ),
                                         Expanded(
                                             flex: 25,
@@ -1066,12 +1115,15 @@ class _MyHomePageState extends State<MyHomePage> {
                                             obscureText: false,
                                             keyboardType: TextInputType.number,
                                             decoration: InputDecoration(
-                                                border: OutlineInputBorder(),
+                                                enabledBorder: OutlineInputBorder(
+                                                    borderSide: BorderSide(color: borderCol)
+                                                ),
                                                 labelText: "${curIshaaNum}",
                                                 labelStyle:
                                                 TextStyle(
                                                   decoration: TextDecoration.underline,
                                                   fontWeight: FontWeight.bold,
+                                                  color: textFieldCol,
                                                   fontSize: fontSiz,
                                                 )
                                             ),
@@ -1161,7 +1213,17 @@ class _MyHomePageState extends State<MyHomePage> {
                         showDialog(
                         context: context,
                         builder: (context) => AlertDialog(
-                          title: const Text('Sawm'),
+                          backgroundColor: backgroundCol,
+                          shape: RoundedRectangleBorder(
+                              side: BorderSide(color: borderCol)),
+                          title: Text('Sawm',
+                            style: TextStyle(
+                              decoration: TextDecoration.underline,
+                              fontWeight: FontWeight.bold,
+                              fontSize: fontSiz,
+                              color: textCol,
+                            ),
+                          ),
                           content: Column(
                             mainAxisSize: MainAxisSize.min,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -1171,7 +1233,11 @@ class _MyHomePageState extends State<MyHomePage> {
                               children: <Widget>[
                                 Expanded(
                                   flex: 50,
-                                    child: Text("Sawm (General)")
+                                  child: Text("Sawm (General)",
+                                    style: TextStyle(
+                                      color: textCol,
+                                    ),
+                                  ),
                                 ),
                                 Expanded(
                                   flex: 25,
@@ -1184,12 +1250,15 @@ class _MyHomePageState extends State<MyHomePage> {
                                     obscureText: false,
                                     keyboardType: TextInputType.number,
                                     decoration: InputDecoration(
-                                      border: OutlineInputBorder(),
+                                        enabledBorder: OutlineInputBorder(
+                                            borderSide: BorderSide(color: borderCol)
+                                        ),
                                       labelText: "${curSawmNum}",
                                       labelStyle:
                                         TextStyle(
                                           decoration: TextDecoration.underline,
                                           fontWeight: FontWeight.bold,
+                                          color: textFieldCol,
                                           fontSize: fontSiz,
                                         )
                                     ),
@@ -1202,7 +1271,11 @@ class _MyHomePageState extends State<MyHomePage> {
                                   children: <Widget>[
                                     Expanded(
                                       flex: 50,
-                                      child: const Text("Nathiir")
+                                      child: Text("Nathiir",
+                                        style: TextStyle(
+                                          color: textCol,
+                                        ),
+                                      ),
                                     ),
                                     Expanded(
                                       flex: 25,
@@ -1214,13 +1287,16 @@ class _MyHomePageState extends State<MyHomePage> {
                                         controller: nathiirController,
                                         obscureText: false,
                                         keyboardType: TextInputType.number,
-                                        decoration: InputDecoration(
-                                            border: OutlineInputBorder(),
+                                        decoration:InputDecoration(
+                                            enabledBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(color: borderCol)
+                                            ),
                                             labelText: "${curNathiirNum}",
                                             labelStyle:
                                             TextStyle(
                                               decoration: TextDecoration.underline,
                                               fontWeight: FontWeight.bold,
+                                              color: textFieldCol,
                                               fontSize: fontSiz,
                                             )
                                         ),
@@ -1285,7 +1361,17 @@ class _MyHomePageState extends State<MyHomePage> {
                         showDialog(
                             context: context,
                             builder: (context) => AlertDialog(
-                              title: const Text('Zakat'),
+                              backgroundColor: backgroundCol,
+                              shape: RoundedRectangleBorder(
+                                  side: BorderSide(color: borderCol)),
+                              title: Text('Zakat',
+                                style: TextStyle(
+                                  decoration: TextDecoration.underline,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: fontSiz,
+                                  color: textCol,
+                                ),
+                              ),
                               content: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -1295,7 +1381,11 @@ class _MyHomePageState extends State<MyHomePage> {
                                       children: <Widget>[
                                         Expanded(
                                             flex: 50,
-                                            child: Text("Zakat (General)")
+                                            child: Text("Zakat (General)",
+                                              style: TextStyle(
+                                                color: textCol,
+                                              ),
+                                            ),
                                         ),
                                         Expanded(
                                             flex: 25,
@@ -1308,12 +1398,15 @@ class _MyHomePageState extends State<MyHomePage> {
                                             obscureText: false,
                                             keyboardType: TextInputType.number,
                                             decoration: InputDecoration(
-                                                border: OutlineInputBorder(),
+                                                enabledBorder: OutlineInputBorder(
+                                                    borderSide: BorderSide(color: borderCol)
+                                                ),
                                                 labelText: "${curZakatNum}",
                                                 labelStyle:
                                                 TextStyle(
                                                   decoration: TextDecoration.underline,
                                                   fontWeight: FontWeight.bold,
+                                                  color: textFieldCol,
                                                   fontSize: fontSiz,
                                                 )
                                             ),
@@ -1326,7 +1419,11 @@ class _MyHomePageState extends State<MyHomePage> {
                                       children: <Widget>[
                                         Expanded(
                                             flex: 50,
-                                            child: const Text("Zakat El Futrah")
+                                            child: Text("Zakat El Futrah",
+                                              style: TextStyle(
+                                                color: textCol,
+                                              ),
+                                            ),
                                         ),
                                         Expanded(
                                             flex: 25,
@@ -1339,12 +1436,15 @@ class _MyHomePageState extends State<MyHomePage> {
                                             obscureText: false,
                                             keyboardType: TextInputType.number,
                                             decoration: InputDecoration(
-                                                border: OutlineInputBorder(),
+                                                enabledBorder: OutlineInputBorder(
+                                                    borderSide: BorderSide(color: borderCol)
+                                                ),
                                                 labelText: "${curZakatElFutrahNum}",
                                                 labelStyle:
                                                 TextStyle(
                                                   decoration: TextDecoration.underline,
                                                   fontWeight: FontWeight.bold,
+                                                  color: textFieldCol,
                                                   fontSize: fontSiz,
                                                 )
                                             ),
@@ -1404,7 +1504,17 @@ class _MyHomePageState extends State<MyHomePage> {
                         showDialog(
                             context: context,
                             builder: (context) => AlertDialog(
-                              title: const Text('Settings'),
+                              backgroundColor: backgroundCol,
+                              shape: RoundedRectangleBorder(
+                                  side: BorderSide(color: borderCol)),
+                              title: Text('Settings',
+                                style: TextStyle(
+                                  decoration: TextDecoration.underline,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: fontSiz,
+                                  color: textCol,
+                                ),
+                              ),
                               content: Column(
                                 mainAxisSize: MainAxisSize.min,
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -1414,7 +1524,11 @@ class _MyHomePageState extends State<MyHomePage> {
                                       children: <Widget>[
                                         Expanded(
                                             flex: 50,
-                                            child: Text("Show Sawm Row:")
+                                            child: Text("Show Sawm Row:",
+                                              style: TextStyle(
+                                                color: textCol,
+                                              ),
+                                            ),
                                         ),
                                         Expanded(
                                             flex: 25,
@@ -1445,7 +1559,11 @@ class _MyHomePageState extends State<MyHomePage> {
                                       children: <Widget>[
                                         Expanded(
                                             flex: 50,
-                                            child: Text("Dark Mode:")
+                                            child: Text("Dark Mode:",
+                                              style: TextStyle(
+                                                color: textCol,
+                                              ),
+                                            ),
                                         ),
                                         Expanded(
                                             flex: 25,
