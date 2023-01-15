@@ -343,6 +343,9 @@ class _MyHomePageState extends State<MyHomePage> {
     prefs.setBool(switchKey, value);
     print('Switch Value saved $value');
     await _updateAppTheme();
+    setState(() {
+
+    });
     return prefs.setBool(switchKey, value);
   }
 
@@ -1680,106 +1683,105 @@ class _MyHomePageState extends State<MyHomePage> {
                       onPressed: (){
                         showDialog(
                             context: context,
-                            builder: (context) => AlertDialog(
-                              backgroundColor: backgroundCol,
-                              shape: RoundedRectangleBorder(
-                                  side: BorderSide(color: borderCol)),
-                              title: Text('Settings',
-                                style: TextStyle(
-                                  decoration: TextDecoration.underline,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: fontSiz,
-                                  color: textCol,
-                                ),
-                              ),
-                              content: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: <Widget>[
-                                  Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      children: <Widget>[
-                                        Expanded(
-                                            flex: 50,
-                                            child: Text("Show Sawm Row:",
-                                              style: TextStyle(
-                                                color: textCol,
-                                              ),
-                                            ),
+                            builder: (context) {
+                              return StatefulBuilder(
+                                  builder: (context, setState){
+                                    return  AlertDialog(
+                                      backgroundColor: backgroundCol,
+                                      shape: RoundedRectangleBorder(
+                                          side: BorderSide(color: borderCol)),
+                                      title: Text('Settings',
+                                        style: TextStyle(
+                                          decoration: TextDecoration.underline,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: fontSiz,
+                                          color: textCol,
                                         ),
-                                        Expanded(
-                                            flex: 25,
-                                            child: const Spacer()
-                                        ),
-                                        Expanded(
-                                          flex: 25,
-                                          child: Switch(
-                                            // thumb color (round icon)
-                                            activeColor: Colors.green[700],
-                                            activeTrackColor: Colors.green[200],
-                                            inactiveThumbColor: Colors.blueGrey.shade600,
-                                            inactiveTrackColor: Colors.grey.shade400,
-                                            splashRadius: 50.0,
-                                            // boolean variable value
-                                            value: isSwitchedSawm,
-                                            // changes the state of the switch
-                                            onChanged: (bool value) => setState(() {
-                                              isSwitchedSawm = value;
-                                              saveSwitchState(value, "switchState");
-                                            }),
+                                      ),
+                                      content: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: <Widget>[
+                                          Row(
+                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              children: <Widget>[
+                                                Expanded(
+                                                  flex: 50,
+                                                  child: Text("Show Sawm Row:",
+                                                    style: TextStyle(
+                                                      color: textCol,
+                                                    ),
+                                                  ),
+                                                ),
+                                                Spacer(flex: 25,),
+                                                Expanded(
+                                                  flex: 25,
+                                                  child: Switch(
+                                                    // thumb color (round icon)
+                                                    activeColor: Colors.green[700],
+                                                    activeTrackColor: Colors.green[200],
+                                                    inactiveThumbColor: Colors.blueGrey.shade600,
+                                                    inactiveTrackColor: Colors.grey.shade400,
+                                                    splashRadius: 50.0,
+                                                    // boolean variable value
+                                                    value: isSwitchedSawm,
+                                                    // changes the state of the switch
+                                                    onChanged: (bool value) => setState(() {
+                                                      isSwitchedSawm = value;
+                                                      saveSwitchState(value, "switchState");
+                                                    }),
+                                                  ),
+                                                ),
+                                              ]
                                           ),
-                                        ),
-                                      ]
-                                  ),
-                                  Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      children: <Widget>[
-                                        Expanded(
-                                            flex: 50,
-                                            child: Text("Dark Mode:",
-                                              style: TextStyle(
-                                                color: textCol,
-                                              ),
-                                            ),
-                                        ),
-                                        Expanded(
-                                            flex: 25,
-                                            child: const Spacer()
-                                        ),
-                                        Expanded(
-                                          flex: 25,
-                                          child: Switch(
-                                            // thumb color (round icon)
-                                            activeColor: Colors.green[700],
-                                            activeTrackColor: Colors.green[200],
-                                            inactiveThumbColor: Colors.blueGrey.shade600,
-                                            inactiveTrackColor: Colors.grey.shade400,
-                                            splashRadius: 50.0,
-                                            // boolean variable value
-                                            value: isSwitchedDarkMode,
-                                            // changes the state of the switch
-                                            onChanged: (value) => setState(() {
-                                              isSwitchedDarkMode = value;
-                                              saveSwitchState(value, "switchStateDarkMode");
-                                            }),
+                                          Row(
+                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              children: <Widget>[
+                                                Expanded(
+                                                  flex: 50,
+                                                  child: Text("Dark Mode:",
+                                                    style: TextStyle(
+                                                      color: textCol,
+                                                    ),
+                                                  ),
+                                                ),
+                                                Spacer(flex: 25,),
+                                                Expanded(
+                                                  flex: 25,
+                                                  child: Switch(
+                                                    // thumb color (round icon)
+                                                    activeColor: Colors.green[700],
+                                                    activeTrackColor: Colors.green[200],
+                                                    inactiveThumbColor: Colors.blueGrey.shade600,
+                                                    inactiveTrackColor: Colors.grey.shade400,
+                                                    splashRadius: 50.0,
+                                                    // boolean variable value
+                                                    value: isSwitchedDarkMode,
+                                                    // changes the state of the switch
+                                                    onChanged: (value) => setState(() {
+                                                      isSwitchedDarkMode = value;
+                                                      saveSwitchState(value, "switchStateDarkMode");
+                                                    }),
+                                                  ),
+                                                ),
+                                              ]
                                           ),
-                                        ),
-                                      ]
-                                  ),
-                                ],
-                              ),
-                              actions: <Widget>[
-                                ElevatedButton(
-                                  onPressed: () {
-                                   /* SharedPreferences.getInstance().then((pref) {
+                                        ],
+                                      ),
+                                      actions: <Widget>[
+                                        ElevatedButton(
+                                          onPressed: () {
+                                            /* SharedPreferences.getInstance().then((pref) {
                                       pref.setBool("SawmSwitch", true);
                                     });*/
-                                    Navigator.of(context).pop();
-                                  },
-                                  child: const Text('Save'),
-                                ),
-                              ],
-                            )
+                                            Navigator.of(context).pop();
+                                          },
+                                          child: const Text('Save'),
+                                        ),
+                                      ],
+                                    );
+                                  });
+                            }
                         );
                       },
                       child: const Text(
