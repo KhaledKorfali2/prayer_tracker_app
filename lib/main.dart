@@ -49,7 +49,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+
+
 
   List<bool> isSelectedFajir = [];
   int _currentSelectedFajir = 0;
@@ -96,6 +97,7 @@ class _MyHomePageState extends State<MyHomePage> {
     //Initialize Switches
     getSwitchValues();
 
+    _resetToggleButtons();
 
     _getSawmTally();
     _getNathiirTally();
@@ -365,6 +367,22 @@ class _MyHomePageState extends State<MyHomePage> {
 
     // Set toggle buttons to their initial state
 
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.remove('isSelectedFont');
+    await prefs.remove('currentFontFamily');
+    await prefs.remove('isSelectedFont1');
+    await prefs.remove('currentFontFamily1');
+    await prefs.remove('isSelectedFont2');
+    await prefs.remove('currentFontFamily2');
+    await prefs.remove('isSelectedFont3');
+    await prefs.remove('currentFontFamily3');
+    await prefs.remove('isSelectedFont4');
+    await prefs.remove('currentFontFamily4');
+    await prefs.remove('isSelectedFont5');
+    await prefs.remove('currentFontFamily5');
+    setState(() {
+
+    });
 
 
   }
@@ -421,16 +439,6 @@ class _MyHomePageState extends State<MyHomePage> {
   }*/
 
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
 
   //Used for debuging: Clears all data in shared pref to simulate experience
   //of a new user
@@ -998,11 +1006,11 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                       onPressed: (){
                         SharedPreferences.getInstance().then((pref) {
-                          curFajirNum = pref.getString("FajirNum");
-                          curDhuhrNum = pref.getString("DhuhrNum");
-                          curAsrNum = pref.getString("AsrNum");
-                          curMaghribNum = pref.getString("MaghribNum");
-                          curIshaaNum = pref.getString("IshaaNum");
+                          curFajirNum = pref.getString("FajirNum") ?? "0";
+                          curDhuhrNum = pref.getString("DhuhrNum") ?? "0";
+                          curAsrNum = pref.getString("AsrNum") ?? "0";
+                          curMaghribNum = pref.getString("MaghribNum") ?? "0";
+                          curIshaaNum = pref.getString("IshaaNum") ?? "0";
 
                         });
                         showDialog(
@@ -1028,7 +1036,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                           children: <Widget>[
                                             Container(
-                                              margin: EdgeInsets.only(bottom: textFieldMargins),
+                                              margin: EdgeInsets.only(bottom: textFieldMargins, top: textFieldMargins),
                                               child: Row(
                                                   mainAxisAlignment: MainAxisAlignment.start,
                                                   children: <Widget>[
@@ -1314,8 +1322,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       onPressed: (){
                         SharedPreferences.getInstance().then((pref) {
                           setState(() {
-                            curSawmNum = pref.getString("SawmNum");
-                            curNathiirNum = pref.getString("NathiirNum");
+                            curSawmNum = pref.getString("SawmNum") ?? "0";
+                            curNathiirNum = pref.getString("NathiirNum") ?? "0";
 
                             /*print("Sawm (general): " + curSawmNum.toString());
                                     print("Nathiir: " + curNathiirNum.toString());*/
