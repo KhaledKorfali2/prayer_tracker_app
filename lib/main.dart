@@ -189,7 +189,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  saveIsSelectedFajir() async {
+  saveIsSelectedFajir(var temp) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       prefs.setStringList(
@@ -199,7 +199,7 @@ class _MyHomePageState extends State<MyHomePage> {
       prefs.setInt('currentFontFamily', _currentSelectedFajir);
     });
     await _applyToggleValsToTally(
-        fajirController,isSelectedFajir,curFajirNum,"FajirNum");
+        fajirController,isSelectedFajir,curFajirNum,"FajirNum", temp);
   }
 
   getIsSelectedFajir() async {
@@ -366,18 +366,18 @@ class _MyHomePageState extends State<MyHomePage> {
 
   }
   
-  Future<void> _applyToggleValsToTally(var contr, var isSel, var curNum, var curNumKey) async{
+  Future<void> _applyToggleValsToTally(var contr, var isSel, var curNum, var curNumKey, var temp) async{
     SharedPreferences.getInstance().then((pref){
       int tempNum;
 
-      if(isSel.toString() == "[false, true]"){
+      if(isSel.toString() == "[false, true]" && temp != isSel.toString()){
         if(pref.getString(curNumKey) != null){
           tempNum = int.tryParse(pref.getString(curNumKey) ?? "0")!;
           contr.text = (tempNum + 1).toString();
         }else {
           contr.text = "1";
         }
-      }else {
+      }else if(isSel.toString() == "[true, false]" && temp != isSel.toString()){
         if(pref.getString(curNumKey) != null) {
           tempNum = int.tryParse(pref.getString(curNumKey) ?? "0")!;
           if (tempNum > 0) {
@@ -716,11 +716,15 @@ class _MyHomePageState extends State<MyHomePage> {
                       // logic for button selection below
                       onPressed: (int index) {
                         setState(() {
+                          String temp1 = isSelectedFajir.toString();
+
                           for (int i = 0; i < isSelectedFajir.length; i++) {
                             isSelectedFajir[i] = i == index;
                           }
                           _currentSelectedFajir = index;
-                          saveIsSelectedFajir();
+                          saveIsSelectedFajir(temp1);
+                          print("curFaj" + _currentSelectedFajir.toString());
+                          print("isSelFaj" + isSelectedFajir.toString());
 
                         });
                       },
@@ -766,7 +770,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           }
                           _currentSelectedDhuhr = index;
                           saveIsSelectedDhuhr();
-                          _applyToggleValsToTally(dhuhrController, isSelectedDhuhr, curDhuhrNum, "DhuhrNum");
+                          //_applyToggleValsToTally(dhuhrController, isSelectedDhuhr, curDhuhrNum, "DhuhrNum");
                         });
                       },
                       borderRadius: const BorderRadius.all(Radius.circular(8)),
@@ -810,7 +814,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           }
                           _currentSelectedAsr = index;
                           saveIsSelectedAsr();
-                          _applyToggleValsToTally(asrController, isSelectedAsr, curAsrNum, "AsrNum");
+                          //_applyToggleValsToTally(asrController, isSelectedAsr, curAsrNum, "AsrNum");
                         });
                       },
                       borderRadius: const BorderRadius.all(Radius.circular(8)),
@@ -854,7 +858,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           }
                           _currentSelectedMaghrib = index;
                           saveIsSelectedMaghrib();
-                          _applyToggleValsToTally(maghribController, isSelectedMaghrib, curMaghribNum, "MaghribNum");
+                          //_applyToggleValsToTally(maghribController, isSelectedMaghrib, curMaghribNum, "MaghribNum");
                         });
                       },
                       borderRadius: const BorderRadius.all(Radius.circular(8)),
@@ -898,7 +902,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           }
                           _currentSelectedIshaa = index;
                           saveIsSelectedIshaa();
-                          _applyToggleValsToTally(ishaaController, isSelectedIshaa, curIshaaNum, "IshaaNum");
+                          //_applyToggleValsToTally(ishaaController, isSelectedIshaa, curIshaaNum, "IshaaNum");
                         });
                       },
                       borderRadius: const BorderRadius.all(Radius.circular(8)),
@@ -943,7 +947,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             }
                             _currentSelectedSawm = index;
                             saveIsSelectedSawm();
-                            _applyToggleValsToTally(sawmController, isSelectedSawm, curSawmNum, "SawmNum");
+                            //_applyToggleValsToTally(sawmController, isSelectedSawm, curSawmNum, "SawmNum");
                           });
                         },
                         borderRadius: const BorderRadius.all(Radius.circular(8)),
