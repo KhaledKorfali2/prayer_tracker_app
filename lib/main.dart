@@ -1025,10 +1025,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                                   ),
                                                 ),
                                             ),
-                                            Expanded(
-                                                flex: 25,
-                                                child: const Spacer()
-                                            ),
+                                            Spacer(flex: 25,),
                                             Expanded(
                                               flex: 25,
                                               child: TextField(
@@ -1075,10 +1072,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                                   ),
                                                 ),
                                             ),
-                                            Expanded(
-                                                flex: 25,
-                                                child: const Spacer()
-                                            ),
+                                            Spacer(flex: 25,),
                                             Expanded(
                                               flex: 25,
                                               child: TextField(
@@ -1125,10 +1119,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                                 ),
                                               ),
                                             ),
-                                            Expanded(
-                                              flex: 25,
-                                              child: const Spacer()
-                                            ),
+                                            Spacer(flex: 25,),
                                             Expanded(
                                               flex: 25,
                                               child: TextField(
@@ -1175,10 +1166,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                                   ),
                                                 ),
                                             ),
-                                            Expanded(
-                                                flex: 25,
-                                                child: const Spacer()
-                                            ),
+                                           Spacer(flex: 25,),
                                             Expanded(
                                               flex: 25,
                                               child: TextField(
@@ -1225,10 +1213,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                                   ),
                                                 ),
                                             ),
-                                            Expanded(
-                                                flex: 25,
-                                                child: const Spacer()
-                                            ),
+                                            Spacer(flex: 25,),
                                             Expanded(
                                               flex: 25,
                                               child: TextField(
@@ -1373,10 +1358,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                       ),
                                     ),
                                   ),
-                                  Expanded(
-                                    flex: 25,
-                                      child: const Spacer()
-                                  ),
+                                  Spacer(flex: 25,),
                                   Expanded(
                                     flex: 25,
                                     child: TextField(
@@ -1423,10 +1405,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                           ),
                                         ),
                                       ),
-                                      Expanded(
-                                        flex: 25,
-                                        child: const Spacer()
-                                      ),
+                                      Spacer(flex: 25,),
                                       Expanded(
                                         flex: 25,
                                         child: TextField(
@@ -1545,10 +1524,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                                 ),
                                               ),
                                           ),
-                                          Expanded(
-                                              flex: 25,
-                                              child: const Spacer()
-                                          ),
+                                          Spacer(flex: 25,),
                                           Expanded(
                                             flex: 25,
                                             child: TextField(
@@ -1595,10 +1571,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                                 ),
                                               ),
                                           ),
-                                          Expanded(
-                                              flex: 25,
-                                              child: const Spacer()
-                                          ),
+                                         Spacer(flex: 25,),
                                           Expanded(
                                             flex: 25,
                                             child: TextField(
@@ -1674,7 +1647,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ),
                   ),
-                  const Spacer(),
+                  Spacer(),
                   Container(
                     margin: const EdgeInsets.all(10),
                     height: 60,
