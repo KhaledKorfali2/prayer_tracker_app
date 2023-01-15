@@ -1312,6 +1312,15 @@ class _MyHomePageState extends State<MyHomePage> {
                         backgroundColor: MaterialStateProperty.all(Colors.green[700]),
                       ),
                       onPressed: (){
+                        SharedPreferences.getInstance().then((pref) {
+                          setState(() {
+                            curSawmNum = pref.getString("SawmNum");
+                            curNathiirNum = pref.getString("NathiirNum");
+
+                            /*print("Sawm (general): " + curSawmNum.toString());
+                                    print("Nathiir: " + curNathiirNum.toString());*/
+                          });
+                        });
                         showDialog(
                         context: context,
                         builder: (context) => AlertDialog(
@@ -1429,28 +1438,18 @@ class _MyHomePageState extends State<MyHomePage> {
                           actions: <Widget>[
                             ElevatedButton(
                               onPressed: () {
-                                /*_updateTextField(sawmController, curSawmNum, "SawmNum");
+                                //Initilizes and updates values in text fields
+                                _updateTextField(sawmController, curSawmNum, "SawmNum");
                                 _updateTextField(nathiirController, curNathiirNum, "NathiirNum");
-                                */
-                                SharedPreferences.getInstance().then((pref) {
-                                  //Initilizes and updates values in text fields
-                                  if(sawmController.text != ""){
-                                    pref.setString("SawmNum", sawmController.text);
-                                  }if(curSawmNum == null){
-                                    pref.setString("SawmNum", "0");
-                                  }
-                                  if(nathiirController.text != ""){
-                                    pref.setString("NathiirNum", nathiirController.text);
-                                  }if(curNathiirNum == null){
-                                    pref.setString("NathiirNum", "0");
-                                  }
-                                  curSawmNum = pref.getString("SawmNum");
-                                  curNathiirNum = pref.getString("NathiirNum");
-                                  print("Sawm (general): " + curSawmNum.toString());
-                                  print("Nathiir: " + curNathiirNum.toString());
 
-                                  sawmController.text = "";
-                                  nathiirController.text = "";
+                                SharedPreferences.getInstance().then((pref) {
+                                  setState(() {
+                                    curSawmNum = pref.getString("SawmNum");
+                                    curNathiirNum = pref.getString("NathiirNum");
+
+                                    /*print("Sawm (general): " + curSawmNum.toString());
+                                    print("Nathiir: " + curNathiirNum.toString());*/
+                                  });
                                 });
                                 Navigator.of(context).pop();
                               },
