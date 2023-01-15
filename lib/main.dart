@@ -189,7 +189,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  saveIsSelectedFajir(var temp) async {
+  saveIsSelectedFajir() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       prefs.setStringList(
@@ -198,8 +198,8 @@ class _MyHomePageState extends State<MyHomePage> {
       );
       prefs.setInt('currentFontFamily', _currentSelectedFajir);
     });
-    await _applyToggleValsToTally(
-        fajirController,isSelectedFajir,curFajirNum,"FajirNum", temp);
+    /*await _applyToggleValsToTally(
+        fajirController,isSelectedFajir,curFajirNum,"FajirNum", temp);*/
   }
 
   getIsSelectedFajir() async {
@@ -342,7 +342,7 @@ class _MyHomePageState extends State<MyHomePage> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool(switchKey, value);
     print('Switch Value saved $value');
-    _updateAppTheme();
+    await _updateAppTheme();
     return prefs.setBool(switchKey, value);
   }
 
@@ -716,15 +716,16 @@ class _MyHomePageState extends State<MyHomePage> {
                       // logic for button selection below
                       onPressed: (int index) {
                         setState(() {
-                          String temp1 = isSelectedFajir.toString();
+                          String tempIsSelectedFajir = isSelectedFajir.toString();
 
                           for (int i = 0; i < isSelectedFajir.length; i++) {
                             isSelectedFajir[i] = i == index;
                           }
                           _currentSelectedFajir = index;
-                          saveIsSelectedFajir(temp1);
+                          saveIsSelectedFajir();
                           print("curFaj" + _currentSelectedFajir.toString());
                           print("isSelFaj" + isSelectedFajir.toString());
+                          _applyToggleValsToTally(fajirController,isSelectedFajir,curFajirNum,"FajirNum", tempIsSelectedFajir);
 
                         });
                       },
@@ -733,7 +734,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       selectedBorderColor: Colors.green[700],
                       selectedColor: Colors.white,
                       fillColor: Colors.green[200],
-                      color: Colors.red[400],
+                      color: textCol,
                       constraints: const BoxConstraints(
                         minHeight: 40.0,
                         minWidth: 80.0,
@@ -765,19 +766,21 @@ class _MyHomePageState extends State<MyHomePage> {
                       // logic for button selection below
                       onPressed: (int index) {
                         setState(() {
+                          String tempIsSelectedDhuhr = isSelectedDhuhr.toString();
                           for (int i = 0; i < isSelectedDhuhr.length; i++) {
                             isSelectedDhuhr[i] = i == index;
                           }
                           _currentSelectedDhuhr = index;
                           saveIsSelectedDhuhr();
-                          //_applyToggleValsToTally(dhuhrController, isSelectedDhuhr, curDhuhrNum, "DhuhrNum");
+                          _applyToggleValsToTally(dhuhrController, isSelectedDhuhr, curDhuhrNum, "DhuhrNum", tempIsSelectedDhuhr);
                         });
                       },
                       borderRadius: const BorderRadius.all(Radius.circular(8)),
+                      borderColor: borderCol,
                       selectedBorderColor: Colors.green[700],
                       selectedColor: Colors.white,
                       fillColor: Colors.green[200],
-                      color: Colors.red[400],
+                      color: textCol,
                       constraints: const BoxConstraints(
                         minHeight: 40.0,
                         minWidth: 80.0,
@@ -809,19 +812,21 @@ class _MyHomePageState extends State<MyHomePage> {
                       // logic for button selection below
                       onPressed: (int index) {
                         setState(() {
+                          String tempIsSelectedAsr = isSelectedAsr.toString();
                           for (int i = 0; i < isSelectedAsr.length; i++) {
                             isSelectedAsr[i] = i == index;
                           }
                           _currentSelectedAsr = index;
                           saveIsSelectedAsr();
-                          //_applyToggleValsToTally(asrController, isSelectedAsr, curAsrNum, "AsrNum");
+                          _applyToggleValsToTally(asrController, isSelectedAsr, curAsrNum, "AsrNum", tempIsSelectedAsr);
                         });
                       },
                       borderRadius: const BorderRadius.all(Radius.circular(8)),
+                      borderColor: borderCol,
                       selectedBorderColor: Colors.green[700],
                       selectedColor: Colors.white,
                       fillColor: Colors.green[200],
-                      color: Colors.red[400],
+                      color: textCol,
                       constraints: const BoxConstraints(
                         minHeight: 40.0,
                         minWidth: 80.0,
@@ -853,19 +858,21 @@ class _MyHomePageState extends State<MyHomePage> {
                       // logic for button selection below
                       onPressed: (int index) {
                         setState(() {
+                          String tempIsSelectedMaghrib = isSelectedMaghrib.toString();
                           for (int i = 0; i < isSelectedMaghrib.length; i++) {
                             isSelectedMaghrib[i] = i == index;
                           }
                           _currentSelectedMaghrib = index;
                           saveIsSelectedMaghrib();
-                          //_applyToggleValsToTally(maghribController, isSelectedMaghrib, curMaghribNum, "MaghribNum");
+                          _applyToggleValsToTally(maghribController, isSelectedMaghrib, curMaghribNum, "MaghribNum", tempIsSelectedMaghrib);
                         });
                       },
                       borderRadius: const BorderRadius.all(Radius.circular(8)),
+                      borderColor: borderCol,
                       selectedBorderColor: Colors.green[700],
                       selectedColor: Colors.white,
                       fillColor: Colors.green[200],
-                      color: Colors.red[400],
+                      color: textCol,
                       constraints: const BoxConstraints(
                         minHeight: 40.0,
                         minWidth: 80.0,
@@ -897,19 +904,21 @@ class _MyHomePageState extends State<MyHomePage> {
                       // logic for button selection below
                       onPressed: (int index) {
                         setState(() {
+                          String tempIsSelectedIshaa = isSelectedIshaa.toString();
                           for (int i = 0; i < isSelectedIshaa.length; i++) {
                             isSelectedIshaa[i] = i == index;
                           }
                           _currentSelectedIshaa = index;
                           saveIsSelectedIshaa();
-                          //_applyToggleValsToTally(ishaaController, isSelectedIshaa, curIshaaNum, "IshaaNum");
+                          _applyToggleValsToTally(ishaaController, isSelectedIshaa, curIshaaNum, "IshaaNum", tempIsSelectedIshaa);
                         });
                       },
                       borderRadius: const BorderRadius.all(Radius.circular(8)),
+                      borderColor: borderCol,
                       selectedBorderColor: Colors.green[700],
                       selectedColor: Colors.white,
                       fillColor: Colors.green[200],
-                      color: Colors.red[400],
+                      color: textCol,
                       constraints: const BoxConstraints(
                         minHeight: 40.0,
                         minWidth: 80.0,
@@ -942,19 +951,21 @@ class _MyHomePageState extends State<MyHomePage> {
                         // logic for button selection below
                         onPressed: (int index) {
                           setState(() {
+                            String tempIsSelectedSawm = isSelectedSawm.toString();
                             for (int i = 0; i < isSelectedSawm.length; i++) {
                               isSelectedSawm[i] = i == index;
                             }
                             _currentSelectedSawm = index;
                             saveIsSelectedSawm();
-                            //_applyToggleValsToTally(sawmController, isSelectedSawm, curSawmNum, "SawmNum");
+                            _applyToggleValsToTally(sawmController, isSelectedSawm, curSawmNum, "SawmNum", tempIsSelectedSawm);
                           });
                         },
                         borderRadius: const BorderRadius.all(Radius.circular(8)),
+                        borderColor: textCol,
                         selectedBorderColor: Colors.green[700],
                         selectedColor: Colors.white,
                         fillColor: Colors.green[200],
-                        color: Colors.red[400],
+                        color: textCol,
                         constraints: const BoxConstraints(
                           minHeight: 40.0,
                           minWidth: 80.0,
