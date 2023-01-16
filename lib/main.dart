@@ -55,78 +55,83 @@ class _MyHomePageState extends State<MyHomePage> {
   var curYear = DateTime.now().year.toString();
 
 
-  List<bool> isSelectedFajir = [];
+  List<bool> isSelectedFajir = [true, false];
   int _currentSelectedFajir = 0;
 
-  List<bool> isSelectedDhuhr = [];
+  List<bool> isSelectedDhuhr = [true, false];
   int _currentSelectedDhuhr = 0;
 
-  List<bool> isSelectedAsr = [];
+  List<bool> isSelectedAsr = [true, false];
   int _currentSelectedAsr = 0;
 
-  List<bool> isSelectedMaghrib = [];
+  List<bool> isSelectedMaghrib = [true, false];
   int _currentSelectedMaghrib = 0;
 
-  List<bool> isSelectedIshaa = [];
+  List<bool> isSelectedIshaa = [true, false];
   int _currentSelectedIshaa = 0;
 
 
-  List<bool> isSelectedSawm = [];
+  List<bool> isSelectedSawm = [true, false];
   int _currentSelectedSawm = 0;
 
-
+//Initializes State of All Elements in App
   void initState() {
     super.initState();
 
+    //Calls Helper function that performs initiations
     _firstStartUpInitialization();
 
   }
 
+
+//Helper Function that Calls other functions to initialize app state
   Future _firstStartUpInitialization() async{
     var lock = Lock();
     await lock.synchronized(() async {
       await _InitializeDate();
+
     });
 
 
+
     //Initialize Toggle Buttons
-    getIsSelectedFajir();
+    await getIsSelectedFajir();
     isSelectedFajir = [true, false];
 
-    getIsSelectedDhuhr();
+    await getIsSelectedDhuhr();
     isSelectedDhuhr = [true, false];
 
-    getIsSelectedAsr();
+    await getIsSelectedAsr();
     isSelectedAsr = [true, false];
 
-    getIsSelectedMaghrib();
+    await getIsSelectedMaghrib();
     isSelectedMaghrib = [true, false];
 
-    getIsSelectedIshaa();
+    await getIsSelectedIshaa();
     isSelectedIshaa = [true, false];
 
-    getIsSelectedSawm();
+    await getIsSelectedSawm();
     isSelectedSawm = [true, false];
 
 
-    //_resetToggleButtons();
 
     //Initialize Switches
-    getSwitchValues();
+    await getSwitchValues();
 
     //Get Tally Values
-    _getSawmTally();
-    _getNathiirTally();
-    _getZakatElFutrahTally();
-    _getZakatTally();
-    _getFajirTally();
-    _getDhuhrTally();
-    _getAsrTally();
-    _getMaghribTally();
-    _getIshaaTally();
+    await _getSawmTally();
+    await _getNathiirTally();
+    await _getZakatElFutrahTally();
+    await _getZakatTally();
+    await _getFajirTally();
+    await _getDhuhrTally();
+    await _getAsrTally();
+    await  _getMaghribTally();
+    await  _getIshaaTally();
+
   }
 
-
+  //Get Tally Values For Sawm
   Future<void> _getSawmTally() async {
     var prefs = await SharedPreferences.getInstance();
     var value = prefs.getString('SawmNum') ?? "0";
@@ -589,6 +594,13 @@ class _MyHomePageState extends State<MyHomePage> {
   var textFieldCol = Colors.black54;
   var backgroundCol = Colors.white;
   var borderCol = Colors.black;
+  var toggleButtonCol = Colors.green[200];
+  var elevatedButtonCol = Colors.green[700];
+
+  //Font sizes and margins
+  static const double fontSiz = 25;
+  static const double textFieldMargins = 15;
+  static const double toggleButtonMargins = 10;
 
   _MyHomePageState(){
     //_clearSharedPref();
@@ -606,9 +618,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
 
 
-  //Font sizes
-  static const double fontSiz = 25;
-  static const double textFieldMargins = 15;
+
 
 
   //Text Editing Controllers
@@ -642,10 +652,9 @@ class _MyHomePageState extends State<MyHomePage> {
           children: [
             Expanded(//Today Row
               child: Container(
-                margin: EdgeInsets.only(left: 10, right:15),
+                margin: EdgeInsets.only(left: toggleButtonMargins, right:15),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
-
                   children: <Widget>[
                     Text(
                       'Today',
@@ -673,7 +682,8 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Expanded(//Fajir Row
               child: Container(
-                margin: EdgeInsets.only(left: 10, right:10),
+                margin: EdgeInsets.only(left: toggleButtonMargins,
+                    right:toggleButtonMargins),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
@@ -688,18 +698,11 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     const Spacer(),
                     Container(
-                      margin: EdgeInsets.only(left: 10),
+                      margin: EdgeInsets.only(left: toggleButtonMargins),
                       child: ToggleButtons(
                         // logic for button selection below
                         onPressed: (int index) {
-                          //////////////////////////////////////////////////////////
-                          /////////////////////////////////////////////////////////
-                          //////////////////////////////////////////////////////////
-                          _resetToggleButtons();
-                          //////////////////////////////////////////////////////////
-                          /////////////////////////////////////////////////////////
-                          //////////////////////////////////////////////////////////
-                          setState(() {
+                         setState(() {
                             String tempIsSelectedFajir = isSelectedFajir.toString();
 
                             for (int i = 0; i < isSelectedFajir.length; i++) {
@@ -715,9 +718,9 @@ class _MyHomePageState extends State<MyHomePage> {
                         },
                         borderRadius: const BorderRadius.all(Radius.circular(8)),
                         borderColor: borderCol,
-                        selectedBorderColor: Colors.green[700],
+                        selectedBorderColor: elevatedButtonCol,
                         selectedColor: Colors.white,
-                        fillColor: Colors.green[200],
+                        fillColor: toggleButtonCol,
                         color: textCol,
                         constraints: const BoxConstraints(
                           minHeight: 40.0,
@@ -733,7 +736,8 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Expanded(//Dhuhr Row
               child: Container(
-                margin: EdgeInsets.only(left: 10, right:10),
+                margin: EdgeInsets.only(left: toggleButtonMargins,
+                    right:toggleButtonMargins),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
@@ -748,7 +752,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     const Spacer(),
                     Container(
-                      margin: EdgeInsets.only(left: 10),
+                      margin: EdgeInsets.only(left: toggleButtonMargins),
                       child: ToggleButtons(
                         // logic for button selection below
                         onPressed: (int index) {
@@ -764,9 +768,9 @@ class _MyHomePageState extends State<MyHomePage> {
                         },
                         borderRadius: const BorderRadius.all(Radius.circular(8)),
                         borderColor: borderCol,
-                        selectedBorderColor: Colors.green[700],
+                        selectedBorderColor: elevatedButtonCol,
                         selectedColor: Colors.white,
-                        fillColor: Colors.green[200],
+                        fillColor: toggleButtonCol,
                         color: textCol,
                         constraints: const BoxConstraints(
                           minHeight: 40.0,
@@ -782,7 +786,8 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Expanded(//Asr Row
               child: Container(
-                margin: EdgeInsets.only(left: 10, right:10),
+                margin: EdgeInsets.only(left: toggleButtonMargins,
+                    right:toggleButtonMargins),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
@@ -797,7 +802,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     const Spacer(),
                     Container(
-                      margin: EdgeInsets.all(20),
+                      margin: EdgeInsets.only(left: toggleButtonMargins),
                       child: ToggleButtons(
                         // logic for button selection below
                         onPressed: (int index) {
@@ -813,9 +818,9 @@ class _MyHomePageState extends State<MyHomePage> {
                         },
                         borderRadius: const BorderRadius.all(Radius.circular(8)),
                         borderColor: borderCol,
-                        selectedBorderColor: Colors.green[700],
+                        selectedBorderColor: elevatedButtonCol,
                         selectedColor: Colors.white,
-                        fillColor: Colors.green[200],
+                        fillColor: toggleButtonCol,
                         color: textCol,
                         constraints: const BoxConstraints(
                           minHeight: 40.0,
@@ -831,7 +836,8 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Expanded(//Maghrib Row
               child: Container(
-                margin: EdgeInsets.only(left: 10, right:10),
+                margin: EdgeInsets.only(left: toggleButtonMargins,
+                    right:toggleButtonMargins),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
@@ -846,7 +852,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     const Spacer(),
                     Container(
-                      margin: EdgeInsets.all(20),
+                      margin: EdgeInsets.only(left: toggleButtonMargins),
                       child: ToggleButtons(
                         // logic for button selection below
                         onPressed: (int index) {
@@ -862,9 +868,9 @@ class _MyHomePageState extends State<MyHomePage> {
                         },
                         borderRadius: const BorderRadius.all(Radius.circular(8)),
                         borderColor: borderCol,
-                        selectedBorderColor: Colors.green[700],
+                        selectedBorderColor: elevatedButtonCol,
                         selectedColor: Colors.white,
-                        fillColor: Colors.green[200],
+                        fillColor: toggleButtonCol,
                         color: textCol,
                         constraints: const BoxConstraints(
                           minHeight: 40.0,
@@ -880,7 +886,8 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Expanded(//Ishaa Row
               child: Container(
-                margin: EdgeInsets.only(left: 10, right:10),
+                margin: EdgeInsets.only(left: toggleButtonMargins,
+                    right:toggleButtonMargins),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
@@ -895,8 +902,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     const Spacer(),
                     Container(
-                      margin: EdgeInsets.all(20),
-                      child: ToggleButtons(
+                      margin: EdgeInsets.only(left: toggleButtonMargins),
+                        child: ToggleButtons(
                         // logic for button selection below
                         onPressed: (int index) {
                           setState(() {
@@ -911,9 +918,9 @@ class _MyHomePageState extends State<MyHomePage> {
                         },
                         borderRadius: const BorderRadius.all(Radius.circular(8)),
                         borderColor: borderCol,
-                        selectedBorderColor: Colors.green[700],
+                        selectedBorderColor: elevatedButtonCol,
                         selectedColor: Colors.white,
-                        fillColor: Colors.green[200],
+                        fillColor: toggleButtonCol,
                         color: textCol,
                         constraints: const BoxConstraints(
                           minHeight: 40.0,
@@ -930,7 +937,8 @@ class _MyHomePageState extends State<MyHomePage> {
             Offstage(//Sawm Row
               offstage: !isSwitchedSawm,
                 child: Container(
-                  margin: EdgeInsets.only(left: 10, right:10),
+                  margin: EdgeInsets.only(left: toggleButtonMargins,
+                      right:toggleButtonMargins),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
@@ -945,7 +953,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                       const Spacer(),
                       Container(
-                        margin: EdgeInsets.all(20),
+                        margin: EdgeInsets.only(left: toggleButtonMargins),
                         child: ToggleButtons(
                           // logic for button selection below
                           onPressed: (int index) {
@@ -961,9 +969,9 @@ class _MyHomePageState extends State<MyHomePage> {
                           },
                           borderRadius: const BorderRadius.all(Radius.circular(8)),
                           borderColor: textCol,
-                          selectedBorderColor: Colors.green[700],
+                          selectedBorderColor: elevatedButtonCol,
                           selectedColor: Colors.white,
-                          fillColor: Colors.green[200],
+                          fillColor: toggleButtonCol,
                           color: textCol,
                           constraints: const BoxConstraints(
                             minHeight: 40.0,
@@ -987,7 +995,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     width: 175,
                     child: ElevatedButton(
                       style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(Colors.green[700]),
+                        backgroundColor: MaterialStateProperty.all(elevatedButtonCol),
                       ),
                       onPressed: (){
                         SharedPreferences.getInstance().then((pref) {
@@ -1302,7 +1310,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     width: 175,
                     child: ElevatedButton(
                       style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(Colors.green[700]),
+                        backgroundColor: MaterialStateProperty.all(elevatedButtonCol),
                       ),
                       onPressed: (){
                         SharedPreferences.getInstance().then((pref) {
@@ -1469,6 +1477,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     height: 60,
                     width: 175,
                     child: ElevatedButton(
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(elevatedButtonCol),
+                      ),
                       onPressed: (){
                         showDialog(
                             context: context,
@@ -1630,6 +1641,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     height: 60,
                     width: 175,
                     child: ElevatedButton(
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(elevatedButtonCol),
+                      ),
                       onPressed: (){
                         showDialog(
                             context: context,
