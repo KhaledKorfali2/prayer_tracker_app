@@ -48,9 +48,9 @@ class MyApp extends StatelessWidget {
     var darkestGreen = const Color(0xFF3a5043);
     return MaterialApp(
       title: 'Muslim Prayer Tracker',
-      theme: ThemeData(
+      /*theme: ThemeData(
         primarySwatch: Colors.brown
-      ),
+      ),*/
       home: const MyHomePage(title: 'Muslim Prayer Tracker'),
     );
   }
@@ -574,6 +574,9 @@ class _MyHomePageState extends State<MyHomePage> {
       var midGreen = const Color(0xff7f9860);
       var darkGreen = const Color(0xff04373b);
       var darkestGreen = const Color(0xff3a5043);
+      var lightYellow = const Color(0xffecf3b0);
+      var darkModeButtons = Colors.green[300];
+      var darkModeText = const Color(0xffb9eedc);
      if(isSwitchedDarkMode == false)
        {
          textCol = darkestGreen;
@@ -582,19 +585,29 @@ class _MyHomePageState extends State<MyHomePage> {
          borderCol = Colors.black;
          elevatedButtonCol = midGreen;
          toggleButtonCol = midGreen;
+         saveButtonCol = Colors.brown;
          toggleButtonBorderCol = darkestGreen;
          elevatedButtonBorderCol = darkestGreen;
+         activeToggleColor = Colors.brown;
+         activeTrackColor = Colors.brown.shade300;
+         inavtiveThumbColor = Colors.brown.shade300;
+         inavtiveTrackColor = Colors.brown.shade100;
        }
      else if(isSwitchedDarkMode == true)
      {
-       textCol = Colors.white;
+       textCol = darkModeText;
        textFieldCol = Colors.white54;
        backgroundCol = darkGreen;
        borderCol = Colors.white;
-       elevatedButtonCol = Colors.green[200];
-       toggleButtonCol = Colors.green[200];
+       elevatedButtonCol = darkModeButtons;
+       toggleButtonCol = darkModeButtons;
+       saveButtonCol = Colors.teal;
        toggleButtonBorderCol = Colors.green[700];
        elevatedButtonBorderCol = Colors.green[700];
+       activeToggleColor = darkestGreen;
+       activeTrackColor = darkModeButtons;
+       inavtiveThumbColor = Colors.blueGrey.shade600;
+       inavtiveTrackColor = Colors.grey.shade400;
      }
     });
   }
@@ -626,8 +639,13 @@ class _MyHomePageState extends State<MyHomePage> {
   var borderCol = Colors.black;
   var toggleButtonCol = Colors.green[200];
   var elevatedButtonCol = Colors.green[700];
+  var saveButtonCol = Colors.brown;
   var toggleButtonBorderCol =  Colors.green[200];
   var elevatedButtonBorderCol = Colors.green[700];
+  var activeToggleColor = Colors.green[700];
+  var activeTrackColor = Colors.green[200];
+  var inavtiveThumbColor = Colors.blueGrey.shade600;
+  var inavtiveTrackColor = Colors.grey.shade400;
 
   //Font sizes and margins
   static const double fontSiz = 25;
@@ -683,7 +701,7 @@ class _MyHomePageState extends State<MyHomePage> {
         style: TextStyle(
           fontWeight: FontWeight.bold,
           fontSize: fontSiz,
-          color: textCol,
+          color: backgroundCol,
         )
         ),
       ),
@@ -758,7 +776,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         borderRadius: const BorderRadius.all(Radius.circular(8)),
                         borderColor: borderCol,
                         selectedBorderColor: elevatedButtonCol,
-                        selectedColor: Colors.white,
+                        selectedColor: backgroundCol,
                         fillColor: toggleButtonCol,
                         color: textCol,
                         constraints: const BoxConstraints(
@@ -808,7 +826,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         borderRadius: const BorderRadius.all(Radius.circular(8)),
                         borderColor: borderCol,
                         selectedBorderColor: elevatedButtonCol,
-                        selectedColor: Colors.white,
+                        selectedColor: backgroundCol,
                         fillColor: toggleButtonCol,
                         color: textCol,
                         constraints: const BoxConstraints(
@@ -858,7 +876,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         borderRadius: const BorderRadius.all(Radius.circular(8)),
                         borderColor: borderCol,
                         selectedBorderColor: elevatedButtonCol,
-                        selectedColor: Colors.white,
+                        selectedColor: backgroundCol,
                         fillColor: toggleButtonCol,
                         color: textCol,
                         constraints: const BoxConstraints(
@@ -908,7 +926,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         borderRadius: const BorderRadius.all(Radius.circular(8)),
                         borderColor: borderCol,
                         selectedBorderColor: elevatedButtonCol,
-                        selectedColor: Colors.white,
+                        selectedColor: backgroundCol,
                         fillColor: toggleButtonCol,
                         color: textCol,
                         constraints: const BoxConstraints(
@@ -958,7 +976,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         borderRadius: const BorderRadius.all(Radius.circular(8)),
                         borderColor: borderCol,
                         selectedBorderColor: elevatedButtonCol,
-                        selectedColor: Colors.white,
+                          selectedColor: backgroundCol,
                         fillColor: toggleButtonCol,
                         color: textCol,
                         constraints: const BoxConstraints(
@@ -1009,7 +1027,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           borderRadius: const BorderRadius.all(Radius.circular(8)),
                           borderColor: textCol,
                           selectedBorderColor: elevatedButtonCol,
-                          selectedColor: Colors.white,
+                          selectedColor: backgroundCol,
                           fillColor: toggleButtonCol,
                           color: textCol,
                           constraints: const BoxConstraints(
@@ -1035,6 +1053,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: ElevatedButton(
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all(elevatedButtonCol),
+                        foregroundColor:  MaterialStateProperty.all(backgroundCol),
                       ),
                       onPressed: (){
                         SharedPreferences.getInstance().then((pref) {
@@ -1340,6 +1359,11 @@ class _MyHomePageState extends State<MyHomePage> {
                                             Navigator.of(context).pop();
                                           },
                                           child: const Text('Save'),
+                                          style: ButtonStyle(
+                                            backgroundColor: MaterialStateProperty.all(elevatedButtonCol),
+                                            foregroundColor:  MaterialStateProperty.all(backgroundCol),
+                                          ),
+
                                         ),
                                       ],
                                     );
@@ -1350,6 +1374,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       child: const Text(
                           "Qada"
                       ),
+
                     ),
                   ),
                   //const Spacer(),
@@ -1360,6 +1385,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: ElevatedButton(
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all(elevatedButtonCol),
+                        foregroundColor:  MaterialStateProperty.all(backgroundCol),
                       ),
                       onPressed: (){
                         SharedPreferences.getInstance().then((pref) {
@@ -1508,6 +1534,10 @@ class _MyHomePageState extends State<MyHomePage> {
                                 Navigator.of(context).pop();
                               },
                               child: const Text('Save'),
+                              style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all(elevatedButtonCol),
+                                foregroundColor:  MaterialStateProperty.all(backgroundCol),
+                              ),
                             ),
                           ],
                         )
@@ -1532,6 +1562,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: ElevatedButton(
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all(elevatedButtonCol),
+                        foregroundColor:  MaterialStateProperty.all(backgroundCol),
                       ),
                       onPressed: (){
                         showDialog(
@@ -1692,6 +1723,10 @@ class _MyHomePageState extends State<MyHomePage> {
                                     Navigator.of(context).pop();
                                   },
                                   child: const Text('Save'),
+                                  style: ButtonStyle(
+                                    backgroundColor: MaterialStateProperty.all(elevatedButtonCol),
+                                    foregroundColor:  MaterialStateProperty.all(backgroundCol),
+                                  ),
                                 ),
                               ],
                             )
@@ -1710,6 +1745,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: ElevatedButton(
                       style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all(elevatedButtonCol),
+                        foregroundColor:  MaterialStateProperty.all(backgroundCol),
                       ),
                       onPressed: (){
                         showDialog(
@@ -1751,10 +1787,10 @@ class _MyHomePageState extends State<MyHomePage> {
                                                   flex: 25,
                                                   child: Switch(
                                                     // thumb color (round icon)
-                                                    activeColor: Colors.green[700],
-                                                    activeTrackColor: Colors.green[200],
-                                                    inactiveThumbColor: Colors.blueGrey.shade600,
-                                                    inactiveTrackColor: Colors.grey.shade400,
+                                                    activeColor: activeToggleColor,
+                                                    activeTrackColor: activeTrackColor,
+                                                    inactiveThumbColor: inavtiveThumbColor,
+                                                    inactiveTrackColor: inavtiveTrackColor,
                                                     splashRadius: 50.0,
                                                     // boolean variable value
                                                     value: isSwitchedSawm,
@@ -1785,10 +1821,10 @@ class _MyHomePageState extends State<MyHomePage> {
                                                   flex: 25,
                                                   child: Switch(
                                                     // thumb color (round icon)
-                                                    activeColor: Colors.green[700],
-                                                    activeTrackColor: Colors.green[200],
-                                                    inactiveThumbColor: Colors.blueGrey.shade600,
-                                                    inactiveTrackColor: Colors.grey.shade400,
+                                                    activeColor: activeToggleColor,
+                                                    activeTrackColor: activeTrackColor,
+                                                    inactiveThumbColor: inavtiveThumbColor,
+                                                    inactiveTrackColor: inavtiveTrackColor,
                                                     splashRadius: 50.0,
                                                     // boolean variable value
                                                     value: isSwitchedDarkMode,
@@ -1812,6 +1848,10 @@ class _MyHomePageState extends State<MyHomePage> {
                                             Navigator.of(context).pop();
                                           },
                                           child: const Text('Save'),
+                                          style: ButtonStyle(
+                                            backgroundColor: MaterialStateProperty.all(elevatedButtonCol),
+                                            foregroundColor:  MaterialStateProperty.all(backgroundCol),
+                                          ),
                                         ),
                                       ],
                                     );
