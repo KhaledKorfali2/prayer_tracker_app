@@ -1,5 +1,4 @@
-import 'dart:io';
-
+import 'package:synchronized/synchronized.dart';
 import 'package:flutter/material.dart';
 import 'package:prayer_tracker_app/models.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -50,6 +49,10 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
 
+  //Info about current date
+  var curDay = DateTime.now().day.toString();
+  var curMonth = DateTime.now().month.toString();
+  var curYear = DateTime.now().year.toString();
 
 
   List<bool> isSelectedFajir = [];
@@ -75,6 +78,17 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
 
+    _firstStartUpInitialization();
+
+  }
+
+  Future _firstStartUpInitialization() async{
+    var lock = Lock();
+    await lock.synchronized(() async {
+      await _InitializeDate();
+    });
+
+
     //Initialize Toggle Buttons
     getIsSelectedFajir();
     isSelectedFajir = [true, false];
@@ -94,11 +108,13 @@ class _MyHomePageState extends State<MyHomePage> {
     getIsSelectedSawm();
     isSelectedSawm = [true, false];
 
+
+    //_resetToggleButtons();
+
     //Initialize Switches
     getSwitchValues();
 
-    _resetToggleButtons();
-
+    //Get Tally Values
     _getSawmTally();
     _getNathiirTally();
     _getZakatElFutrahTally();
@@ -110,10 +126,11 @@ class _MyHomePageState extends State<MyHomePage> {
     _getIshaaTally();
   }
 
+
   Future<void> _getSawmTally() async {
     var prefs = await SharedPreferences.getInstance();
     var value = prefs.getString('SawmNum') ?? "0";
-    print('saved tester $value');
+    //print('saved tester $value');
     setState(() {
       curSawmNum = value;
     });
@@ -122,7 +139,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Future<void> _getNathiirTally() async {
     var prefs = await SharedPreferences.getInstance();
     var value = prefs.getString('NathiirNum') ?? "0";
-    print('saved tester $value');
+    //print('saved tester $value');
     setState(() {
       curNathiirNum = value;
     });
@@ -131,7 +148,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Future<void> _getZakatTally() async {
     var prefs = await SharedPreferences.getInstance();
     var value = prefs.getString('ZakatNum') ?? "0";
-    print('saved tester $value');
+    //print('saved tester $value');
     setState(() {
       curZakatNum = value;
     });
@@ -140,7 +157,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Future<void> _getZakatElFutrahTally() async {
     var prefs = await SharedPreferences.getInstance();
     var value = prefs.getString('ZakatElFuthrahNum') ?? "0";
-    print('saved tester $value');
+    //print('saved tester $value');
     setState(() {
       curZakatElFutrahNum = value;
     });
@@ -149,7 +166,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Future<void> _getFajirTally() async {
     var prefs = await SharedPreferences.getInstance();
     var value = prefs.getString('FajirNum') ?? "0";
-    print('saved tester $value');
+    //print('saved tester $value');
     setState(() {
       curFajirNum = value;
     });
@@ -158,7 +175,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Future<void> _getDhuhrTally() async {
     var prefs = await SharedPreferences.getInstance();
     var value = prefs.getString('DhuhrNum') ?? "0";
-    print('saved tester $value');
+    //print('saved tester $value');
     setState(() {
       curDhuhrNum = value;
     });
@@ -167,7 +184,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Future<void> _getAsrTally() async {
     var prefs = await SharedPreferences.getInstance();
     var value = prefs.getString('AsrNum') ?? "0";
-    print('saved tester $value');
+    //print('saved tester $value');
     setState(() {
       curAsrNum = value;
     });
@@ -176,7 +193,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Future<void> _getMaghribTally() async {
     var prefs = await SharedPreferences.getInstance();
     var value = prefs.getString('MaghribNum') ?? "0";
-    print('saved tester $value');
+    //print('saved tester $value');
     setState(() {
       curMaghribNum = value;
     });
@@ -185,7 +202,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Future<void> _getIshaaTally() async {
     var prefs = await SharedPreferences.getInstance();
     var value = prefs.getString('IshaaNum') ?? "0";
-    print('saved tester $value');
+    //print('saved tester $value');
     setState(() {
       curIshaaNum = value;
     });
@@ -214,8 +231,8 @@ class _MyHomePageState extends State<MyHomePage> {
           [true, false]);
       _currentSelectedFajir = prefs.getInt('currentFontFamily') ?? 0;
     });
-    print("IsSelected" + isSelectedFajir.toString());
-    print("curSelected" + _currentSelectedFajir.toString());
+    //print("IsSelected" + isSelectedFajir.toString());
+    //print("curSelected" + _currentSelectedFajir.toString());
   }
 
   saveIsSelectedDhuhr() async {
@@ -343,7 +360,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Future<bool> saveSwitchState(bool value, String switchKey) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool(switchKey, value);
-    print('Switch Value saved $value');
+    //print('Switch Value saved $value');
     await _updateAppTheme();
     setState(() {
 
@@ -354,35 +371,88 @@ class _MyHomePageState extends State<MyHomePage> {
   Future<bool> getSwitchState(String switchKey) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool isSwitchedFT = prefs.getBool(switchKey) ?? false;
-    print(isSwitchedFT);
+   //print(isSwitchedFT);
 
     return isSwitchedFT;
   }
 
-  Future<void> _resetToggleButtons() async {
-    var now = DateTime.now();
-    var todayMidnight = new DateTime(now.year, now.month, now.day);
-    var difference = now.difference(todayMidnight).inSeconds;
-    await Future.delayed(Duration(seconds: 86400 - difference));
 
-    // Set toggle buttons to their initial state
-
+  Future<bool> _isDiffrentDate() async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.remove('isSelectedFont');
-    await prefs.remove('currentFontFamily');
-    await prefs.remove('isSelectedFont1');
-    await prefs.remove('currentFontFamily1');
-    await prefs.remove('isSelectedFont2');
-    await prefs.remove('currentFontFamily2');
-    await prefs.remove('isSelectedFont3');
-    await prefs.remove('currentFontFamily3');
-    await prefs.remove('isSelectedFont4');
-    await prefs.remove('currentFontFamily4');
-    await prefs.remove('isSelectedFont5');
-    await prefs.remove('currentFontFamily5');
-    setState(() {
+    var tempDay = prefs.getString("curDay");
+    //print(tempDay);
+    var tempMonth = prefs.getString("curMonth");
+    var tempYear = prefs.getString("curYear");
 
-    });
+    //print("Temp Day: " + tempDay.toString() + " curDay: " + curDay.toString());
+    //print("Temp Month: " + tempMonth.toString() + " curMonth: " + curMonth.toString());
+    //print("Temp Year: " + tempYear.toString() + " curYear: " + curYear.toString());
+    if(tempDay != curDay) {
+        //print("returned True");
+        return true;
+      }
+    if(tempMonth != curMonth) {
+        return true;
+      }
+    if(tempYear != curYear) {
+        return true;
+      }
+    return false;
+  }
+
+  Future<void> _InitializeDate() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if(prefs.getString("curDay") == null)
+      {
+        await prefs.setString("curDay", curDay.toString());
+        //print("Just Made Dya" + curDay.toString());
+        var temp = prefs.getString("curDay") ?? "null";
+        //print("THis is get: " + temp.toString());
+      }
+   if(prefs.getString("curMonth") == null)
+     {
+       await prefs.setString("curMonth", curMonth.toString());
+       //print("Just Made ds");
+     }
+   if(prefs.getString("curYear") == null)
+     {
+       await prefs.setString("curYear", curYear.toString());
+       //print("Just Made asdfa");
+     }
+
+    //Resets Toggle Switches to Default Position and Updates Day
+    await _resetToggleButtons();
+  }
+
+  Future<void> _SetDate() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString("curDay", curDay.toString());
+    await prefs.setString("curMonth", curMonth.toString());
+    await prefs.setString("curYear", curYear.toString());
+  }
+
+  Future<void> _resetToggleButtons() async {
+    // Set toggle buttons to their initial state
+    if(await _isDiffrentDate() == true)
+      {
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        await prefs.remove('isSelectedFont');
+        await prefs.remove('currentFontFamily');
+        await prefs.remove('isSelectedFont1');
+        await prefs.remove('currentFontFamily1');
+        await prefs.remove('isSelectedFont2');
+        await prefs.remove('currentFontFamily2');
+        await prefs.remove('isSelectedFont3');
+        await prefs.remove('currentFontFamily3');
+        await prefs.remove('isSelectedFont4');
+        await prefs.remove('currentFontFamily4');
+        await prefs.remove('isSelectedFont5');
+        await prefs.remove('currentFontFamily5');
+        setState(() {
+
+        });
+        _SetDate();
+      }
 
 
   }
@@ -423,21 +493,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   }
 
-/*  Future<bool> saveSwitchState(bool value, String switchKey) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setBool("switchState", value);
-    print('Switch Value saved $value');
-    return prefs.setBool("switchState", value);
-  }
-
-  Future<bool> getSwitchState(bool value, String switchKey) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool isSwitchedFT = prefs.getBool("switchState") ?? false;
-    print(isSwitchedFT);
-
-    return isSwitchedFT;
-  }*/
-
 
 
   //Used for debuging: Clears all data in shared pref to simulate experience
@@ -452,7 +507,7 @@ class _MyHomePageState extends State<MyHomePage> {
     await SharedPreferences.getInstance().then((pref) {
       if(pref.getString(curKey) == null){
         pref.setString(curKey, "0");
-        print(pref.getString(curKey).toString() + "Was Null");
+        //print(pref.getString(curKey).toString() + "Was Null");
       }
     });
   }
@@ -461,39 +516,13 @@ class _MyHomePageState extends State<MyHomePage> {
     await SharedPreferences.getInstance().then((pref) {
       if(pref.getBool(curKey) == null){
         pref.setBool(curKey, false);
-        print(pref.getBool(curKey).toString() + "Was Null");
+       //print(pref.getBool(curKey).toString() + "Was Null");
       }
     });
   }
 
 
-  Future _firstStartUpInitialization() async{
-    await SharedPreferences.getInstance().then((pref) {
-      if(pref.getBool("hasOpened") == null){
 
-        pref.setBool("hasOpened", true);
-
-        _initilizeStringValues("SawmNum");
-        _initilizeStringValues("NathiirNum");
-        _initilizeStringValues("ZakatNum");
-        _initilizeStringValues("ZakatElFuthrahNum");
-        _initilizeStringValues("FajirNum");
-        _initilizeStringValues("DhuhrNum");
-        _initilizeStringValues("AsrNum");
-        _initilizeStringValues("MaghribNum");
-        _initilizeStringValues("IshaaNum");
-
-        //Initialize Bool Values
-        _initilizeBoolValues("isOnSawm");
-        _initilizeBoolValues("isOnDarkMode");
-        _initilizeBoolValues("isOnFajir");
-        _initilizeBoolValues("isOnDhuhr");
-        _initilizeBoolValues("isOnAsr");
-        _initilizeBoolValues("isOnMaghrib");
-        _initilizeBoolValues("isOnIshaa");
-      }
-    });
-  }
 
   Future _updateTextField(var contr, var curNum, String curKey) async{
     await SharedPreferences.getInstance().then((pref) {
@@ -502,7 +531,7 @@ class _MyHomePageState extends State<MyHomePage> {
         pref.setString(curKey, contr.text);
       }if(curNum == null){
         pref.setString(curKey, "0");
-        print(pref.getString(curKey).toString() + "Was Null");
+       //print(pref.getString(curKey).toString() + "Was Null");
       }
 
       //Clear Text field
@@ -562,77 +591,7 @@ class _MyHomePageState extends State<MyHomePage> {
   var borderCol = Colors.black;
 
   _MyHomePageState(){
-    //_firstStartUpInitialization();
     //_clearSharedPref();
-
-    //sleep(Duration(seconds:3));
-    print("done sleep");
-
-    /*//Initialize String Values
-    _initilizeStringValues("SawmNum");
-    _initilizeStringValues("NathiirNum");
-    _initilizeStringValues("ZakatNum");
-    _initilizeStringValues("ZakatElFuthrahNum");
-    _initilizeStringValues("FajirNum");
-    _initilizeStringValues("DhuhrNum");
-    _initilizeStringValues("AsrNum");
-    _initilizeStringValues("MaghribNum");
-    _initilizeStringValues("IshaaNum");
-
-    //Initialize Bool Values
-    _initilizeBoolValues("isOnSawm");
-    _initilizeBoolValues("isOnDarkMode");
-    _initilizeBoolValues("isOnFajir");
-    _initilizeBoolValues("isOnDhuhr");
-    _initilizeBoolValues("isOnAsr");
-    _initilizeBoolValues("isOnMaghrib");
-    _initilizeBoolValues("isOnIshaa");
-
-
-    SharedPreferences.getInstance().then((pref) {
-      //Ternary Operations used to check if values have yet to be initialized by user
-      //If they are not then the default value will be "0"
-      //Else it will be the User specified value
-
-      *//*curSawmNum = (pref.getString("SawmNum") == null) ? "0" : pref.getString("SawmNum");
-      curNathiirNum = (pref.getString("NathiirNum") == null) ? "0" : pref.getString("NathiirNum");
-      curZakatNum = (pref.getString("ZakatNum") == null) ? "0" : pref.getString("ZakatNum");
-      curZakatElFutrahNum = (pref.getString("ZakatElFuthrahNum") == null) ? "0" : pref.getString("ZakatElFuthrahNum");
-      curFajirNum = (pref.getString("FajirNum") == null) ? "0" : pref.getString("FajirNum");
-      curDhuhrNum = (pref.getString("DhuhrNum") == null) ? "0" : pref.getString("DhuhrNum");
-      curAsrNum = (pref.getString("AsrNum") == null) ? "0" : pref.getString("AsrNum");
-      curMaghribNum = (pref.getString("MaghribNum") == null) ? "0" : pref.getString("MaghribNum");
-      curIshaaNum = (pref.getString("IshaaNum") == null) ? "0" : pref.getString("IshaaNum");
-*//*
-      curSawmNum = pref.getString("SawmNum");
-      curNathiirNum = pref.getString("NathiirNum");
-      curZakatNum = pref.getString("ZakatNum");
-      curZakatElFutrahNum = pref.getString("ZakatElFuthrahNum");
-      curFajirNum = pref.getString("FajirNum");
-      curDhuhrNum = pref.getString("DhuhrNum");
-      curAsrNum = pref.getString("AsrNum");
-      curMaghribNum = pref.getString("MaghribNum");
-      curIshaaNum = pref.getString("IshaaNum");
-
-
-      isOnSawm = pref.getBool("isOnSawm") ?? false;
-      isOnDarkMode = pref.getBool("isOnDarkMode") ?? false;
-      isOnFajir = pref.getBool("isOnFajir") ?? false;
-      isOnDhuhr = pref.getBool("isOnDhuhr") ?? true;
-      isOnAsr = pref.getBool("isOnAsr") ?? false;
-      isOnMaghrib = pref.getBool("isOnMaghrib") ?? false;
-      isOnIshaa = pref.getBool("isOnIshaa") ?? false;
-
-
-
-
-      print("in fs");
-    });*/
-
-
-    //sleep(Duration(seconds:3));
-    print("donnne");
-
   }
 
 
@@ -645,10 +604,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final List<bool> _yesNoSawm = <bool>[true, false];
 
 
-  //Info about current date
-  var curDay = DateTime.now().day.toString();
-  var curMonth = DateTime.now().month.toString();
-  var curYear = DateTime.now().year.toString();
+
 
   //Font sizes
   static const double fontSiz = 25;
@@ -685,273 +641,153 @@ class _MyHomePageState extends State<MyHomePage> {
        body: Column(
           children: [
             Expanded(//Today Row
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    'Today',
-                    style: TextStyle(
-                    decoration: TextDecoration.underline,
-                      fontWeight: FontWeight.bold,
-                      fontSize: fontSiz,
-                      color: textCol,
-                  ),
-                  ),
-                  const Spacer(),
-                  Text(
-                    '${curMonth}/${curDay}/${curYear}',
-                    style: //Theme.of(context).textTheme.headline4,
-                    TextStyle(
+              child: Container(
+                margin: EdgeInsets.only(left: 10, right:15),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+
+                  children: <Widget>[
+                    Text(
+                      'Today',
+                      style: TextStyle(
                       decoration: TextDecoration.underline,
-                      fontWeight: FontWeight.bold,
-                      fontSize: fontSiz,
-                      color: textCol,
+                        fontWeight: FontWeight.bold,
+                        fontSize: fontSiz,
+                        color: textCol,
                     ),
-                  ),
-                ],
+                    ),
+                    const Spacer(),
+                    Text(
+                      '${curMonth}/${curDay}/${curYear}',
+                      style: //Theme.of(context).textTheme.headline4,
+                      TextStyle(
+                        decoration: TextDecoration.underline,
+                        fontWeight: FontWeight.bold,
+                        fontSize: fontSiz,
+                        color: textCol,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
             Expanded(//Fajir Row
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    'Fajir',
-                    style: TextStyle(
-                      decoration: TextDecoration.underline,
-                      fontWeight: FontWeight.bold,
-                      fontSize: fontSiz,
-                      color: textCol,
-                    ),
-                  ),
-                  const Spacer(),
-                  Container(
-                    margin: EdgeInsets.all(20),
-                    child: ToggleButtons(
-                      // logic for button selection below
-                      onPressed: (int index) {
-                        setState(() {
-                          String tempIsSelectedFajir = isSelectedFajir.toString();
-
-                          for (int i = 0; i < isSelectedFajir.length; i++) {
-                            isSelectedFajir[i] = i == index;
-                          }
-                          _currentSelectedFajir = index;
-                          saveIsSelectedFajir();
-                          print("curFaj" + _currentSelectedFajir.toString());
-                          print("isSelFaj" + isSelectedFajir.toString());
-                          _applyToggleValsToTally(fajirController,isSelectedFajir,curFajirNum,"FajirNum", tempIsSelectedFajir);
-
-                        });
-                      },
-                      borderRadius: const BorderRadius.all(Radius.circular(8)),
-                      borderColor: borderCol,
-                      selectedBorderColor: Colors.green[700],
-                      selectedColor: Colors.white,
-                      fillColor: Colors.green[200],
-                      color: textCol,
-                      constraints: const BoxConstraints(
-                        minHeight: 40.0,
-                        minWidth: 80.0,
-                      ),
-                      isSelected: isSelectedFajir,
-                      children: fruits,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Expanded(//Dhuhr Row
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    'Dhuhr',
-                    style: TextStyle(
-                      decoration: TextDecoration.underline,
-                      fontWeight: FontWeight.bold,
-                      fontSize: fontSiz,
-                      color: textCol,
-                    ),
-                  ),
-                  const Spacer(),
-                  Container(
-                    margin: EdgeInsets.all(20),
-                    child: ToggleButtons(
-                      // logic for button selection below
-                      onPressed: (int index) {
-                        setState(() {
-                          String tempIsSelectedDhuhr = isSelectedDhuhr.toString();
-                          for (int i = 0; i < isSelectedDhuhr.length; i++) {
-                            isSelectedDhuhr[i] = i == index;
-                          }
-                          _currentSelectedDhuhr = index;
-                          saveIsSelectedDhuhr();
-                          _applyToggleValsToTally(dhuhrController, isSelectedDhuhr, curDhuhrNum, "DhuhrNum", tempIsSelectedDhuhr);
-                        });
-                      },
-                      borderRadius: const BorderRadius.all(Radius.circular(8)),
-                      borderColor: borderCol,
-                      selectedBorderColor: Colors.green[700],
-                      selectedColor: Colors.white,
-                      fillColor: Colors.green[200],
-                      color: textCol,
-                      constraints: const BoxConstraints(
-                        minHeight: 40.0,
-                        minWidth: 80.0,
-                      ),
-                      isSelected: isSelectedDhuhr,
-                      children: fruits,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Expanded(//Asr Row
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    'Asr',
-                    style: TextStyle(
-                      decoration: TextDecoration.underline,
-                      fontWeight: FontWeight.bold,
-                      fontSize: fontSiz,
-                      color: textCol,
-                    ),
-                  ),
-                  const Spacer(),
-                  Container(
-                    margin: EdgeInsets.all(20),
-                    child: ToggleButtons(
-                      // logic for button selection below
-                      onPressed: (int index) {
-                        setState(() {
-                          String tempIsSelectedAsr = isSelectedAsr.toString();
-                          for (int i = 0; i < isSelectedAsr.length; i++) {
-                            isSelectedAsr[i] = i == index;
-                          }
-                          _currentSelectedAsr = index;
-                          saveIsSelectedAsr();
-                          _applyToggleValsToTally(asrController, isSelectedAsr, curAsrNum, "AsrNum", tempIsSelectedAsr);
-                        });
-                      },
-                      borderRadius: const BorderRadius.all(Radius.circular(8)),
-                      borderColor: borderCol,
-                      selectedBorderColor: Colors.green[700],
-                      selectedColor: Colors.white,
-                      fillColor: Colors.green[200],
-                      color: textCol,
-                      constraints: const BoxConstraints(
-                        minHeight: 40.0,
-                        minWidth: 80.0,
-                      ),
-                      isSelected: isSelectedAsr,
-                      children: fruits,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Expanded(//Maghrib Row
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    'Maghrib',
-                    style: TextStyle(
-                      decoration: TextDecoration.underline,
-                      fontWeight: FontWeight.bold,
-                      fontSize: fontSiz,
-                      color: textCol,
-                    ),
-                  ),
-                  const Spacer(),
-                  Container(
-                    margin: EdgeInsets.all(20),
-                    child: ToggleButtons(
-                      // logic for button selection below
-                      onPressed: (int index) {
-                        setState(() {
-                          String tempIsSelectedMaghrib = isSelectedMaghrib.toString();
-                          for (int i = 0; i < isSelectedMaghrib.length; i++) {
-                            isSelectedMaghrib[i] = i == index;
-                          }
-                          _currentSelectedMaghrib = index;
-                          saveIsSelectedMaghrib();
-                          _applyToggleValsToTally(maghribController, isSelectedMaghrib, curMaghribNum, "MaghribNum", tempIsSelectedMaghrib);
-                        });
-                      },
-                      borderRadius: const BorderRadius.all(Radius.circular(8)),
-                      borderColor: borderCol,
-                      selectedBorderColor: Colors.green[700],
-                      selectedColor: Colors.white,
-                      fillColor: Colors.green[200],
-                      color: textCol,
-                      constraints: const BoxConstraints(
-                        minHeight: 40.0,
-                        minWidth: 80.0,
-                      ),
-                      isSelected: isSelectedMaghrib,
-                      children: fruits,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Expanded(//Ishaa Row
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    'Isha\'a',
-                    style: TextStyle(
-                      decoration: TextDecoration.underline,
-                      fontWeight: FontWeight.bold,
-                      fontSize: fontSiz,
-                      color: textCol,
-                    ),
-                  ),
-                  const Spacer(),
-                  Container(
-                    margin: EdgeInsets.all(20),
-                    child: ToggleButtons(
-                      // logic for button selection below
-                      onPressed: (int index) {
-                        setState(() {
-                          String tempIsSelectedIshaa = isSelectedIshaa.toString();
-                          for (int i = 0; i < isSelectedIshaa.length; i++) {
-                            isSelectedIshaa[i] = i == index;
-                          }
-                          _currentSelectedIshaa = index;
-                          saveIsSelectedIshaa();
-                          _applyToggleValsToTally(ishaaController, isSelectedIshaa, curIshaaNum, "IshaaNum", tempIsSelectedIshaa);
-                        });
-                      },
-                      borderRadius: const BorderRadius.all(Radius.circular(8)),
-                      borderColor: borderCol,
-                      selectedBorderColor: Colors.green[700],
-                      selectedColor: Colors.white,
-                      fillColor: Colors.green[200],
-                      color: textCol,
-                      constraints: const BoxConstraints(
-                        minHeight: 40.0,
-                        minWidth: 80.0,
-                      ),
-                      isSelected: isSelectedIshaa,
-                      children: fruits,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Offstage(//Sawm Row
-              offstage: !isSwitchedSawm,
+              child: Container(
+                margin: EdgeInsets.only(left: 10, right:10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      'Sawm',
+                      'Fajir',
+                      style: TextStyle(
+                        decoration: TextDecoration.underline,
+                        fontWeight: FontWeight.bold,
+                        fontSize: fontSiz,
+                        color: textCol,
+                      ),
+                    ),
+                    const Spacer(),
+                    Container(
+                      margin: EdgeInsets.only(left: 10),
+                      child: ToggleButtons(
+                        // logic for button selection below
+                        onPressed: (int index) {
+                          //////////////////////////////////////////////////////////
+                          /////////////////////////////////////////////////////////
+                          //////////////////////////////////////////////////////////
+                          _resetToggleButtons();
+                          //////////////////////////////////////////////////////////
+                          /////////////////////////////////////////////////////////
+                          //////////////////////////////////////////////////////////
+                          setState(() {
+                            String tempIsSelectedFajir = isSelectedFajir.toString();
+
+                            for (int i = 0; i < isSelectedFajir.length; i++) {
+                              isSelectedFajir[i] = i == index;
+                            }
+                            _currentSelectedFajir = index;
+                            saveIsSelectedFajir();
+                           //("curFaj" + _currentSelectedFajir.toString());
+                           //print("isSelFaj" + isSelectedFajir.toString());
+                            _applyToggleValsToTally(fajirController,isSelectedFajir,curFajirNum,"FajirNum", tempIsSelectedFajir);
+
+                          });
+                        },
+                        borderRadius: const BorderRadius.all(Radius.circular(8)),
+                        borderColor: borderCol,
+                        selectedBorderColor: Colors.green[700],
+                        selectedColor: Colors.white,
+                        fillColor: Colors.green[200],
+                        color: textCol,
+                        constraints: const BoxConstraints(
+                          minHeight: 40.0,
+                          minWidth: 80.0,
+                        ),
+                        isSelected: isSelectedFajir,
+                        children: fruits,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Expanded(//Dhuhr Row
+              child: Container(
+                margin: EdgeInsets.only(left: 10, right:10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      'Dhuhr',
+                      style: TextStyle(
+                        decoration: TextDecoration.underline,
+                        fontWeight: FontWeight.bold,
+                        fontSize: fontSiz,
+                        color: textCol,
+                      ),
+                    ),
+                    const Spacer(),
+                    Container(
+                      margin: EdgeInsets.only(left: 10),
+                      child: ToggleButtons(
+                        // logic for button selection below
+                        onPressed: (int index) {
+                          setState(() {
+                            String tempIsSelectedDhuhr = isSelectedDhuhr.toString();
+                            for (int i = 0; i < isSelectedDhuhr.length; i++) {
+                              isSelectedDhuhr[i] = i == index;
+                            }
+                            _currentSelectedDhuhr = index;
+                            saveIsSelectedDhuhr();
+                            _applyToggleValsToTally(dhuhrController, isSelectedDhuhr, curDhuhrNum, "DhuhrNum", tempIsSelectedDhuhr);
+                          });
+                        },
+                        borderRadius: const BorderRadius.all(Radius.circular(8)),
+                        borderColor: borderCol,
+                        selectedBorderColor: Colors.green[700],
+                        selectedColor: Colors.white,
+                        fillColor: Colors.green[200],
+                        color: textCol,
+                        constraints: const BoxConstraints(
+                          minHeight: 40.0,
+                          minWidth: 80.0,
+                        ),
+                        isSelected: isSelectedDhuhr,
+                        children: fruits,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Expanded(//Asr Row
+              child: Container(
+                margin: EdgeInsets.only(left: 10, right:10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      'Asr',
                       style: TextStyle(
                         decoration: TextDecoration.underline,
                         fontWeight: FontWeight.bold,
@@ -966,17 +802,17 @@ class _MyHomePageState extends State<MyHomePage> {
                         // logic for button selection below
                         onPressed: (int index) {
                           setState(() {
-                            String tempIsSelectedSawm = isSelectedSawm.toString();
-                            for (int i = 0; i < isSelectedSawm.length; i++) {
-                              isSelectedSawm[i] = i == index;
+                            String tempIsSelectedAsr = isSelectedAsr.toString();
+                            for (int i = 0; i < isSelectedAsr.length; i++) {
+                              isSelectedAsr[i] = i == index;
                             }
-                            _currentSelectedSawm = index;
-                            saveIsSelectedSawm();
-                            _applyToggleValsToTally(sawmController, isSelectedSawm, curSawmNum, "SawmNum", tempIsSelectedSawm);
+                            _currentSelectedAsr = index;
+                            saveIsSelectedAsr();
+                            _applyToggleValsToTally(asrController, isSelectedAsr, curAsrNum, "AsrNum", tempIsSelectedAsr);
                           });
                         },
                         borderRadius: const BorderRadius.all(Radius.circular(8)),
-                        borderColor: textCol,
+                        borderColor: borderCol,
                         selectedBorderColor: Colors.green[700],
                         selectedColor: Colors.white,
                         fillColor: Colors.green[200],
@@ -985,11 +821,160 @@ class _MyHomePageState extends State<MyHomePage> {
                           minHeight: 40.0,
                           minWidth: 80.0,
                         ),
-                        isSelected: isSelectedSawm,
+                        isSelected: isSelectedAsr,
                         children: fruits,
                       ),
                     ),
                   ],
+                ),
+              ),
+            ),
+            Expanded(//Maghrib Row
+              child: Container(
+                margin: EdgeInsets.only(left: 10, right:10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      'Maghrib',
+                      style: TextStyle(
+                        decoration: TextDecoration.underline,
+                        fontWeight: FontWeight.bold,
+                        fontSize: fontSiz,
+                        color: textCol,
+                      ),
+                    ),
+                    const Spacer(),
+                    Container(
+                      margin: EdgeInsets.all(20),
+                      child: ToggleButtons(
+                        // logic for button selection below
+                        onPressed: (int index) {
+                          setState(() {
+                            String tempIsSelectedMaghrib = isSelectedMaghrib.toString();
+                            for (int i = 0; i < isSelectedMaghrib.length; i++) {
+                              isSelectedMaghrib[i] = i == index;
+                            }
+                            _currentSelectedMaghrib = index;
+                            saveIsSelectedMaghrib();
+                            _applyToggleValsToTally(maghribController, isSelectedMaghrib, curMaghribNum, "MaghribNum", tempIsSelectedMaghrib);
+                          });
+                        },
+                        borderRadius: const BorderRadius.all(Radius.circular(8)),
+                        borderColor: borderCol,
+                        selectedBorderColor: Colors.green[700],
+                        selectedColor: Colors.white,
+                        fillColor: Colors.green[200],
+                        color: textCol,
+                        constraints: const BoxConstraints(
+                          minHeight: 40.0,
+                          minWidth: 80.0,
+                        ),
+                        isSelected: isSelectedMaghrib,
+                        children: fruits,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Expanded(//Ishaa Row
+              child: Container(
+                margin: EdgeInsets.only(left: 10, right:10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      'Isha\'a',
+                      style: TextStyle(
+                        decoration: TextDecoration.underline,
+                        fontWeight: FontWeight.bold,
+                        fontSize: fontSiz,
+                        color: textCol,
+                      ),
+                    ),
+                    const Spacer(),
+                    Container(
+                      margin: EdgeInsets.all(20),
+                      child: ToggleButtons(
+                        // logic for button selection below
+                        onPressed: (int index) {
+                          setState(() {
+                            String tempIsSelectedIshaa = isSelectedIshaa.toString();
+                            for (int i = 0; i < isSelectedIshaa.length; i++) {
+                              isSelectedIshaa[i] = i == index;
+                            }
+                            _currentSelectedIshaa = index;
+                            saveIsSelectedIshaa();
+                            _applyToggleValsToTally(ishaaController, isSelectedIshaa, curIshaaNum, "IshaaNum", tempIsSelectedIshaa);
+                          });
+                        },
+                        borderRadius: const BorderRadius.all(Radius.circular(8)),
+                        borderColor: borderCol,
+                        selectedBorderColor: Colors.green[700],
+                        selectedColor: Colors.white,
+                        fillColor: Colors.green[200],
+                        color: textCol,
+                        constraints: const BoxConstraints(
+                          minHeight: 40.0,
+                          minWidth: 80.0,
+                        ),
+                        isSelected: isSelectedIshaa,
+                        children: fruits,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Offstage(//Sawm Row
+              offstage: !isSwitchedSawm,
+                child: Container(
+                  margin: EdgeInsets.only(left: 10, right:10),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        'Sawm',
+                        style: TextStyle(
+                          decoration: TextDecoration.underline,
+                          fontWeight: FontWeight.bold,
+                          fontSize: fontSiz,
+                          color: textCol,
+                        ),
+                      ),
+                      const Spacer(),
+                      Container(
+                        margin: EdgeInsets.all(20),
+                        child: ToggleButtons(
+                          // logic for button selection below
+                          onPressed: (int index) {
+                            setState(() {
+                              String tempIsSelectedSawm = isSelectedSawm.toString();
+                              for (int i = 0; i < isSelectedSawm.length; i++) {
+                                isSelectedSawm[i] = i == index;
+                              }
+                              _currentSelectedSawm = index;
+                              saveIsSelectedSawm();
+                              _applyToggleValsToTally(sawmController, isSelectedSawm, curSawmNum, "SawmNum", tempIsSelectedSawm);
+                            });
+                          },
+                          borderRadius: const BorderRadius.all(Radius.circular(8)),
+                          borderColor: textCol,
+                          selectedBorderColor: Colors.green[700],
+                          selectedColor: Colors.white,
+                          fillColor: Colors.green[200],
+                          color: textCol,
+                          constraints: const BoxConstraints(
+                            minHeight: 40.0,
+                            minWidth: 80.0,
+                          ),
+                          isSelected: isSelectedSawm,
+                          children: fruits,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
             ),
             Expanded(//Qada and Sawm Buttons
@@ -1326,7 +1311,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             curNathiirNum = pref.getString("NathiirNum") ?? "0";
 
                             /*print("Sawm (general): " + curSawmNum.toString());
-                                    print("Nathiir: " + curNathiirNum.toString());*/
+                                   //("Nathiir: " + curNathiirNum.toString());*/
                           });
                         });
                         showDialog(
@@ -1456,7 +1441,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                     curNathiirNum = pref.getString("NathiirNum");
 
                                     /*print("Sawm (general): " + curSawmNum.toString());
-                                    print("Nathiir: " + curNathiirNum.toString());*/
+                                   //("Nathiir: " + curNathiirNum.toString());*/
                                   });
                                 });
                                 Navigator.of(context).pop();
@@ -1620,8 +1605,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                       }
                                       curZakatNum = pref.getString("ZakatNum");
                                       curZakatElFutrahNum = pref.getString("ZakatElFuthrahNum");
-                                      print("Zakat (general): " + curZakatNum.toString());
-                                      print("Zakat Ele Futrhah: " + curZakatElFutrahNum.toString());
+                                      //print("Zakat (general): " + curZakatNum.toString());
+                                      //print("Zakat Ele Futrhah: " + curZakatElFutrahNum.toString());
 
                                       zakatController.text = "";
                                       zakatElFutrahController.text = "";

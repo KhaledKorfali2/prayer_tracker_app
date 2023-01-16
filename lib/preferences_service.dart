@@ -3,7 +3,7 @@ import 'models.dart';
 
 class PreferencesService {
   Future saveSettings(AppData appDat) async{
-    final pref = await SharedPreferences.getInstance();
+    //final pref = await SharedPreferences.getInstance();
 
     //Initialize String Values
     await _initilizeStringValues("SawmNum");
@@ -26,7 +26,7 @@ class PreferencesService {
     await _initilizeBoolValues("isOnIshaa");
   }
 
-  Future getSettings(Settings settings) async{
+  /*Future getSettings(Settings settings) async{
     final pref = await SharedPreferences.getInstance();
 
     //await preferences.setString();
@@ -52,14 +52,14 @@ class PreferencesService {
 
 
   }
-
+*/
 
 
   Future _initilizeStringValues(String curKey) async{
     SharedPreferences.getInstance().then((pref) {
       if(pref.getString(curKey) == null){
         pref.setString(curKey, "0");
-        print(pref.getString(curKey).toString() + "Was Null");
+        //print(pref.getString(curKey).toString() + "Was Null");
       }
     });
   }
@@ -68,7 +68,7 @@ class PreferencesService {
     SharedPreferences.getInstance().then((pref) {
       if(pref.getBool(curKey) == null){
         pref.setBool(curKey, false);
-        print(pref.getBool(curKey).toString() + "Was Null");
+        //print(pref.getBool(curKey).toString() + "Was Null");
       }
     });
   }

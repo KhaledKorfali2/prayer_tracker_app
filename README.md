@@ -20,11 +20,7 @@ Insert Link Here
 
 ## Build Status
 This app is not yet complete. A list of what's left to do is:
-- Toggle buttons update current count for respective prayer
-- Toggle buttons reset to default position after at the start of the next day
-- Dark mode
-- Include way to toggle the visibility of "Sawm" row with its own toggle button (similar to 5 prayers)
-- Store state of toggle buttons after app is closed
+- Fix Initial StartUp  Flicker
 
 ## Code Style
 Variables will typically be "nameAdjective" format. (Ex. fajirController)
