@@ -8,38 +8,56 @@ const List<Widget> fruits = <Widget>[
   Text('No')
 ];
 
+MaterialColor createMaterialColor(Color color) {
+  List strengths = <double>[.05];
+  Map<int, Color> swatch = {};
+  final int r = color.red, g = color.green, b = color.blue;
+
+  for (int i = 1; i < 10; i++) {
+    strengths.add(0.1 * i);
+  }
+  for (var strength in strengths) {
+    final double ds = 0.5 - strength;
+    swatch[(strength * 1000).round()] = Color.fromRGBO(
+      r + ((ds < 0 ? r : (255 - r)) * ds).round(),
+      g + ((ds < 0 ? g : (255 - g)) * ds).round(),
+      b + ((ds < 0 ? b : (255 - b)) * ds).round(),
+      1,
+    );
+  }
+  return MaterialColor(color.value, swatch);
+}
+
 void main() {
+  
+  
   runApp(const MyApp());
   WidgetsFlutterBinding.ensureInitialized();
 }
 
+
+
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    var darkestGreen = const Color(0xFF3a5043);
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Muslim Prayer Tracker',
       theme: ThemeData(
-        primarySwatch: Colors.green,
+        primarySwatch: Colors.brown
       ),
-      home: const MyHomePage(title: 'Prayer Tracker'),
+      home: const MyHomePage(title: 'Muslim Prayer Tracker'),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
 
   final String title;
 
@@ -552,19 +570,31 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future _updateAppTheme() async{
     await SharedPreferences.getInstance().then((pref) {
+      var lightGreen = const Color(0xfff8eebf);
+      var midGreen = const Color(0xff7f9860);
+      var darkGreen = const Color(0xff04373b);
+      var darkestGreen = const Color(0xff3a5043);
      if(isSwitchedDarkMode == false)
        {
-         textCol = Colors.black;
+         textCol = darkestGreen;
          textFieldCol = Colors.black54;
-         backgroundCol = Colors.white;
+         backgroundCol = lightGreen;
          borderCol = Colors.black;
+         elevatedButtonCol = midGreen;
+         toggleButtonCol = midGreen;
+         toggleButtonBorderCol = darkestGreen;
+         elevatedButtonBorderCol = darkestGreen;
        }
      else if(isSwitchedDarkMode == true)
      {
        textCol = Colors.white;
        textFieldCol = Colors.white54;
-       backgroundCol = Colors.black;
+       backgroundCol = darkGreen;
        borderCol = Colors.white;
+       elevatedButtonCol = Colors.green[200];
+       toggleButtonCol = Colors.green[200];
+       toggleButtonBorderCol = Colors.green[700];
+       elevatedButtonBorderCol = Colors.green[700];
      }
     });
   }
@@ -596,9 +626,12 @@ class _MyHomePageState extends State<MyHomePage> {
   var borderCol = Colors.black;
   var toggleButtonCol = Colors.green[200];
   var elevatedButtonCol = Colors.green[700];
+  var toggleButtonBorderCol =  Colors.green[200];
+  var elevatedButtonBorderCol = Colors.green[700];
 
   //Font sizes and margins
   static const double fontSiz = 25;
+  static const double popUpFontSiz = 20;
   static const double textFieldMargins = 15;
   static const double toggleButtonMargins = 10;
 
@@ -643,10 +676,16 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       backgroundColor: backgroundCol,
       appBar: AppBar(
-        backgroundColor: Colors.green[700],
+        backgroundColor: elevatedButtonCol,
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+        title: Text(widget.title,
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: fontSiz,
+          color: textCol,
+        )
+        ),
       ),
        body: Column(
           children: [
@@ -1038,6 +1077,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                                       child: Text("Fajir",
                                                         style: TextStyle(
                                                           color: textCol,
+                                                          fontWeight: FontWeight.bold,
+                                                          fontSize: popUpFontSiz,
                                                         ),
                                                       ),
                                                     ),
@@ -1085,6 +1126,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                                       child: Text("Dhuhr",
                                                         style: TextStyle(
                                                           color: textCol,
+                                                          fontWeight: FontWeight.bold,
+                                                          fontSize: popUpFontSiz,
                                                         ),
                                                       ),
                                                     ),
@@ -1132,6 +1175,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                                       child: Text("Asr",
                                                         style: TextStyle(
                                                           color: textCol,
+                                                          fontWeight: FontWeight.bold,
+                                                          fontSize: popUpFontSiz,
                                                         ),
                                                       ),
                                                     ),
@@ -1179,6 +1224,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                                       child: Text("Maghrib",
                                                         style: TextStyle(
                                                           color: textCol,
+                                                          fontWeight: FontWeight.bold,
+                                                          fontSize: popUpFontSiz,
                                                         ),
                                                       ),
                                                     ),
@@ -1226,6 +1273,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                                       child: Text("Isha\'a",
                                                         style: TextStyle(
                                                           color: textCol,
+                                                          fontWeight: FontWeight.bold,
+                                                          fontSize: popUpFontSiz,
                                                         ),
                                                       ),
                                                     ),
@@ -1350,6 +1399,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                     child: Text("Sawm (General)",
                                       style: TextStyle(
                                         color: textCol,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: popUpFontSiz,
                                       ),
                                     ),
                                   ),
@@ -1397,6 +1448,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                         child: Text("Nathiir",
                                           style: TextStyle(
                                             color: textCol,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: popUpFontSiz,
                                           ),
                                         ),
                                       ),
@@ -1505,16 +1558,28 @@ class _MyHomePageState extends State<MyHomePage> {
                                         mainAxisAlignment: MainAxisAlignment.start,
                                         children: <Widget>[
                                           Expanded(
-                                              flex: 50,
+                                              flex: 35,
                                               child: Text("Zakat (General)",
                                                 style: TextStyle(
                                                   color: textCol,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: popUpFontSiz,
                                                 ),
                                               ),
                                           ),
-                                          Spacer(flex: 25,),
+                                          Spacer(flex: 15,),
                                           Expanded(
-                                            flex: 25,
+                                            flex: 5,
+                                            child: Text("\$",
+                                              style: TextStyle(
+                                                color: textCol,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: popUpFontSiz,
+                                              ),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            flex: 45,
                                             child: TextField(
                                               controller: zakatController,
                                               obscureText: false,
@@ -1556,6 +1621,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                               child: Text("Zakat El Futrah",
                                                 style: TextStyle(
                                                   color: textCol,
+                                                  fontWeight: FontWeight.bold,
+                                                  fontSize: popUpFontSiz,
                                                 ),
                                               ),
                                           ),
@@ -1674,6 +1741,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                                   child: Text("Show Sawm Row:",
                                                     style: TextStyle(
                                                       color: textCol,
+                                                      fontWeight: FontWeight.bold,
+                                                      fontSize: popUpFontSiz,
                                                     ),
                                                   ),
                                                 ),
@@ -1706,6 +1775,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                                   child: Text("Dark Mode:",
                                                     style: TextStyle(
                                                       color: textCol,
+                                                      fontWeight: FontWeight.bold,
+                                                      fontSize: popUpFontSiz,
                                                     ),
                                                   ),
                                                 ),
