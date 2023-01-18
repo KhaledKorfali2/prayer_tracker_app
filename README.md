@@ -17,7 +17,7 @@ Problem: Although we try our best to abide by these pillars, there are times whe
 Solution: This app strives to to create a simple and efficient way for anyone to quickly record the exact amount of Qadas (seperate tally for each of the 5), Sawm, and Zakat that they need to complete to be caught up with their obligations.
 
 ## Video Demo
-[YouTube Link](https://youtu.be/serFB91KHYY)
+[[!YouTube Link](https://i9.ytimg.com/vi/serFB91KHYY/mqdefault.jpg?sqp=CJjvoZ4G-oaymwEmCMACELQB8quKqQMa8AEB-AH-CYAC0AWKAgwIABABGFsgWyhbMA8=&rs=AOn4CLCqZXSJHO1svqGIDL8apsOgVPq3jQ)](https://youtu.be/serFB91KHYY)
 
 ## Current Features
 - Record prayers completed on a prayer-by-prayer bases
@@ -42,7 +42,7 @@ Solution: This app strives to to create a simple and efficient way for anyone to
   - Cupertino Icons for app icon
   - Synchronized for enforcing app initialization order/process
 
-## Instalations
+## Installation
 In order to properly download and run the program you will first need to have:
 - Android Studio's 
 - Flutter/dart projects extension for Android Studio
