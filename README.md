@@ -68,9 +68,14 @@ With these prerequisites completed simply download the project files using Git/G
 
 
 ## How to Use?
-- After running your emulated Android device on Android Studio simply click on the toggle buttons Yes/No toggle buttons to specify whether you have or have not completed the specific prayer. The corresponding entry in the Qada section will then be updated to reflect this.
+### First Start Up
+- After running your emulated Android device on Android Studio simply click on the Yes/No toggle buttons to specify whether you have or have not completed the specific prayer. The corresponding entry in the Qada section will then be updated to reflect this.
+### Manually Entering Quantities for Previously Missed Qada, Sawm, or Zakat
 - If you have prior Qada, Sawm, or Zakat that you need to enter, simply click on the corresponding button at the bottom of the screen and find the row with your desired field. After that click on the box in that row and type in the appropriate quantity. When finished hit save.
+- If you have made up one some of your obligations simply copy the previous instructions to enter your new tally
+### Adding a New Row For Sawm on Home Screen
 - Should you want to add a Sawm row, simply press on the Settings button at the bottom of the screen and click the corresponding toggle button. When finished press the save button.
+### Changing App Theme (Dark/Light Modes)
 - If you want to change the app's theme to dark mode, simply  simply press on the Settings button at the bottom of the screen and click the corresponding toggle button. When finished press the save button.
 
 
