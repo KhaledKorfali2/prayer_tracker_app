@@ -107,28 +107,27 @@ class _MyHomePageState extends State<MyHomePage> {
     var lock = Lock();
     await lock.synchronized(() async {
       await _InitializeDate();
-
     });
 
 
 
     //Initialize Toggle Buttons
-    await getIsSelectedFajir();
+    getIsSelectedFajir();
     isSelectedFajir = [true, false];
 
-    await getIsSelectedDhuhr();
+    getIsSelectedDhuhr();
     isSelectedDhuhr = [true, false];
 
-    await getIsSelectedAsr();
+    getIsSelectedAsr();
     isSelectedAsr = [true, false];
 
-    await getIsSelectedMaghrib();
+    getIsSelectedMaghrib();
     isSelectedMaghrib = [true, false];
 
-    await getIsSelectedIshaa();
+    getIsSelectedIshaa();
     isSelectedIshaa = [true, false];
 
-    await getIsSelectedSawm();
+    getIsSelectedSawm();
     isSelectedSawm = [true, false];
 
 
@@ -254,8 +253,8 @@ class _MyHomePageState extends State<MyHomePage> {
           [true, false]);
       _currentSelectedFajir = prefs.getInt('currentFontFamily') ?? 0;
     });
-    //print("IsSelected" + isSelectedFajir.toString());
-    //print("curSelected" + _currentSelectedFajir.toString());
+    print("IsSelected" + isSelectedFajir.toString());
+    print("curSelected" + _currentSelectedFajir.toString());
   }
 
   saveIsSelectedDhuhr() async {
@@ -279,6 +278,7 @@ class _MyHomePageState extends State<MyHomePage> {
           [true, false]);
       _currentSelectedDhuhr = prefs.getInt('currentFontFamily1') ?? 0;
     });
+    print("Value Saved");
   }
 
   saveIsSelectedAsr() async {
@@ -290,6 +290,7 @@ class _MyHomePageState extends State<MyHomePage> {
       );
       prefs.setInt('currentFontFamily2', _currentSelectedAsr);
     });
+    print("Value Saved");
   }
 
   getIsSelectedAsr() async {
