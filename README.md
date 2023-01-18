@@ -1,4 +1,4 @@
-<img src="assets/muslim_prayer_tracker_banner_pic.png" alt="drawing" width="700"/>
+# Muslim Prayer Tracker
 
 A new Flutter project for my CS4750, which allows android users to quickly and easily view and edit the number of prayers, fasts, etc. which they may have in order to make them up at a later date.
 
