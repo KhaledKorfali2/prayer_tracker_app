@@ -23,8 +23,8 @@ Insert Link Here
 - Data persists between sessions
 
 ## Build Status
--App development has been completed. 
--Pending Play Store Approval 
+- App development has been completed. 
+- Pending Play Store Approval 
 
 ## Code Style
 Variables will typically be "nameAdjective" format. (Ex. fajirController)
