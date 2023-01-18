@@ -1,4 +1,4 @@
-package edu.cpp.cs4750.prayer_tracker_app
+package edu.cpp.cs4750.muslim_prayer_tracker_app
 
 import io.flutter.embedding.android.FlutterActivity
 

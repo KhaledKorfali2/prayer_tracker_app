@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="edu.cpp.cs4750.prayer_tracker_app">
+    package="edu.cpp.cs4750.muslim_prayer_tracker_app">
    <application
-        android:label="prayer_tracker_app"
+        android:label="muslim_prayer_tracker_app"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
         <activity
