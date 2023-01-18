@@ -17,6 +17,7 @@ Problem: Although we try our best to abide by these pillars, there are times whe
 Solution: This app strives to to create a simple and efficient way for anyone to quickly record the exact amount of Qadas (seperate tally for each of the 5), Sawm, and Zakat that they need to complete to be caught up with their obligations.
 
 ## Video Demo
+### Click Picture To Be Redirected To YouTube 
 [![YouTube Link](https://img.youtube.com/vi/serFB91KHYY/maxresdefault.jpg)](https://youtu.be/serFB91KHYY)
 
 ## Current Features
