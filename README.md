@@ -17,9 +17,11 @@ Problem: Although we try our best to abide by these pillars, there are times whe
 Solution: This app strives to to create a simple and efficient way for anyone to quickly record the exact amount of Qadas (seperate tally for each of the 5), Sawm, and Zakat that they need to complete to be caught up with their obligations.
 
 ## App Screenshots
-<img src="assets/app_screenshot_home_screen.png" alt="drawing" width="200"/>
-
-<img src="assets/app_screenshot_home_screen_sawm.png" alt="drawing" width="200"/>
+<div class="column">
+  <div class="row">
+    <img src="assets/app_screenshot_home_screen.png" alt="drawing" width="200"/>
+    <img src="assets/app_screenshot_home_screen_sawm.png" alt="drawing" width="200"/>
+  </div>
 
 <img src="assets/app_screenshot_qada.png" alt="drawing" width="200"/>
 
@@ -32,7 +34,7 @@ Solution: This app strives to to create a simple and efficient way for anyone to
 <img src="assets/app_screenshot_darkmode_home.png" alt="drawing" width="200"/>
 
 <img src="assets/app_screenshot_darkmode_qada.png" alt="drawing" width="200"/>
-
+</div>
 
 ## Video Demo
 ### Click Picture To Be Redirected To YouTube 
