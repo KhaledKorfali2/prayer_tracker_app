@@ -42,9 +42,9 @@ Solution: This app strives to to create a simple and efficient way for anyone to
 - View and update any missed fasts under "Sawm" button
 - View and update any missed Zakat under "Zakat: button
 - Dark/Light Mode Options
-- Toggle to include a Sawm row along with the rest of the prayers for use during Ramadan/Nathiir
-- Toggles automatically default to "Yes" for Prayers and Sawm at start of each day. Qada and Sawm tallies updated to reflect this
-- Data persists between sessions
+- Toggle Switch to include a Sawm row along with the rest of the prayers for use during Ramadan/Nathiir
+- Toggles automatically default to "Yes" for Prayers and Sawm at start of each day.
+- Data persistence between sessions
 
 ## Build Status
 - App development has been completed. 
