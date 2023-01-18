@@ -26,8 +26,6 @@ Insert Link Here
 - App development has been completed. 
 - Pending Play Store Approval 
 
-## Code Style
-Variables will typically be "nameAdjective" format. (Ex. fajirController)
 
 ## Tech/Framework used
 - This app was created using the Flutter extension in Andriod Studio. The primary language used was dart.
