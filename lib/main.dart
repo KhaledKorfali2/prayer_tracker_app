@@ -73,6 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
   var curYear = DateTime.now().year.toString();
 
 
+  //Stores Current state of Toggle Buttons
   List<bool> isSelectedFajir = [true, false];
   int _currentSelectedFajir = 0;
 
@@ -158,6 +159,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  //Get Tally Values For Nathiir
   Future<void> _getNathiirTally() async {
     var prefs = await SharedPreferences.getInstance();
     var value = prefs.getString('NathiirNum') ?? "0";
@@ -167,6 +169,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  //Get Tally Values For Zakat
   Future<void> _getZakatTally() async {
     var prefs = await SharedPreferences.getInstance();
     var value = prefs.getString('ZakatNum') ?? "0";
@@ -176,6 +179,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  //Get Tally Values For Zakat El Futrah
   Future<void> _getZakatElFutrahTally() async {
     var prefs = await SharedPreferences.getInstance();
     var value = prefs.getString('ZakatElFuthrahNum') ?? "0";
@@ -185,6 +189,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  //Get Tally Values For Fajir
   Future<void> _getFajirTally() async {
     var prefs = await SharedPreferences.getInstance();
     var value = prefs.getString('FajirNum') ?? "0";
@@ -194,6 +199,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  //Get Tally Values For Dhuhr
   Future<void> _getDhuhrTally() async {
     var prefs = await SharedPreferences.getInstance();
     var value = prefs.getString('DhuhrNum') ?? "0";
@@ -203,6 +209,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  //Get Tally Values For Asr
   Future<void> _getAsrTally() async {
     var prefs = await SharedPreferences.getInstance();
     var value = prefs.getString('AsrNum') ?? "0";
@@ -212,6 +219,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  //Get Tally Values For Maghrib
   Future<void> _getMaghribTally() async {
     var prefs = await SharedPreferences.getInstance();
     var value = prefs.getString('MaghribNum') ?? "0";
@@ -221,6 +229,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  //Get Tally Values For Ishaa
   Future<void> _getIshaaTally() async {
     var prefs = await SharedPreferences.getInstance();
     var value = prefs.getString('IshaaNum') ?? "0";
@@ -230,6 +239,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  //Save Current State of Fajir Toggle
   saveIsSelectedFajir() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -243,6 +253,7 @@ class _MyHomePageState extends State<MyHomePage> {
         fajirController,isSelectedFajir,curFajirNum,"FajirNum", temp);*/
   }
 
+  //Get Current State of Fajir Toggle
   getIsSelectedFajir() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -257,6 +268,7 @@ class _MyHomePageState extends State<MyHomePage> {
     print("curSelected" + _currentSelectedFajir.toString());
   }
 
+  //Save Current State of Dhuhr Toggle
   saveIsSelectedDhuhr() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -268,6 +280,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  //Get Current State of Dhuhr Toggle
   getIsSelectedDhuhr() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -281,6 +294,7 @@ class _MyHomePageState extends State<MyHomePage> {
     print("Value Saved");
   }
 
+  //Save Current State of Asr Toggle
   saveIsSelectedAsr() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -293,6 +307,7 @@ class _MyHomePageState extends State<MyHomePage> {
     print("Value Saved");
   }
 
+  //Get Current State of Asr Toggle
   getIsSelectedAsr() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -305,6 +320,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  //Save Current State of Maghrib Toggle
   saveIsSelectedMaghrib() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -316,6 +332,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  //Get Current State of Maghrib Toggle
   getIsSelectedMaghrib() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -328,6 +345,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  //Save Current State of Ishaa Toggle
   saveIsSelectedIshaa() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -339,6 +357,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  //Get Current State of Ishaa Toggle
   getIsSelectedIshaa() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -351,6 +370,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  //Save Current State of Sawm Toggle
   saveIsSelectedSawm() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -362,6 +382,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  //Get Current State of Sawm Toggle
   getIsSelectedSawm() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -374,6 +395,7 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  //Get Switch Values for all Switches
   getSwitchValues() async {
     isSwitchedSawm = await getSwitchState("switchState");
     isSwitchedDarkMode = await getSwitchState("switchStateDarkMode");
@@ -381,6 +403,7 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {});
   }
 
+  //Set Switch States
   Future<bool> saveSwitchState(bool value, String switchKey) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool(switchKey, value);
@@ -392,6 +415,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return prefs.setBool(switchKey, value);
   }
 
+  //Get Switch State
   Future<bool> getSwitchState(String switchKey) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool isSwitchedFT = prefs.getBool(switchKey) ?? false;
@@ -401,6 +425,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
 
+  //Checks if a new day has passed and returns true if it is
   Future<bool> _isDiffrentDate() async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var tempDay = prefs.getString("curDay");
@@ -424,6 +449,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return false;
   }
 
+  //Initializes the date showm at top of app
   Future<void> _InitializeDate() async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if(prefs.getString("curDay") == null)
@@ -448,6 +474,7 @@ class _MyHomePageState extends State<MyHomePage> {
     await _resetToggleButtons();
   }
 
+  //Saves the current date to device using shared prefrences
   Future<void> _SetDate() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString("curDay", curDay.toString());
@@ -455,6 +482,7 @@ class _MyHomePageState extends State<MyHomePage> {
     await prefs.setString("curYear", curYear.toString());
   }
 
+  //Resets Toggle Buttons
   Future<void> _resetToggleButtons() async {
     // Set toggle buttons to their initial state
     if(await _isDiffrentDate() == true)
@@ -475,12 +503,15 @@ class _MyHomePageState extends State<MyHomePage> {
         setState(() {
 
         });
+
+        //Sets current date after reseting toggles
         _SetDate();
       }
 
 
   }
-  
+
+  //Updates Tally's Shown Under Qada and Sawm with +/- 1 depending on state of toggles
   Future<void> _applyToggleValsToTally(var contr, var isSel, var curNum, var curNumKey, var temp) async{
     SharedPreferences.getInstance().then((pref){
       int tempNum;
@@ -502,6 +533,7 @@ class _MyHomePageState extends State<MyHomePage> {
       }
 
 
+      //Updates the text field to show saved tally
       _updateTextField(contr, curNum, curNumKey);
 
       curFajirNum = pref.getString("FajirNum");
@@ -548,6 +580,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
 
 
+  //Updates text fields with values from shared prefrences
   Future _updateTextField(var contr, var curNum, String curKey) async{
     await SharedPreferences.getInstance().then((pref) {
       //Initilizes and updates values in text fields
@@ -569,6 +602,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
 
+  //Changes app theme from light to dark mode depending on toggle switch state
   Future _updateAppTheme() async{
     await SharedPreferences.getInstance().then((pref) {
       var lightGreen = const Color(0xfff8eebf);
