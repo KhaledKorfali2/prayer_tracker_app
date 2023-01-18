@@ -63,6 +63,7 @@ Solution: This app strives to to create a simple and efficient way for anyone to
 In order to properly download and run the program you will first need to have:
 - Android Studio's 
 - Flutter/dart projects extension for Android Studio
+
 With these prerequisites completed simply download the project files using Git/GitHub
 
 
