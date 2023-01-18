@@ -2,6 +2,13 @@
 
 A new Flutter project for my CS4750, which allows android users to quickly and easily view and edit the number of prayers, fasts, etc. which they may have in order to make them up at a later date.
 
+## App Description
+"Muslim Prayer Tracker is a comprehensive application designed to assist individuals in fulfilling their Islamic obligations with ease. The application offers a user-friendly interface, and an array of features that make it an essential tool for tracking and managing Salah, Sawm and other Islamic obligations.
+
+With Muslim Prayer Tracker, you can keep a log of your daily prayers including any Qadas you may have completed that day, and view your remaining prayers at any time. The app also enables you to maintain a record of your Sawm, including Nathiir, ensuring you never miss a day of fast again. Additionally, you can track any unpaid Zakat you may have, ensuring that your financial obligations are met.
+
+The app is an excellent tool for staying accountable and on track with your Islamic obligations, even when life gets hectic. The progress tracking feature allows you to view your progress and plan for the future. Download Muslim Prayer Tracker today and take control of your spiritual journey with the help of this comprehensive and essential tool."
+
 ## Motivations
 Background: In Islam it is an obligation to know and follow all five main pillars of Islam: Shahada (profession of faith), Salat (the 5 daily prayers), Zakat (yearly alms towards the poor), Sawm (fasting during Ramadan), and finally Haij (pilgrimage to Mecca). 
 
