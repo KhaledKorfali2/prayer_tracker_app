@@ -21,19 +21,15 @@ Solution: This app strives to to create a simple and efficient way for anyone to
   <div class="row">
     <img src="assets/app_screenshot_home_screen.png" alt="drawing" width="200"/>
     <img src="assets/app_screenshot_home_screen_sawm.png" alt="drawing" width="200"/>
+    <img src="assets/app_screenshot_qada.png" alt="drawing" width="200"/>
+    <img src="assets/app_screenshot_sawm.png" alt="drawing" width="200"/>
   </div>
-
-<img src="assets/app_screenshot_qada.png" alt="drawing" width="200"/>
-
-<img src="assets/app_screenshot_sawm.png" alt="drawing" width="200"/>
-
-<img src="assets/app_screenshot_zakat.png" alt="drawing" width="200"/>
-
-<img src="assets/app_screenshot_darkmode_setting.png" alt="drawing" width="200"/>
-
-<img src="assets/app_screenshot_darkmode_home.png" alt="drawing" width="200"/>
-
-<img src="assets/app_screenshot_darkmode_qada.png" alt="drawing" width="200"/>
+  <div class="row">
+    <img src="assets/app_screenshot_zakat.png" alt="drawing" width="200"/>
+    <img src="assets/app_screenshot_darkmode_setting.png" alt="drawing" width="200"/>
+    <img src="assets/app_screenshot_darkmode_home.png" alt="drawing" width="200"/>
+    <img src="assets/app_screenshot_darkmode_qada.png" alt="drawing" width="200"/>
+  </div>
 </div>
 
 ## Video Demo
