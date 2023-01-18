@@ -38,9 +38,9 @@ Solution: This app strives to to create a simple and efficient way for anyone to
 - This app was created using the Flutter extension in Android Studio. The primary language used was dart.
 - The app was created with only android products in mind and as such was developed and tested using the Google Pixel 3A emulator provided in Android Studio. 
 - External libraries and dependencies:
--- SharedPreferences for data management
--- Cupertino Icons for app icon
--- Synchronized for enforcing app initialization order/process
+  - SharedPreferences for data management
+  - Cupertino Icons for app icon
+  - Synchronized for enforcing app initialization order/process
 
 ## Instalations
 In order to properly download and run the program you will first need to have:
