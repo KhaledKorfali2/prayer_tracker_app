@@ -34,7 +34,7 @@ Solution: This app strives to to create a simple and efficient way for anyone to
 
 ## Video Demo
 ### Click Picture To Be Redirected To YouTube 
-[![YouTube Link](https://img.youtube.com/vi/serFB91KHYY/maxresdefault.jpg)](https://youtu.be/serFB91KHYY)
+[![YouTube Link](https://img.youtube.com/vi/gkmwq28_k88/maxresdefault.jpg)](https://youtu.be/gkmwq28_k88)
 
 ## Current Features
 - Record prayers completed on a prayer-by-prayer bases
